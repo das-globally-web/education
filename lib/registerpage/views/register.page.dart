@@ -185,7 +185,7 @@ class RegisterField extends StatelessWidget {
               ),)
             ],
           ),
-          SizedBox(
+          SizedBox( 
             height: 10.h,
           ),
           TextFormField(

@@ -1,9 +1,11 @@
 import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
+import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -638,17 +640,18 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class HomePageBody extends StatefulWidget {
+class HomePageBody extends ConsumerStatefulWidget {
   const HomePageBody({super.key});
 
   @override
-  State<HomePageBody> createState() => _HomePageBodyState();
+  _HomePageBodyState createState() => _HomePageBodyState();
 }
 
-class _HomePageBodyState extends State<HomePageBody> {
+class _HomePageBodyState extends ConsumerState<HomePageBody> {
   int curenttabindex = 0;
   @override
   Widget build(BuildContext context) {
+    final mentorsProvider = ref.watch(homeMentorsProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -746,16 +749,34 @@ class _HomePageBodyState extends State<HomePageBody> {
         ),
         ///// Tab is here
         ///
-        ListView.builder(
-            itemCount: 5,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: UserTabs(),
-              );
-            }),
+        ///
+        ///
+
+        mentorsProvider.when(
+            data: (snapshot) {
+              return ListView.builder(
+                  itemCount: 5,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: UserTabs(
+                        id: snapshot.data[index].id,
+                        fullname: snapshot.data[index].fullName,
+                        dec: snapshot.data[index].description,
+                        servicetype: snapshot.data[index].serviceType,
+                      ),
+                    );
+                  });
+            },
+            error: (err, stack) => Center(
+                  child: Text(err.toString()),
+                ),
+            loading: () => Center(
+                  child: CircularProgressIndicator(),
+                )),
+
         SizedBox(
           height: 10.h,
         )
@@ -765,7 +786,16 @@ class _HomePageBodyState extends State<HomePageBody> {
 }
 
 class UserTabs extends StatefulWidget {
-  const UserTabs({super.key});
+  final int id;
+  final String fullname;
+  final String dec;
+  final List<dynamic> servicetype;
+  const UserTabs(
+      {super.key,
+      required this.id,
+      required this.fullname,
+      required this.dec,
+      required this.servicetype});
 
   @override
   State<UserTabs> createState() => _UserTabsState();
@@ -809,7 +839,7 @@ class _UserTabsState extends State<UserTabs> {
                 height: 10.h,
               ),
               Text(
-                "Jennifer Johns",
+                "${widget.fullname}",
                 style: GoogleFonts.roboto(
                     color: Colors.black,
                     fontSize: 16.w,
@@ -821,7 +851,7 @@ class _UserTabsState extends State<UserTabs> {
               Container(
                 width: 246.w,
                 child: Text(
-                  "Helping students land their dream jobs with 5+ years of placement coaching experience",
+                  "${widget.dec}",
                   style: GoogleFonts.roboto(
                       color: Colors.black,
                       fontSize: 12.w,
@@ -841,62 +871,42 @@ class _UserTabsState extends State<UserTabs> {
               SizedBox(
                 height: 10.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 0.w, right: 8.w),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 26.h,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(225, 222, 221, 236),
-                            borderRadius: BorderRadius.circular(50.r)),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                          child: Center(
-                            child: Text(
-                              "Networking Events",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 12.w,
-                                  fontWeight: FontWeight.w400,
-                                  letterSpacing: -0.30,
-                                  color: Colors.black),
+              SizedBox(
+                height: 30.h,
+                width: 280.w,
+                child: ListView.builder(
+                    itemCount: widget.servicetype.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(left: 0.w, right: 8.w),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 26.h,
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(225, 222, 221, 236),
+                                borderRadius: BorderRadius.circular(50.r)),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                              child: Center(
+                                child: Text(
+                                  "${widget.servicetype[index].toString()}",
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 12.w,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: -0.30,
+                                      color: Colors.black),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 4.w, right: 8.w),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 26.h,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(225, 222, 221, 236),
-                            borderRadius: BorderRadius.circular(50.r)),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                          child: Center(
-                            child: Text(
-                              "Pitch Deck Workshops",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 12.w,
-                                  fontWeight: FontWeight.w400,
-                                  letterSpacing: -0.30,
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
+                      );
+                    }),
+              ),
             ],
           ),
         ],

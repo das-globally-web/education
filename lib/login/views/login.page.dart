@@ -1,7 +1,9 @@
 import 'package:educationapp/home/views/home.page.dart';
+import 'package:educationapp/login/controller/login.controller.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,43 +23,42 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          
           Expanded(
-            flex: 1 ,
+              flex: 1,
               child: Stack(
-            alignment: AlignmentDirectional.topCenter,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                alignment: AlignmentDirectional.topCenter,
                 children: [
-                  Container(
-                    height: 343.h,
-                    width: 392.w,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/childcuate.png"))),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 343.h,
+                        width: 392.w,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("assets/childcuate.png"))),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 250.h,
+                        width: 250.w,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(
+                                  "assets/whitevector.png",
+                                ),
+                                fit: BoxFit.fill)),
+                      )
+                    ],
                   ),
                 ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 250.h,
-                    width: 250.w,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                              "assets/whitevector.png",
-                            ),
-                            fit: BoxFit.fill)),
-                  )
-                ],
-              ),
-            ],
-          )),
+              )),
           Expanded(
             flex: 1,
             child: Container(
@@ -76,21 +77,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class RegisterForm extends StatefulWidget {
+class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({super.key});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
-
+class _RegisterFormState extends ConsumerState<RegisterForm> {
   final emailController = TextEditingController();
 
-  final passwordController =TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    
+    
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -140,30 +142,40 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(
             height: 10.h,
           ),
-        
-         RegisterField(controller: emailController, lable: 'Email Address',),
-
-         RegisterField(controller: passwordController, lable: 'Password',),
- 
-         SizedBox(
-          height: 20.h,
-         ),
-         GestureDetector(
-              onTap: (){
-                Navigator.push(context, CupertinoPageRoute(builder: (context) => HomePage()));
-              },
-              child: Container(
-                height: 52.h,
-                width: 400.w,
-                decoration: BoxDecoration(
+          RegisterField(
+            controller: emailController,
+            lable: 'Email Address',
+          ),
+          RegisterField(
+            controller: passwordController,
+            lable: 'Password',
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => HomePage()));
+            },
+            child: Container(
+              height: 52.h,
+              width: 400.w,
+              decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40.r),
-                  color: Color(0xFFDCF881)
-                ),
-                child: Center(
-                  child: Text("Login", style: GoogleFonts.roboto(color: Colors.black, fontWeight: FontWeight.w500, letterSpacing: -0.4, fontSize: 14.4.w  ),),
+                  color: Color(0xFFDCF881)),
+              child: Center(
+                child: Text(
+                  "Login",
+                  style: GoogleFonts.roboto(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -0.4,
+                      fontSize: 14.4.w),
                 ),
               ),
             ),
+          ),
         ],
       ),
     );

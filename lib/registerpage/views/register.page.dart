@@ -1,61 +1,80 @@
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({
+    super.key,
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  File? _image;
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(ImageSource source) async {
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF9088F1),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-              child: Stack(
-            alignment: AlignmentDirectional.topCenter,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 200.h,
-                    width: 323.w,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/grouppc.png"))),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 250.h,
-                    width: 250.w,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                              "assets/whitevector.png",
-                            ),
-                            fit: BoxFit.fill)),
-                  )
-                ],
-              ),
-            ],
-          )),
-          Expanded(
-            flex: 3,
-            child: Container(
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 200.h,
+                      width: 323.w,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/grouppc.png"))),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 250.h,
+                      width: 250.w,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                "assets/whitevector.png",
+                              ),
+                              fit: BoxFit.fill)),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -63,9 +82,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       topLeft: Radius.circular(40.w),
                       topRight: Radius.circular(40.w))),
               child: RegisterForm(),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -82,12 +101,27 @@ class _RegisterFormState extends State<RegisterForm> {
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
-  final passwordController =TextEditingController();
+  final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
+  final languageKnownController = TextEditingController();
+  final totalExperienceController = TextEditingController();
+  String _selectedItem = "Select stream";
+
+  final List<String> _dropdownItems = [
+    'Select stream',
+    'IT',
+    'Electrical',
+    'Electronics',
+    'Mechanical',
+    'Mechatronics',
+    'Civil',
+    'Instrumentation',
+    'Metallurgy',
+    'Chemical',
+  ];
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -135,57 +169,231 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(
             height: 10.h,
           ),
-         RegisterField(controller: fullNameController, lable: 'Full Name',),
-         RegisterField(controller: emailController, lable: 'Email Address',),
-         RegisterField(controller: phoneController, lable: 'Phone Number',),
-         RegisterField(controller: passwordController, lable: 'Password',),
-         RegisterField(controller: confirmpasswordController, lable: 'Confirm Password',),
-         SizedBox(
-          height: 20.h,
-         ),
-         GestureDetector(
-              onTap: (){
-                // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
-              },
-              child: Container(
-                height: 52.h,
-                width: 400.w,
-                decoration: BoxDecoration(
+          RegisterField(
+            controller: fullNameController,
+            lable: 'Full Name',
+          ),
+          RegisterField(
+            controller: emailController,
+            lable: 'Email Address',
+          ),
+          SizedBox(
+            height: 18.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 30.w,
+              ),
+              Text(
+                "Phone Number",
+                style: GoogleFonts.roboto(
+                    fontSize: 13.w,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF4D4D4D)),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
+            child: IntlPhoneField(
+              decoration: InputDecoration(
+                hintText: "XXXXXXXXXXX",
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey),
                   borderRadius: BorderRadius.circular(40.r),
-                  color: Color(0xFFDCF881)
                 ),
-                child: Center(
-                  child: Text("Register Now", style: GoogleFonts.roboto(color: Colors.black, fontWeight: FontWeight.w500, letterSpacing: -0.4, fontSize: 14.4.w  ),),
+                border: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(40.r),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(40.r),
+                ),
+              ),
+              initialCountryCode: 'IN',
+              onChanged: (phone) {
+                print(phone.completeNumber);
+              },
+            ),
+          ),
+          RegisterField(
+            controller: passwordController,
+            lable: 'Password',
+          ),
+          RegisterField(
+            controller: confirmpasswordController,
+            lable: 'Confirm Password',
+          ),
+          RegisterField(
+            controller: languageKnownController,
+            lable: 'Languages known',
+          ),
+          RegisterField(
+            controller: totalExperienceController,
+            lable: 'Total Experience',
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 30.w,
+              ),
+              Text(
+                "Works Stream",
+                style: GoogleFonts.roboto(
+                    fontSize: 13.w,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF4D4D4D)),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
+            child: DropdownButtonFormField<String>(
+              value: _selectedItem,
+              items: _dropdownItems.map((String item) {
+                return DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: GoogleFonts.roboto(
+                        fontSize: 13.w,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF4D4D4D)),
+                  ),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedItem = newValue!;
+                });
+              },
+              decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(40.r), // Circular radius
+                  borderSide: BorderSide(
+                    color: Colors.grey, // Border color
+                    width: 1, // Border width
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(40.r),
+                  borderSide: BorderSide(
+                    color: Colors.grey, // Focused border color
+                    width: 1,
+                  ),
+                ),
+                filled: true,
+                fillColor: Colors.white, // Background color of the dropdown
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 30.w,
+              ),
+              Text(
+                "Upload Profile Pic",
+                style: GoogleFonts.roboto(
+                    fontSize: 13.w,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF4D4D4D)),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: 30.w, right: 30.w, top: 20.h, bottom: 20.h),
+            child: DottedBorder(
+              color: Colors.blue, // Color of the border
+              strokeWidth: 2, // Width of the dots
+              dashPattern: [6, 3], // Length and spacing of the dashes
+              borderType:
+                  BorderType.RRect, // Shape of the border (RRect, Circle, etc.)
+              radius:
+                  Radius.circular(12), // Border radius for rounded rectangles
+              child: Container(
+                height: 150,
+                width: 400.w,
+                alignment: Alignment.center,
+                child: Text(
+                  'Upload Image +',
+                  style: GoogleFonts.roboto(color: Colors.black),
                 ),
               ),
             ),
-        ],
-      ),
-    );
+          ),
+          GestureDetector(
+            onTap: () {
+              // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
+            },
+            child: Container(
+              height: 52.h,
+              width: 400.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40.r),
+                  color: Color(0xFFDCF881)),
+              child: Center(
+                child: Text(
+                  "Register Now",
+                  style: GoogleFonts.roboto(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -0.4,
+                      fontSize: 14.4.w),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10.h,
+          )
+        ]);
   }
 }
-
 
 class RegisterField extends StatelessWidget {
   final String lable;
   final TextEditingController controller;
-  const RegisterField({super.key, required this.lable, required this.controller});
+  const RegisterField(
+      {super.key, required this.lable, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(top: 10.h, right: 28.w, left: 28.w),
-      child: Column(children: [
-         Row(
+      padding: EdgeInsets.only(top: 10.h, right: 28.w, left: 28.w),
+      child: Column(
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("$lable", style: GoogleFonts.roboto(fontSize: 13.w, fontWeight: FontWeight.w400,
-              color: Color(0xFF4D4D4D)
-              ),)
+              Text(
+                "$lable",
+                style: GoogleFonts.roboto(
+                    fontSize: 13.w,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF4D4D4D)),
+              )
             ],
           ),
-          SizedBox( 
+          SizedBox(
             height: 10.h,
           ),
           TextFormField(
@@ -205,7 +413,8 @@ class RegisterField extends StatelessWidget {
               ),
             ),
           )
-      ],),
+        ],
+      ),
     );
   }
 }

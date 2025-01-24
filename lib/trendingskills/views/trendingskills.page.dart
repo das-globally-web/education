@@ -1,8 +1,10 @@
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
+import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/perticulertrending.page.dart';
 import 'package:educationapp/trendingskills/views/skills.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,16 +19,16 @@ class _TrendingSkilsPageState extends State<TrendingSkilsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     backgroundColor: Color(0xFF1B1B1B),
-     body: SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-                height: 70.h,
-              ),
-              Row(
+      backgroundColor: Color(0xFF1B1B1B),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 70.h,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -85,7 +87,7 @@ class _TrendingSkilsPageState extends State<TrendingSkilsPage> {
                 ),
               ],
             ),
-             SizedBox(
+            SizedBox(
               height: 30.h,
             ),
             Row(
@@ -126,7 +128,6 @@ class _TrendingSkilsPageState extends State<TrendingSkilsPage> {
                         currentIndex: Icons.arrow_drop_down_outlined,
                         index: 2,
                       ),
-                      
                     ],
                   ),
                 )
@@ -140,87 +141,115 @@ class _TrendingSkilsPageState extends State<TrendingSkilsPage> {
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(30.r)),
-              child: TrendingSkillsBody (),
+              child: TrendingSkillsBody(),
             ),
-        ],
+          ],
+        ),
       ),
-     ),
     );
   }
 }
 
-
-class TrendingSkillsBody extends StatefulWidget {
+class TrendingSkillsBody extends ConsumerStatefulWidget {
   const TrendingSkillsBody({super.key});
 
   @override
-  State<TrendingSkillsBody> createState() => _TrendingSkillsBodyState();
+  _TrendingSkillsBodyState createState() => _TrendingSkillsBodyState();
 }
 
-class _TrendingSkillsBodyState extends State<TrendingSkillsBody> {
+class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
   @override
   Widget build(BuildContext context) {
+    final skilsProvider = ref.watch(skilssProvide);
     return Padding(
-      padding:  EdgeInsets.only(top: 15.h, right: 10.w, left: 10.w),
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Number of items per row
-          crossAxisSpacing: 20, // Spacing between columns
-          mainAxisSpacing: 20, // Spacing between rows
-        ),
-        itemCount: 8, // Total items
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        padding: EdgeInsets.all(10),
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: (){
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => SkillListPage()));
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 241, 242, 246),
-                borderRadius: BorderRadius.circular(20.w),
+      padding: EdgeInsets.only(top: 15.h, right: 10.w, left: 10.w),
+      child: skilsProvider.when(
+          data: (snapshot) {
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Number of items per row
+                crossAxisSpacing: 20, // Spacing between columns
+                mainAxisSpacing: 20, // Spacing between rows
               ),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 58.h,
-                    width: 58.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(500.r),
-                      color: Color(0xFF9088F1)
-                    ),
-                    child: Center(
-                      child: Image.asset("assets/image 3.png"),
-                    ),
-                  ),
-                  SizedBox(
-                  height: 5.h,
-                  ),
-                  Text("Beginner", style: GoogleFonts.montserrat(color: Color(0xFF9088F1), fontSize: 13.w, fontWeight: FontWeight.w400),),
-                  SizedBox(
-                  height: 5.h,
-                  ),
-                  Text("Java Development", style: GoogleFonts.montserrat(color: Color.fromARGB(255, 0, 0, 0), fontSize: 16.w, fontWeight: FontWeight.w600, letterSpacing: -0.95),),
-                  SizedBox(
-                  height: 3.h,
-                  ),
-                  Padding(
-                    padding:  EdgeInsets.only(left: 4.2.w, right: 4.2.w),
-                    child: Text("Guiding aspiring entrepreneurs through business development strategies",
-                    textAlign: TextAlign.center,
-                     style: GoogleFonts.montserrat(color: Color(0xFF666666), fontSize: 11.w, fontWeight: FontWeight.w400),),
-                  ),
-                ],
-              )
-            ),
-          );
-        },
-      ),
+              itemCount: snapshot.data.length, // Total items
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.all(10),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => SkillListPage()));
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 241, 242, 246),
+                        borderRadius: BorderRadius.circular(20.w),
+                      ),
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 58.h,
+                            width: 58.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(500.r),
+                                color: Color(0xFF9088F1)),
+                            child: Center(
+                              child: Image.asset("assets/image 3.png"),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Text(
+                            snapshot.data[index].subTitle,
+                            style: GoogleFonts.montserrat(
+                                color: Color(0xFF9088F1),
+                                fontSize: 13.w,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Text(
+                            snapshot.data[index].title,
+                            style: GoogleFonts.montserrat(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 16.w,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: -0.95),
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 4.2.w, right: 4.2.w),
+                            child: Text(
+                              snapshot.data[index].description,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.montserrat(
+                                  color: Color(0xFF666666),
+                                  fontSize: 11.w,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ],
+                      )),
+                );
+              },
+            );
+          },
+          error: (err, stack) => Center(
+                child: Text(err.toString()),
+              ),
+          loading: () => Center(
+                child: CircularProgressIndicator(),
+              )),
     );
   }
 }

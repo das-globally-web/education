@@ -199,7 +199,9 @@ class _SkillListPageState extends State<SkillListPage> {
                                           builder: (context) =>
                                               PerticulerTrendingPage()));
                                 },
-                                child: UserTabs()),
+                                // child: UserTabs()
+                                child: SizedBox(),
+                                ),
                           );
                         }),
                   ],

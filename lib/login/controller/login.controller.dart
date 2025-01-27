@@ -7,6 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final loginControllerProvider =
     FutureProvider.family<LoginResponseModel, LoginBodyModel>(
         (ref, body) async {
-  final loginService = LognService(createDio());
+  final loginService = LognService( await createDio());
   return loginService.login(body);
 });

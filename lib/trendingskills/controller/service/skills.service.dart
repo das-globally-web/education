@@ -1,4 +1,3 @@
-
 import 'package:educationapp/config/const.data.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/login/model/login.rsponse.model.dart';
@@ -12,9 +11,6 @@ abstract class SkillsService {
   factory SkillsService(Dio dio, {String baseUrl}) = _SkillsService;
 
   @GET('/api/get-all-skills')
-  @Headers(<String, dynamic>{
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $token',
-  })
+
   Future<SkillsModel> getALLSiklls();
 }

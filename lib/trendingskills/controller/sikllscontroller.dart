@@ -5,6 +5,6 @@ import 'package:educationapp/trendingskills/model/skills.model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final skilssProvide = FutureProvider<SkillsModel>((ref) async {
-  final service = SkillsService(createDio());
+  final service = SkillsService(await createDio());
   return service.getALLSiklls();
 });

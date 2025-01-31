@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:educationapp/config/helpers.dart';
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/home/views/home.page.dart';
@@ -7,6 +9,7 @@ import 'package:educationapp/login/controller/login.controller.dart';
 import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/login/model/login.rsponse.model.dart';
+import 'package:educationapp/main.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -161,35 +164,29 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           ),
           GestureDetector(
             onTap: () async {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => HomePage()));
-
               // ignore: unused_result
 
               try {
-                ref
-                    .watch(loginControllerProvider(LoginBodyModel(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    )))
-                    .when(
-                      data: (response) {
+                final data = ref.watch(loginControllerProvider(LoginBodyModel(
+                  email: emailController.text,
+                  password: passwordController.text,
+                )));
+                data.when(data: (snapshot){
+                  Hive.isBoxOpen('userdata');
+                        var box = Hive.box('userdata');
+                        box.put('token', snapshot.data.token.toString());
+                        box.put('email', snapshot.data.email.toString());
+                        var token = box.get('token');
+                        log("----------------------------------------");
+                        log(token.toString());
 
-                        final userBox = Hive.box<User>('mybox');
-                        userBox.put(
-                            'user1',
-                            User(response.data.email.toString(),
-                                response.data.token.toString()));
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
                                 builder: (context) => HomePage()));
-                      },
-                      loading: () => (),
-                      error: (err, stack) {
-                        Helpers.errorString("Email & Password was wrong");
-                      },
-                    );
+                }, error: (err,stack){
+
+                }, loading: ()=>());
               } catch (e) {
                 Helpers.errorString("Some thing went wrong!");
               }

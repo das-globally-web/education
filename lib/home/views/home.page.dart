@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -19,9 +20,12 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
+    final userState = ref.watch(userDataProvider);
     final skilsProvider = ref.watch(skilssProvide);
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xFF1B1B1B),
@@ -145,8 +149,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ListTile(
                         leading: Icon(Icons.logout),
                         title: Text("Logout"),
-                        onTap: () {
+                        onTap: () async {
                           // Logout logic
+                          var box = await Hive.openBox('userdata');
+                          await box.clear();
                         },
                       ),
                     ],
@@ -259,7 +265,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 color: Colors.white),
                           ),
                           Text(
-                            "[Name]!",
+                            "${userState.name}!",
                             style: GoogleFonts.roboto(
                                 fontSize: 24.w,
                                 fontWeight: FontWeight.w600,

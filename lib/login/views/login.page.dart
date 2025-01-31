@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:educationapp/config/helpers.dart';
 import 'package:educationapp/config/preety.dio.dart';
+import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/localstorage/db.dart';
 import 'package:educationapp/localstorage/localdb.dart';
@@ -175,10 +176,16 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               await loginController.login(body);
 
               if (loginState is LoginSuccess) {
+                final profileGet =
+                    ref.watch(saveUserProfileDataToLocalProvider);
                 Hive.isBoxOpen('userdata');
                 var box = Hive.box('userdata');
                 box.put('token', loginState.response.data.token.toString());
                 box.put('email', loginState.response.data.email.toString());
+                final userProviderState = ref.watch(userDataProvider.notifier);
+                userProviderState.setName(profileGet.value.toString());
+                userProviderState.setEmail(loginState.response.data.email.toString());
+                userProviderState.setToken(loginState.response.data.token.toString());
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => HomePage()));
               }

@@ -6,6 +6,7 @@ import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/localstorage/db.dart';
 import 'package:educationapp/localstorage/localdb.dart';
 import 'package:educationapp/login/controller/login.controller.dart';
+import 'package:educationapp/login/controller/login.state.dart';
 import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/login/model/login.rsponse.model.dart';
@@ -102,6 +103,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
+    final loginState = ref.watch(loginControllerProvider);
+    final loginController = ref.read(loginControllerProvider.notifier);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -165,29 +168,21 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           GestureDetector(
             onTap: () async {
               // ignore: unused_result
+              final body = LoginBodyModel(
+                email: emailController.text,
+                password: passwordController.text,
+              );
+              await loginController.login(body);
 
-              try {
-                final data = ref.watch(loginControllerProvider(LoginBodyModel(
-                  email: emailController.text,
-                  password: passwordController.text,
-                )));
-                data.when(data: (snapshot){
-                  Hive.isBoxOpen('userdata');
-                        var box = Hive.box('userdata');
-                        box.put('token', snapshot.data.token.toString());
-                        box.put('email', snapshot.data.email.toString());
-                        var token = box.get('token');
-                        log("----------------------------------------");
-                        log(token.toString());
-
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => HomePage()));
-                }, error: (err,stack){
-
-                }, loading: ()=>());
-              } catch (e) {
+              if (loginState is LoginSuccess) {
+                Hive.isBoxOpen('userdata');
+                var box = Hive.box('userdata');
+                box.put('token', loginState.response.data.token.toString());
+                box.put('email', loginState.response.data.email.toString());
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => HomePage()));
+              }
+              if (loginState is LoginError) {
                 Helpers.errorString("Some thing went wrong!");
               }
             },
@@ -198,15 +193,14 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   borderRadius: BorderRadius.circular(40.r),
                   color: Color(0xFFDCF881)),
               child: Center(
-                child: Text(
-                  "Login",
-                  style: GoogleFonts.roboto(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -0.4,
-                      fontSize: 14.4.w),
-                ),
-              ),
+                  child: Text(
+                "Login",
+                style: GoogleFonts.roboto(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: -0.4,
+                    fontSize: 14.4.w),
+              )),
             ),
           ),
         ],

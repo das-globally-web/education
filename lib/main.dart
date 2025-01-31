@@ -19,7 +19,10 @@ void main() async {
   // Initialize Hive with a custom directory
   // await initializeHive();
   await Hive.initFlutter();
-  var box = await Hive.openBox('userdata');
+  if (!Hive.isBoxOpen('userdata')) {
+    await Hive.openBox('userdata');
+  }
+  var box = Hive.box('userdata');
 
   runApp(const ProviderScope(child: MyApp()));
 }

@@ -1,6 +1,7 @@
 import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
+import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,17 +10,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    final skilsProvider = ref.watch(skilssProvide);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xFF1B1B1B),
@@ -573,61 +575,70 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 20.h,
               ),
-              SizedBox(
-                height: 150.h,
-                width: 440.w,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 25.w),
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 10.w),
-                          child: Container(
-                            height: 145.h,
-                            width: 120.w,
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 38, 38, 38),
-                                borderRadius: BorderRadius.circular(20.w)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 58.h,
-                                  width: 58.w,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white10,
-                                      borderRadius:
-                                          BorderRadius.circular(500.r)),
-                                  child: Image.asset("assets/Mask group.png"),
+              skilsProvider.when(
+                data: (snapshot) {
+                  return SizedBox(
+                    height: 150.h,
+                    width: 440.w,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 25.w),
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(right: 10.w),
+                              child: Container(
+                                height: 145.h,
+                                width: 120.w,
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 38, 38, 38),
+                                    borderRadius: BorderRadius.circular(20.w)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 58.h,
+                                      width: 58.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white10,
+                                          borderRadius:
+                                              BorderRadius.circular(500.r)),
+                                      child:
+                                          Image.asset("assets/Mask group.png"),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      snapshot.data[index].subTitle,
+                                      style: GoogleFonts.roboto(
+                                          color: Color.fromARGB(
+                                              255, 144, 136, 241),
+                                          fontSize: 11.w),
+                                    ),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    Text(
+                                      snapshot.data[index].title,
+                                      style: GoogleFonts.roboto(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.w),
+                                    )
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Text(
-                                  "Beginner",
-                                  style: GoogleFonts.roboto(
-                                      color: Color.fromARGB(255, 144, 136, 241),
-                                      fontSize: 11.w),
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Text(
-                                  "Python",
-                                  style: GoogleFonts.roboto(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16.w),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  );
+                },
+                error: (Object error, StackTrace stackTrace) => SizedBox(),
+                loading: () => SizedBox(),
               ),
               SizedBox(
                 height: 50.h,

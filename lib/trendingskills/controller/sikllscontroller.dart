@@ -1,5 +1,5 @@
 import 'package:educationapp/config/preety.dio.dart';
-import 'package:educationapp/home/model/allmentors.model.dart';
+import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/trendingskills/controller/service/skills.service.dart';
 import 'package:educationapp/trendingskills/model/skills.model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

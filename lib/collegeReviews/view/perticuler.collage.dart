@@ -239,7 +239,6 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                             padding:
                                                 EdgeInsets.only(bottom: 15.h),
                                             child: Container(
-                                              height: 110,
                                               width: 400,
                                               decoration: BoxDecoration(
                                                   borderRadius:
@@ -316,8 +315,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                                       height: 8.h,
                                                     ),
                                                     Text(
-                                                      data.data[index]
-                                                          .collageName,
+                                                      "-${data.data[index].userName}",
                                                       style: GoogleFonts.roboto(
                                                           color: Color.fromARGB(
                                                               255, 0, 0, 0),
@@ -364,7 +362,8 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                       ),
                       child: ClipOval(
                         child: Image.network(
-                          "http://education.globallywebsolutions.com"+ snap.data.image, // Replace with your image URL
+                          "http://education.globallywebsolutions.com" +
+                              snap.data.image, // Replace with your image URL
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -384,6 +383,9 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               color: Color(0xFF9088F1),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             ));
   }
 

@@ -30,9 +30,12 @@ class AddReviewModel {
 
 class Datum {
     int id;
-    int userId;
+    String userName;
     int collageId;
     String collageName;
+    String collageDescription;
+    String collageCity;
+    String collageImage;
     int count;
     String description;
     DateTime createdAt;
@@ -41,9 +44,12 @@ class Datum {
 
     Datum({
         required this.id,
-        required this.userId,
+        required this.userName,
         required this.collageId,
         required this.collageName,
+        required this.collageDescription,
+        required this.collageCity,
+        required this.collageImage,
         required this.count,
         required this.description,
         required this.createdAt,
@@ -53,9 +59,12 @@ class Datum {
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
-        userId: json["user_id"],
+        userName: json["user_name"],
         collageId: json["collage_id"],
         collageName: json["collage_name"],
+        collageDescription: json["collage_description"],
+        collageCity: json["collage_city"],
+        collageImage: json["collage_image"],
         count: json["count"],
         description: json["description"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -65,9 +74,12 @@ class Datum {
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "user_id": userId,
+        "user_name": userName,
         "collage_id": collageId,
         "collage_name": collageName,
+        "collage_description": collageDescription,
+        "collage_city": collageCity,
+        "collage_image": collageImage,
         "count": count,
         "description": description,
         "created_at": createdAt.toIso8601String(),

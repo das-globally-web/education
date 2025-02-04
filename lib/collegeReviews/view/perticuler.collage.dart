@@ -215,7 +215,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                                 context,
                                                 CupertinoPageRoute(
                                                     builder: (context) =>
-                                                        ReviewPage('')));
+                                                        ReviewPage(widget.id)));
                                           },
                                           child: Text(
                                             "View All",
@@ -319,7 +319,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                                       style: GoogleFonts.roboto(
                                                           color: Color.fromARGB(
                                                               255, 0, 0, 0),
-                                                          fontSize: 11.w,
+                                                          fontSize: 13.w,
                                                           fontStyle:
                                                               FontStyle.normal),
                                                     )
@@ -384,7 +384,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
               width: MediaQuery.of(context).size.width,
               color: Color(0xFF9088F1),
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(color: Colors.white,),
               ),
             ));
   }

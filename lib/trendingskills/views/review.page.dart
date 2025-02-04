@@ -248,7 +248,6 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                           return Padding(
                             padding: EdgeInsets.only(bottom: 15.h),
                             child: Container(
-                              height: 110,
                               width: 400,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.r),
@@ -307,10 +306,10 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                      data.data[index].collageName,
+                                      "-${data.data[index].userName}",
                                       style: GoogleFonts.roboto(
                                           color: Color.fromARGB(255, 0, 0, 0),
-                                          fontSize: 11.w,
+                                          fontSize: 13.w,
                                           fontStyle: FontStyle.normal),
                                     )
                                   ],
@@ -327,7 +326,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                   },
                   loading: () {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(color: Colors.white,),
                     );
                   },
                 ),

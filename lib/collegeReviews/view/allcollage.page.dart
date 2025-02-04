@@ -1,7 +1,9 @@
+import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/collegeReviews/view/perticuler.collage.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -155,34 +157,44 @@ class _AllCollageState extends State<AllCollage> {
   }
 }
 
-class AllCollageBody extends StatefulWidget {
+class AllCollageBody extends ConsumerStatefulWidget {
   const AllCollageBody({super.key});
 
   @override
-  State<AllCollageBody> createState() => _AllCollageBodyState();
+  _AllCollageBodyState createState() => _AllCollageBodyState();
 }
 
-class _AllCollageBodyState extends State<AllCollageBody> {
+class _AllCollageBodyState extends ConsumerState<AllCollageBody> {
   int curenttabindex = 7;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 8,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => PerticulerCollagePage()));
-                },
-                child: UniversityTab()),
-          );
-        });
+    final collages = ref.watch(callagesProviders);
+    return collages.when(
+        data: (snapshot) {
+          return ListView.builder(
+              itemCount: snapshot.data.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => PerticulerCollagePage()));
+                      },
+                      child: UniversityTab()),
+                );
+              });
+        },
+        error: (err, stack) {
+          return Text(err.toString());
+        },
+        loading: () => Center(
+              child: CircularProgressIndicator(),
+            ));
   }
 }
 

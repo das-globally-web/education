@@ -1,5 +1,6 @@
 import 'package:educationapp/config/const.data.dart';
-import 'package:educationapp/home/model/allmentors.model.dart';
+import 'package:educationapp/findmentor/model/allmentors.model.dart';
+import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/userprofile.model.dart';
 import 'package:educationapp/login/model/login.body.model.dart';

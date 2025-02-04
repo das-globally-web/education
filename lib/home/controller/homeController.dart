@@ -1,6 +1,7 @@
 import 'package:educationapp/config/preety.dio.dart';
+import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/service/home.service.dart';
-import 'package:educationapp/home/model/allmentors.model.dart';
+import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/userprofile.model.dart';
 

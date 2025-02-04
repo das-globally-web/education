@@ -34,16 +34,16 @@ class AllMentorsModel {
 
 class Datum {
     int id;
-    String fullName;
+    FullName fullName;
     String email;
     String phoneNumber;
     String? token;
     String? profilePic;
-    String userType;
-    List<dynamic> serviceType;
-    String description;
-    String location;
-    String userId;
+    UserType userType;
+    List<ServiceType> serviceType;
+    Description description;
+    Location location;
+    UserId userId;
     DateTime createdAt;
     DateTime updatedAt;
     int? skillsId;
@@ -67,16 +67,16 @@ class Datum {
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
-        fullName: json["full_name"],
+        fullName: fullNameValues.map[json["full_name"]]!,
         email: json["email"],
         phoneNumber: json["phone_number"],
         token: json["token"],
         profilePic: json["profile_pic"],
-        userType: json["user_type"],
-        serviceType: json["service_type"],
-        description: json["description"],
-        location: json["location"],
-        userId: json["user_id"],
+        userType: userTypeValues.map[json["user_type"]]!,
+        serviceType: List<ServiceType>.from(json["service_type"].map((x) => serviceTypeValues.map[x]!)),
+        description: descriptionValues.map[json["description"]]!,
+        location: locationValues.map[json["location"]]!,
+        userId: userIdValues.map[json["user_id"]]!,
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         skillsId: json["skills_id"],
@@ -84,19 +84,88 @@ class Datum {
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "full_name": fullName,
+        "full_name": fullNameValues.reverse[fullName],
         "email": email,
         "phone_number": phoneNumber,
         "token": token,
         "profile_pic": profilePic,
-        "user_type": userType,
-        "service_type": serviceType,
-        "description": description,
-        "location": location,
-        "user_id": userId,
+        "user_type": userTypeValues.reverse[userType],
+        "service_type": List<dynamic>.from(serviceType.map((x) => serviceTypeValues.reverse[x])),
+        "description": descriptionValues.reverse[description],
+        "location": locationValues.reverse[location],
+        "user_id": userIdValues.reverse[userId],
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "skills_id": skillsId,
     };
 }
 
+enum Description {
+    HELLO_TEST
+}
+
+final descriptionValues = EnumValues({
+    "hello test": Description.HELLO_TEST
+});
+
+enum FullName {
+    FIROZ11_KHAN,
+    FIROZ_KHAN,
+    TEST
+}
+
+final fullNameValues = EnumValues({
+    "firoz11 khan": FullName.FIROZ11_KHAN,
+    "firoz khan": FullName.FIROZ_KHAN,
+    "test": FullName.TEST
+});
+
+enum Location {
+    JAIPUR,
+    JAIPUT
+}
+
+final locationValues = EnumValues({
+    "jaipur": Location.JAIPUR,
+    "jaiput": Location.JAIPUT
+});
+
+enum ServiceType {
+    HELLO,
+    TEST,
+    TEST1
+}
+
+final serviceTypeValues = EnumValues({
+    "hello": ServiceType.HELLO,
+    "test": ServiceType.TEST,
+    "test1": ServiceType.TEST1
+});
+
+enum UserId {
+    DDDD
+}
+
+final userIdValues = EnumValues({
+    "dddd": UserId.DDDD
+});
+
+enum UserType {
+    STUDENT
+}
+
+final userTypeValues = EnumValues({
+    "student": UserType.STUDENT
+});
+
+class EnumValues<T> {
+    Map<String, T> map;
+    late Map<T, String> reverseMap;
+
+    EnumValues(this.map);
+
+    Map<T, String> get reverse {
+            reverseMap = map.map((k, v) => MapEntry(v, k));
+            return reverseMap;
+    }
+}

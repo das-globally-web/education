@@ -781,8 +781,8 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
                       padding: const EdgeInsets.all(8.0),
                       child: UserTabs(
                         id: snapshot.data[index].id,
-                        fullname: snapshot.data[index].fullName,
-                        dec: snapshot.data[index].description,
+                        fullname: snapshot.data[index].fullName.toString(),
+                        dec: snapshot.data[index].description.toString(),
                         servicetype: snapshot.data[index].serviceType,
                       ),
                     );

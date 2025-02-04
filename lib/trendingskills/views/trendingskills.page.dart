@@ -238,10 +238,7 @@ class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
                                 fontWeight: FontWeight.w400),
                           ),
                         ),
-                        Text(
-                          snapshot.data[index].id.toString(),
-                          style: TextStyle(fontSize: 20),
-                        ),
+                       
                       ],
                     ),
                   ),

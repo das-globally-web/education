@@ -9,47 +9,40 @@ WalletModel walletModelFromJson(String str) => WalletModel.fromJson(json.decode(
 String walletModelToJson(WalletModel data) => json.encode(data.toJson());
 
 class WalletModel {
-    String message;
-    List<Datum> data;
+    Data data;
 
     WalletModel({
-        required this.message,
         required this.data,
     });
 
     factory WalletModel.fromJson(Map<String, dynamic> json) => WalletModel(
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: Data.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data.toJson(),
     };
 }
 
-class Datum {
+class Data {
     int id;
     int userId;
-    int voliteId;
-    String amount;
+    String balance;
     DateTime createdAt;
     DateTime updatedAt;
 
-    Datum({
+    Data({
         required this.id,
         required this.userId,
-        required this.voliteId,
-        required this.amount,
+        required this.balance,
         required this.createdAt,
         required this.updatedAt,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         userId: json["user_id"],
-        voliteId: json["volite_id"],
-        amount: json["amount"],
+        balance: json["balance"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
     );
@@ -57,8 +50,7 @@ class Datum {
     Map<String, dynamic> toJson() => {
         "id": id,
         "user_id": userId,
-        "volite_id": voliteId,
-        "amount": amount,
+        "balance": balance,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
     };

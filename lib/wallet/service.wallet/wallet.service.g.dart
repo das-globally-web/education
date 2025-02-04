@@ -36,7 +36,7 @@ class _WalletService implements WalletService {
     )
         .compose(
           _dio.options,
-          '/api/get-user-transaction',
+          '/api/get-volite',
           queryParameters: queryParameters,
           data: _data,
         )

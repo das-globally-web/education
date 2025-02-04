@@ -84,14 +84,14 @@ class _WalletPageState extends ConsumerState<WalletPage> {
               height: 25.h,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 30.w,
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -101,13 +101,25 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                           color: Colors.white,
                           fontWeight: FontWeight.w400),
                     ),
-                    Text(
-                      "150 Coins",
-                      style: GoogleFonts.roboto(
-                          fontSize: 24.w,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    )
+                    wallteserviceProvider.when(
+                      data: (snapshot) {
+                        return Text(
+                          "${double.tryParse(snapshot.data.balance)!.toStringAsFixed(0)} Coins",
+                          style: GoogleFonts.roboto(
+                              fontSize: 24.w,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        );
+                      },
+                      error: (error, stackTrace) {
+                        return Center(
+                          child: Text("Error:$error"),
+                        );
+                      },
+                      loading: () {
+                        return Container();
+                      },
+                    ),
                   ],
                 ),
                 Spacer(),
@@ -256,96 +268,82 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                     ),
                     wallteserviceProvider.when(
                       data: (snapshot) {
-                        return ListView.builder(
-                          itemCount: snapshot.data.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.only(bottom: 15.h),
-                              child: Container(
-                                height: 68,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 241, 242, 246),
-                                    borderRadius: BorderRadius.circular(15.r)),
-                                child: Row(
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 15.h),
+                          child: Container(
+                            height: 68,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 241, 242, 246),
+                                borderRadius: BorderRadius.circular(15.r)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Container(
+                                  height: 44,
+                                  width: 44,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(40, 144, 136, 241),
+                                      borderRadius:
+                                          BorderRadius.circular(40.r)),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      width: 10.w,
+                                    Text(
+                                      snapshot.data.id.toString(),
+                                      style: GoogleFonts.roboto(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18.w),
                                     ),
-                                    Container(
-                                      height: 44,
-                                      width: 44,
-                                      decoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(40, 144, 136, 241),
-                                          borderRadius:
-                                              BorderRadius.circular(40.r)),
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          snapshot.data[index].userId
-                                              .toString(),
-                                          style: GoogleFonts.roboto(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18.w),
-                                        ),
-                                        Text(
-                                          "Paid to John smith",
-                                          style: GoogleFonts.roboto(
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11.w,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Spacer(),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          snapshot.data[index].amount
-                                              .toString(),
-                                          style: GoogleFonts.roboto(
-                                              color: Color.fromARGB(
-                                                  255, 144, 136, 241),
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18.w),
-                                        ),
-                                        Text(
-                                          "150 coins",
-                                          style: GoogleFonts.roboto(
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11.w,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
+                                    Text(
+                                      "Paid to John smith",
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 11.w,
+                                      ),
+                                    )
                                   ],
                                 ),
-                              ),
-                            );
-                          },
+                                Spacer(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      snapshot.data.balance.toString(),
+                                      style: GoogleFonts.roboto(
+                                          color: Color.fromARGB(
+                                              255, 144, 136, 241),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18.w),
+                                    ),
+                                    Text(
+                                      "150 coins",
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 11.w,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                              ],
+                            ),
+                          ),
                         );
                       },
                       error: (error, stackTrace) {

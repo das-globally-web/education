@@ -8,6 +8,6 @@ part 'wallet.service.g.dart';
 abstract class WalletService {
   factory WalletService(Dio dio, {String baseUrl}) = _WalletService;
 
-  @GET('/api/get-user-transaction')
+  @GET('/api/get-volite')
   Future<WalletModel> getAlltransaction();
 }

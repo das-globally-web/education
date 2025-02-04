@@ -4,6 +4,7 @@ import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
+import 'package:educationapp/wallet/walletController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,6 +26,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final userState = ref.watch(userDataProvider);
     final skilsProvider = ref.watch(skilssProvide);
+    final wallteserviceProvider = ref.watch(walletProvider);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -311,12 +313,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                           SizedBox(
                             width: 5.w,
                           ),
-                          Text(
-                            "50 Coins",
-                            style: GoogleFonts.roboto(
-                                color: Color.fromARGB(255, 220, 248, 129),
-                                fontSize: 12.w),
-                          )
+                          wallteserviceProvider.when(
+                            data: (snapshot) {
+                              return Text(
+                                "${double.tryParse(snapshot.data.balance)!.toStringAsFixed(0)} Coins",
+                                style: GoogleFonts.roboto(
+                                    color: Color.fromARGB(255, 220, 248, 129),
+                                    fontSize: 12.w),
+                              );
+                            },
+                            error: (error, stackTrace) {
+                              return Center(
+                                child: Text("Error:$error"),
+                              );
+                            },
+                            loading: () {
+                              return Container();
+                            },
+                          ),
                         ],
                       ),
                     ),

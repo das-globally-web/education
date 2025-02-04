@@ -11,4 +11,5 @@ abstract class SkillsService {
   @GET('/api/get-all-skills')
 
   Future<SkillsModel> getALLSiklls();
+
 }

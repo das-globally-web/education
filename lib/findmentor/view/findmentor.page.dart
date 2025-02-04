@@ -1,7 +1,15 @@
+import 'package:educationapp/config/preety.dio.dart';
+import 'package:educationapp/home/controller/homeController.dart';
+import 'package:educationapp/home/controller/service/home.service.dart';
+import 'package:educationapp/home/model/allmentors.model.dart';
+import 'package:educationapp/home/model/mentors.model.dart';
+import 'package:educationapp/home/model/userprofile.model.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class FindMentorPage extends StatefulWidget {
   const FindMentorPage({super.key});
@@ -141,6 +149,7 @@ class _FindMentorPageState extends State<FindMentorPage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(30.r)),
@@ -153,28 +162,60 @@ class _FindMentorPageState extends State<FindMentorPage> {
   }
 }
 
-class FindMEntorBoduy extends StatefulWidget {
+class FindMEntorBoduy extends ConsumerStatefulWidget {
   const FindMEntorBoduy({super.key});
 
   @override
-  State<FindMEntorBoduy> createState() => _FindMEntorBoduyState();
+  ConsumerState<FindMEntorBoduy> createState() => _FindMEntorBoduyState();
 }
 
-class _FindMEntorBoduyState extends State<FindMEntorBoduy> {
+class _FindMEntorBoduyState extends ConsumerState<FindMEntorBoduy> {
   int curenttabindex = 7;
+
+  final homeMentrosProvider = FutureProvider<AllMentorsModel>((ref) async {
+    final homeService = HomeService(await createDio());
+    return homeService.allMentors(MentorsModelBody(userType: "student"));
+  });
+
+  final saveUserProfileDataToLocalProvider =
+      FutureProvider<String>((ref) async {
+    final homeService = HomeService(await createDio());
+    USerProfieModel profiledata = await homeService.userProfileGet();
+    Hive.isBoxOpen('userdata');
+    var box = Hive.box('userdata');
+    box.put('name', profiledata.data.fullName);
+    return profiledata.data.fullName;
+  });
+  final userDataProvide = StateNotifierProvider<UserNotifier, User>((ref) {
+    return UserNotifier();
+  });
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-            itemCount: 8,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                // child: UserTabs(),
-                
-              );
-            });
+    final mentorProvider = ref.watch(homeMentrosProvider);
+    return mentorProvider.when(
+      data: (snapshot) {
+        return ListView.builder(
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: UserTabs(
+                id: snapshot.data[index].id,
+                fullname: snapshot.data[index].fullName,
+                dec: snapshot.data[index].description,
+                servicetype: snapshot.data[index].serviceType,
+              ),
+            );
+          },
+        );
+      },
+      error: (err, stack) => Center(
+        child: Text(err.toString()),
+      ),
+      loading: () => Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }
 

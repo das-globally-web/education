@@ -482,7 +482,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => AllCollage()));
+                            builder: (context) => AllCollage(),
+                          ));
                     },
                     child: Container(
                       margin: EdgeInsets.only(top: 90 * 2.h),

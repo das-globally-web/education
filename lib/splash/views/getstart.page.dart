@@ -57,16 +57,21 @@ class _GetstartBodyState extends State<GetstartBody> {
             SizedBox(
               width: 20.w,
             ),
-            Container(
-              height: 37.h,
-              width: 37.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40.r),
-                  color: Color(0xFFECEDF4)),
-              child: Center(
-                child: Icon(
-                  Icons.arrow_back,
-                  size: 16.41.h,
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                height: 37.h,
+                width: 37.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40.r),
+                    color: Color(0xFFECEDF4)),
+                child: Center(
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 16.41.h,
+                  ),
                 ),
               ),
             ),
@@ -77,14 +82,19 @@ class _GetstartBodyState extends State<GetstartBody> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40.r),
                   color: Color(0xFFECEDF4)),
-              child: Center(
-                  child: Text(
-                "Skip",
-                style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 14.w,
-                    fontWeight: FontWeight.w500),
-              )),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Center(
+                    child: Text(
+                  "Skip",
+                  style: GoogleFonts.roboto(
+                      color: Colors.black,
+                      fontSize: 14.w,
+                      fontWeight: FontWeight.w500),
+                )),
+              ),
             ),
             SizedBox(
               width: 20.w,

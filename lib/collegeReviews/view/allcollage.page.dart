@@ -197,7 +197,7 @@ class _UniversityTabState extends State<UniversityTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 127.h,
+      height: 135.h,
       width: 400.w,
       decoration: BoxDecoration(
           color: Colors.white,

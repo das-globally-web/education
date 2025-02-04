@@ -1,20 +1,21 @@
 import 'package:educationapp/trendingskills/views/addreview.page.dart';
+import 'package:educationapp/trendingskills/views/controller.addreview/addreviewController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vertical_barchart/vertical-barchart.dart';
 import 'package:vertical_barchart/vertical-barchartmodel.dart';
-import 'package:vertical_barchart/vertical-legend.dart';
 
-class ReviewPage extends StatefulWidget {
+class ReviewPage extends ConsumerStatefulWidget {
   const ReviewPage({super.key});
 
   @override
-  State<ReviewPage> createState() => _ReviewPageState();
+  ConsumerState<ReviewPage> createState() => _ReviewPageState();
 }
 
-class _ReviewPageState extends State<ReviewPage> {
+class _ReviewPageState extends ConsumerState<ReviewPage> {
   List<VBarChartModel> bardata = [
     VBarChartModel(
       index: 0,
@@ -69,6 +70,8 @@ class _ReviewPageState extends State<ReviewPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final reviewProvider = ref.watch(addreviewProvider);
+
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: SingleChildScrollView(
@@ -123,8 +126,11 @@ class _ReviewPageState extends State<ReviewPage> {
                 ),
                 Spacer(),
                 GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) => AddReviewPage()));
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => AddReviewPage()));
                   },
                   child: Container(
                     height: 44.h,
@@ -148,12 +154,10 @@ class _ReviewPageState extends State<ReviewPage> {
                 ),
               ],
             ),
-            
             SizedBox(
               height: 20.h,
             ),
             Container(
-            
               width: 400.w,
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 38, 38, 38),
@@ -167,25 +171,41 @@ class _ReviewPageState extends State<ReviewPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Icon(Icons.star, color: Color.fromARGB(255, 243, 202, 18), size: 30.w,),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Text("4.5",style: GoogleFonts.roboto(color: Color.fromARGB(255, 144, 136, 241), fontSize: 30.w),),
-                      Spacer(),
-                      Text("6296 Ratings", style: GoogleFonts.roboto(color: Colors.white, fontSize: 14.w),),
-                       SizedBox(
-                        width: 30,
-                      ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: Color.fromARGB(255, 243, 202, 18),
+                          size: 30.w,
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Text(
+                          "4.5",
+                          style: GoogleFonts.roboto(
+                              color: Color.fromARGB(255, 144, 136, 241),
+                              fontSize: 30.w),
+                        ),
+                        Spacer(),
+                        Text(
+                          "6296 Ratings",
+                          style: GoogleFonts.roboto(
+                              color: Colors.white, fontSize: 14.w),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
                       ],
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    Divider(color: Colors.white24, height: 1.5,),
+                    Divider(
+                      color: Colors.white24,
+                      height: 1.5,
+                    ),
                     Center(
                       child: VerticalBarchart(
                         tooltipColor: Colors.white,
@@ -209,84 +229,107 @@ class _ReviewPageState extends State<ReviewPage> {
               height: 20.h,
             ),
             Container(
-
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(40.r), topRight: Radius.circular(40.r)),
-                color: Colors.white
-              ),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.r),
+                      topRight: Radius.circular(40.r)),
+                  color: Colors.white),
               child: Padding(
-                padding:  EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                child: ListView.builder(
-                                  itemCount: 10,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(bottom: 15.h),
-                                      child: Container(
-                                        height: 110,
-                                        width: 400,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20.r),
-                                            color: Color.fromARGB(
-                                                255, 241, 242, 246)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Color(0xFF9088F1),
-                                                    size: 17,
-                                                  ),
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Color(0xFF9088F1),
-                                                    size: 17,
-                                                  ),
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Color(0xFF9088F1),
-                                                    size: 17,
-                                                  ),
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Color(0xFF9088F1),
-                                                    size: 17,
-                                                  ),
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Color(0xFF9088F1),
-                                                    size: 17,
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 8.h,
-                                              ),
-                                              Text("Rahul helped me prepare for my TCS interview, and I got the job! His tips are spot-on!", style: GoogleFonts.roboto(color: Color.fromARGB(255, 102, 102, 102), fontSize: 13.w, fontStyle: FontStyle.italic),),
-                                              SizedBox(
-                                                height: 8.h,
-                                              ),
-                                              Text("- Vinod Shyam ", style: GoogleFonts.roboto(color: Color.fromARGB(255, 0, 0, 0), fontSize: 11.w, fontStyle: FontStyle.normal),)
-                                            ],
-                                          ),
+                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                child: reviewProvider.when(
+                  data: (data) {
+                    return ListView.builder(
+                        itemCount: data.data.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 15.h),
+                            child: Container(
+                              height: 110,
+                              width: 400,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  color: Color.fromARGB(255, 241, 242, 246)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.star,
+                                          color: Color(0xFF9088F1),
+                                          size: 17,
                                         ),
-                                      ),
-                                    );
-                                  }),
+                                        Icon(
+                                          Icons.star,
+                                          color: Color(0xFF9088F1),
+                                          size: 17,
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          color: Color(0xFF9088F1),
+                                          size: 17,
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          color: Color(0xFF9088F1),
+                                          size: 17,
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          color: Color(0xFF9088F1),
+                                          size: 17,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                      data.data[index].description,
+                                      style: GoogleFonts.roboto(
+                                          color: Color.fromARGB(
+                                              255, 102, 102, 102),
+                                          fontSize: 13.w,
+                                          fontStyle: FontStyle.italic),
+                                    ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                      data.data[index].collageName,
+                                      style: GoogleFonts.roboto(
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          fontSize: 11.w,
+                                          fontStyle: FontStyle.normal),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        });
+                  },
+                  error: (err, stack) {
+                    return Center(
+                      child: Text("Error :$err"),
+                    );
+                  },
+                  loading: () {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                ),
               ),
             ),
           ],

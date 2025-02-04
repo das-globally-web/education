@@ -1,17 +1,21 @@
+import 'package:educationapp/wallet/walletController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class WalletPage extends StatefulWidget {
+class WalletPage extends ConsumerStatefulWidget {
   const WalletPage({super.key});
 
   @override
-  State<WalletPage> createState() => _WalletPageState();
+  ConsumerState<WalletPage> createState() => _WalletPageState();
 }
 
-class _WalletPageState extends State<WalletPage> {
+class _WalletPageState extends ConsumerState<WalletPage> {
   @override
   Widget build(BuildContext context) {
+    final wallteserviceProvider = ref.watch(walletProvider);
+
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: SingleChildScrollView(
@@ -122,12 +126,7 @@ class _WalletPageState extends State<WalletPage> {
                     height: 44.h,
                     width: 106.w,
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(
-                          255,
-                          220,
-                          248,
-                          129,
-                        ),
+                        color: Color.fromARGB(255, 220, 248, 129),
                         borderRadius: BorderRadius.circular(40.r)),
                     child: Center(
                       child: Row(
@@ -255,91 +254,111 @@ class _WalletPageState extends State<WalletPage> {
                         )
                       ],
                     ),
-                    ListView.builder(
-                        itemCount: 5,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: 15.h),
-                            child: Container(
-                              height: 68,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 241, 242, 246),
-                                  borderRadius: BorderRadius.circular(15.r)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  Container(
-                                    height: 44,
-                                    width: 44,
-                                    decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(40, 144, 136, 241),
-                                        borderRadius:
-                                            BorderRadius.circular(40.r)),
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Coin Added",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18.w),
-                                      ),
-                                      Text(
-                                        "Paid to John smith",
-                                        style: GoogleFonts.roboto(
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 11.w,
+                    wallteserviceProvider.when(
+                      data: (snapshot) {
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 15.h),
+                              child: Container(
+                                height: 68,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 241, 242, 246),
+                                    borderRadius: BorderRadius.circular(15.r)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Container(
+                                      height: 44,
+                                      width: 44,
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Color.fromARGB(40, 144, 136, 241),
+                                          borderRadius:
+                                              BorderRadius.circular(40.r)),
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          snapshot.data[index].userId
+                                              .toString(),
+                                          style: GoogleFonts.roboto(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18.w),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "+45 Coins",
-                                        style: GoogleFonts.roboto(
-                                            color: Color.fromARGB(
-                                                255, 144, 136, 241),
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18.w),
-                                      ),
-                                      Text(
-                                        "150 coins",
-                                        style: GoogleFonts.roboto(
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 11.w,
+                                        Text(
+                                          "Paid to John smith",
+                                          style: GoogleFonts.roboto(
+                                            color: Colors.grey.shade600,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 11.w,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          snapshot.data[index].amount
+                                              .toString(),
+                                          style: GoogleFonts.roboto(
+                                              color: Color.fromARGB(
+                                                  255, 144, 136, 241),
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18.w),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                ],
+                                        Text(
+                                          "150 coins",
+                                          style: GoogleFonts.roboto(
+                                            color: Colors.grey.shade600,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 11.w,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        })
+                            );
+                          },
+                        );
+                      },
+                      error: (error, stackTrace) {
+                        return Center(
+                          child: Text("Error : $error"),
+                        );
+                      },
+                      loading: () {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -356,9 +375,9 @@ class DraggableBottomSheetContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(40.r), topRight: Radius.circular(40.r))
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.r), topRight: Radius.circular(40.r))),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.7, // Customize height
       child: Padding(
@@ -391,9 +410,9 @@ class DraggableBottomSheetContent extends StatelessWidget {
               height: 8.h,
             ),
             TextFormField(
-              keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
+              keyboardType:
+                  TextInputType.numberWithOptions(signed: true, decimal: true),
               decoration: InputDecoration(
-                
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10.r),
@@ -476,7 +495,7 @@ class DraggableBottomSheetContent extends StatelessWidget {
                     height: 44.h,
                     width: 44.w,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB( 30, 38, 50, 56),
+                      color: Color.fromARGB(30, 38, 50, 56),
                       borderRadius: BorderRadius.circular(500.r),
                     ),
                     child: Center(
@@ -499,15 +518,18 @@ class DraggableBottomSheetContent extends StatelessWidget {
               height: 52.h,
               width: 400.w,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 220, 248, 129),
-                borderRadius: BorderRadius.circular(40.r)
-              ),
+                  color: Color.fromARGB(255, 220, 248, 129),
+                  borderRadius: BorderRadius.circular(40.r)),
               child: Center(
-                child: Text("Continue", style: GoogleFonts.roboto(color: Colors.black, fontSize: 16.w, fontWeight: FontWeight.w500
-                ),),
+                child: Text(
+                  "Continue",
+                  style: GoogleFonts.roboto(
+                      color: Colors.black,
+                      fontSize: 16.w,
+                      fontWeight: FontWeight.w500),
+                ),
               ),
             )
-
           ],
         ),
       ),

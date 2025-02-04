@@ -1,18 +1,21 @@
+import 'package:educationapp/trendingskills/views/controller.addreview/addreviewController.dart';
 import 'package:educationapp/trendingskills/views/review.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PerticulerCollagePage extends StatefulWidget {
+class PerticulerCollagePage extends ConsumerStatefulWidget {
   const PerticulerCollagePage({super.key});
 
   @override
-  State<PerticulerCollagePage> createState() => _PerticulerCollagePageState();
+  ConsumerState<PerticulerCollagePage> createState() =>
+      _PerticulerCollagePageState();
 }
 
-class _PerticulerCollagePageState extends State<PerticulerCollagePage> {
-   List<String> items = [
+class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
+  List<String> items = [
     "Placement Expert",
     "Design Specialist",
     "Visualization Wizard",
@@ -21,6 +24,7 @@ class _PerticulerCollagePageState extends State<PerticulerCollagePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final particularProvider = ref.watch(addreviewProvider);
     return Scaffold(
       backgroundColor: Color(0xFF9088F1),
       body: SingleChildScrollView(
@@ -67,9 +71,7 @@ class _PerticulerCollagePageState extends State<PerticulerCollagePage> {
                           fontSize: 18.w,
                           color: Color.fromARGB(255, 255, 255, 255)),
                     ),
-                    
                     Spacer(),
-                    
                     SizedBox(
                       width: 70.w,
                     ),
@@ -133,8 +135,6 @@ class _PerticulerCollagePageState extends State<PerticulerCollagePage> {
                           SizedBox(
                             width: 10.w,
                           ),
-                          
-                          
                           Container(
                             height: 26,
                             decoration: BoxDecoration(
@@ -166,7 +166,6 @@ class _PerticulerCollagePageState extends State<PerticulerCollagePage> {
                           )
                         ],
                       ),
-
                       SizedBox(
                         height: 15.h,
                       ),
@@ -194,82 +193,125 @@ class _PerticulerCollagePageState extends State<PerticulerCollagePage> {
                                 ),
                                 Spacer(),
                                 GestureDetector(
-                                  onTap: (){
-                                    Navigator.push(context, CupertinoPageRoute(builder: (context)=> ReviewPage()));
-                                  },
-                                  child: Text("View All", style: GoogleFonts.roboto(fontSize: 11.w, fontWeight: FontWeight.w600, color: Color(0xFF9088F1) , textBaseline: TextBaseline.ideographic),))
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  ReviewPage()));
+                                    },
+                                    child: Text(
+                                      "View All",
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 11.w,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF9088F1),
+                                          textBaseline:
+                                              TextBaseline.ideographic),
+                                    ))
                               ],
                             ),
-                            ListView.builder(
-                                itemCount: 4,
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(bottom: 15.h),
-                                    child: Container(
-                                      height: 110,
-                                      width: 400,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20.r),
-                                          color: Color.fromARGB(
-                                              255, 241, 242, 246)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Color(0xFF9088F1),
-                                                  size: 17,
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Color(0xFF9088F1),
-                                                  size: 17,
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Color(0xFF9088F1),
-                                                  size: 17,
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Color(0xFF9088F1),
-                                                  size: 17,
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Color(0xFF9088F1),
-                                                  size: 17,
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 8.h,
-                                            ),
-                                            Text("Rahul helped me prepare for my TCS interview, and I got the job! His tips are spot-on!", style: GoogleFonts.roboto(color: Color.fromARGB(255, 102, 102, 102), fontSize: 13.w, fontStyle: FontStyle.italic),),
-                                            SizedBox(
-                                              height: 8.h,
-                                            ),
-                                            Text("- Vinod Shyam ", style: GoogleFonts.roboto(color: Color.fromARGB(255, 0, 0, 0), fontSize: 11.w, fontStyle: FontStyle.normal),)
-                                          ],
+                            particularProvider.when(
+                              data: (data) {
+                                return ListView.builder(
+                                  itemCount: data.data.length,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(bottom: 15.h),
+                                      child: Container(
+                                        height: 110,
+                                        width: 400,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.r),
+                                            color: Color.fromARGB(
+                                                255, 241, 242, 246)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Color(0xFF9088F1),
+                                                    size: 17,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Color(0xFF9088F1),
+                                                    size: 17,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Color(0xFF9088F1),
+                                                    size: 17,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Color(0xFF9088F1),
+                                                    size: 17,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Color(0xFF9088F1),
+                                                    size: 17,
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 8.h,
+                                              ),
+                                              Text(
+                                                data.data[index].description,
+                                                style: GoogleFonts.roboto(
+                                                    color: Color.fromARGB(
+                                                        255, 102, 102, 102),
+                                                    fontSize: 13.w,
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
+                                              SizedBox(
+                                                height: 8.h,
+                                              ),
+                                              Text(
+                                                data.data[index].collageName,
+                                                style: GoogleFonts.roboto(
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                    fontSize: 11.w,
+                                                    fontStyle:
+                                                        FontStyle.normal),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                })
+                                    );
+                                  },
+                                );
+                              },
+                              error: (error, stackTrace) {
+                                return Center(
+                                  child: Text("Error:$error"),
+                                );
+                              },
+                              loading: () {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -301,6 +343,7 @@ class _PerticulerCollagePageState extends State<PerticulerCollagePage> {
       ),
     );
   }
+
   Widget buildContainer(String title) {
     return Padding(
       padding: EdgeInsets.only(right: 8.w, bottom: 8.h),

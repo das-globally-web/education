@@ -1,7 +1,7 @@
 import 'package:educationapp/config/preety.dio.dart';
+import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/controller/service/home.service.dart';
-import 'package:educationapp/home/model/allmentors.model.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/userprofile.model.dart';
 import 'package:educationapp/home/views/home.page.dart';
@@ -172,26 +172,9 @@ class FindMEntorBoduy extends ConsumerStatefulWidget {
 class _FindMEntorBoduyState extends ConsumerState<FindMEntorBoduy> {
   int curenttabindex = 7;
 
-  final homeMentrosProvider = FutureProvider<AllMentorsModel>((ref) async {
-    final homeService = HomeService(await createDio());
-    return homeService.allMentors(MentorsModelBody(userType: "student"));
-  });
-
-  final saveUserProfileDataToLocalProvider =
-      FutureProvider<String>((ref) async {
-    final homeService = HomeService(await createDio());
-    USerProfieModel profiledata = await homeService.userProfileGet();
-    Hive.isBoxOpen('userdata');
-    var box = Hive.box('userdata');
-    box.put('name', profiledata.data.fullName);
-    return profiledata.data.fullName;
-  });
-  final userDataProvide = StateNotifierProvider<UserNotifier, User>((ref) {
-    return UserNotifier();
-  });
   @override
   Widget build(BuildContext context) {
-    final mentorProvider = ref.watch(homeMentrosProvider);
+    final mentorProvider = ref.watch(homeMentorsProvider);
     return mentorProvider.when(
       data: (snapshot) {
         return ListView.builder(
@@ -201,8 +184,8 @@ class _FindMEntorBoduyState extends ConsumerState<FindMEntorBoduy> {
               padding: const EdgeInsets.all(8.0),
               child: UserTabs(
                 id: snapshot.data[index].id,
-                fullname: snapshot.data[index].fullName,
-                dec: snapshot.data[index].description,
+                fullname: snapshot.data[index].fullName.toString(),
+                dec: snapshot.data[index].description.toString(),
                 servicetype: snapshot.data[index].serviceType,
               ),
             );

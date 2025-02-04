@@ -369,7 +369,7 @@ class _PerticulerTrendingPageState extends State<PerticulerTrendingPage> {
                                 Spacer(),
                                 GestureDetector(
                                   onTap: (){
-                                    Navigator.push(context, CupertinoPageRoute(builder: (context)=> ReviewPage()));
+                                    Navigator.push(context, CupertinoPageRoute(builder: (context)=> ReviewPage('2')));
                                   },
                                   child: Text("View All", style: GoogleFonts.roboto(fontSize: 11.w, fontWeight: FontWeight.w600, color: Color(0xFF9088F1) , textBaseline: TextBaseline.ideographic),))
                               ],

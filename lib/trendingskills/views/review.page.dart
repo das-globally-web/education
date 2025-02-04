@@ -9,7 +9,8 @@ import 'package:vertical_barchart/vertical-barchart.dart';
 import 'package:vertical_barchart/vertical-barchartmodel.dart';
 
 class ReviewPage extends ConsumerStatefulWidget {
-  const ReviewPage({super.key});
+  final String id;
+  const ReviewPage(this.id, {super.key});
 
   @override
   ConsumerState<ReviewPage> createState() => _ReviewPageState();
@@ -70,7 +71,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    final reviewProvider = ref.watch(addreviewProvider);
+    final reviewProvider = ref.watch(addreviewProvider(widget.id));
 
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),

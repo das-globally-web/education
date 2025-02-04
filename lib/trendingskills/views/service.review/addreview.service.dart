@@ -8,6 +8,6 @@ part 'addreview.service.g.dart';
 abstract class AddreviewService {
   factory AddreviewService(Dio dio, {String baseUrl}) = _AddreviewService;
 
-  @GET('/api/reviews/1')
-  Future<AddReviewModel> getAllReview();
+  @GET('/api/reviews/{id}')
+  Future<AddReviewModel> getAllReview(@Path('id') String id);
 }

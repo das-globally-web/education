@@ -183,9 +183,14 @@ class _AllCollageBodyState extends ConsumerState<AllCollageBody> {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                                builder: (context) => PerticulerCollagePage()));
+                                builder: (context) => PerticulerCollagePage(snapshot.data[index].id.toString())));
                       },
-                      child: UniversityTab()),
+                      child: UniversityTab(
+                        name: snapshot.data[index].collageName,
+                        city: snapshot.data[index].city,
+                        description: snapshot.data[index].collageDescription,
+                        rating: snapshot.data[index].avgRating.toString(),
+                      )),
                 );
               });
         },
@@ -199,7 +204,16 @@ class _AllCollageBodyState extends ConsumerState<AllCollageBody> {
 }
 
 class UniversityTab extends StatefulWidget {
-  const UniversityTab({super.key});
+  final String name;
+  final String city;
+  final String rating;
+  final String description;
+  const UniversityTab(
+      {super.key,
+      required this.name,
+      required this.city,
+      required this.rating,
+      required this.description});
 
   @override
   State<UniversityTab> createState() => _UniversityTabState();
@@ -259,7 +273,7 @@ class _UniversityTabState extends State<UniversityTab> {
                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
                           child: Center(
                             child: Text(
-                              "Jaipur",
+                              widget.city,
                               style: GoogleFonts.roboto(
                                   fontSize: 12.w,
                                   fontWeight: FontWeight.w400,
@@ -296,7 +310,7 @@ class _UniversityTabState extends State<UniversityTab> {
                                 width: 5.w,
                               ),
                               Text(
-                                "4.5 Review",
+                                "${widget.rating} Review",
                                 style: GoogleFonts.roboto(
                                     fontSize: 12.w,
                                     fontWeight: FontWeight.w400,
@@ -325,7 +339,7 @@ class _UniversityTabState extends State<UniversityTab> {
                 height: 10.h,
               ),
               Text(
-                "Jennifer Johns",
+                widget.name,
                 style: GoogleFonts.roboto(
                     color: Colors.black,
                     fontSize: 16.w,
@@ -337,7 +351,7 @@ class _UniversityTabState extends State<UniversityTab> {
               Container(
                 width: 246.w,
                 child: Text(
-                  "Helping students land their dream jobs with 5+ years of placement coaching experience",
+                  widget.description,
                   style: GoogleFonts.roboto(
                       color: Colors.black,
                       fontSize: 12.w,

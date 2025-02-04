@@ -1,45 +1,45 @@
 // To parse this JSON data, do
 //
-//     final allUniModel = allUniModelFromJson(jsonString);
+//     final perticulerCollageModel = perticulerCollageModelFromJson(jsonString);
 
 import 'dart:convert';
 
-AllUniModel allUniModelFromJson(String str) => AllUniModel.fromJson(json.decode(str));
+PerticulerCollageModel perticulerCollageModelFromJson(String str) => PerticulerCollageModel.fromJson(json.decode(str));
 
-String allUniModelToJson(AllUniModel data) => json.encode(data.toJson());
+String perticulerCollageModelToJson(PerticulerCollageModel data) => json.encode(data.toJson());
 
-class AllUniModel {
+class PerticulerCollageModel {
     String message;
-    List<Datum> data;
+    Data data;
 
-    AllUniModel({
+    PerticulerCollageModel({
         required this.message,
         required this.data,
     });
 
-    factory AllUniModel.fromJson(Map<String, dynamic> json) => AllUniModel(
+    factory PerticulerCollageModel.fromJson(Map<String, dynamic> json) => PerticulerCollageModel(
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: Data.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data.toJson(),
     };
 }
 
-class Datum {
+class Data {
     int id;
     String collageName;
     String collageDescription;
-    String? image;
+    String image;
     String city;
     DateTime createdAt;
     DateTime updatedAt;
-    String? avgRating;
+    double avgRating;
     int reviewCount;
 
-    Datum({
+    Data({
         required this.id,
         required this.collageName,
         required this.collageDescription,
@@ -51,7 +51,7 @@ class Datum {
         required this.reviewCount,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         collageName: json["collage_name"],
         collageDescription: json["collage_description"],
@@ -59,7 +59,7 @@ class Datum {
         city: json["city"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        avgRating: json["avg_rating"],
+        avgRating: json["avg_rating"]?.toDouble(),
         reviewCount: json["review_count"],
     );
 
@@ -75,5 +75,3 @@ class Datum {
         "review_count": reviewCount,
     };
 }
-
-

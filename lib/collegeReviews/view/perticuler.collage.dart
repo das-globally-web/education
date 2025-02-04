@@ -1,3 +1,4 @@
+import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/trendingskills/views/controller.addreview/addreviewController.dart';
 import 'package:educationapp/trendingskills/views/review.page.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PerticulerCollagePage extends ConsumerStatefulWidget {
-  const PerticulerCollagePage({super.key});
+  final String id;
+  const PerticulerCollagePage(this.id, {super.key});
 
   @override
   ConsumerState<PerticulerCollagePage> createState() =>
@@ -24,7 +26,9 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    final particularProvider = ref.watch(addreviewProvider);
+    final particularProvider = ref.watch(addreviewProvider("${widget.id}"));
+    final perticulerCollageData =
+        ref.watch(perticulerCollageProvider(widget.id));
     return Scaffold(
       backgroundColor: Color(0xFF9088F1),
       body: SingleChildScrollView(
@@ -50,7 +54,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        height: 44.h,
+                        height: 44.w,
                         width: 44.w,
                         decoration: BoxDecoration(
                             color: Color.fromARGB(255, 255, 255, 255),
@@ -198,7 +202,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  ReviewPage()));
+                                                  ReviewPage('')));
                                     },
                                     child: Text(
                                       "View All",
@@ -323,7 +327,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
             Positioned(
               top: 180.h, // Adjust for circle height
               child: Container(
-                height: 182.h,
+                height: 182.w,
                 width: 182.w,
                 decoration: BoxDecoration(
                   color: Colors.blue,

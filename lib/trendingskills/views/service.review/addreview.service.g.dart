@@ -24,7 +24,7 @@ class _AddreviewService implements AddreviewService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AddReviewModel> getAllReview() async {
+  Future<AddReviewModel> getAllReview(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -36,7 +36,7 @@ class _AddreviewService implements AddreviewService {
     )
         .compose(
           _dio.options,
-          '/api/reviews/1',
+          '/api/reviews/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

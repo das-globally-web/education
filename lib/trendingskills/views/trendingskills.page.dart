@@ -8,14 +8,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TrendingSkilsPage extends StatefulWidget {
+class TrendingSkilsPage extends ConsumerStatefulWidget {
   const TrendingSkilsPage({super.key});
 
   @override
-  State<TrendingSkilsPage> createState() => _TrendingSkilsPageState();
+  ConsumerState<TrendingSkilsPage> createState() => _TrendingSkilsPageState();
 }
 
-class _TrendingSkilsPageState extends State<TrendingSkilsPage> {
+class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,7 +181,7 @@ class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => SkillListPage()));
+                            builder: (context) => SkillListPage(1)));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -238,7 +238,6 @@ class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
                                 fontWeight: FontWeight.w400),
                           ),
                         ),
-                       
                       ],
                     ),
                   ),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'skills.service.dart';
+part of 'addreview.service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'skills.service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _SkillService implements SkillService {
-  _SkillService(
+class _AddreviewPageService implements AddreviewPageService {
+  _AddreviewPageService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,20 @@ class _SkillService implements SkillService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SkillsModel> getALLSiklls() async {
+  Future<AddreviewResponseModel> getReviewPage(AddreviewBodyModel body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SkillsModel>(Options(
-      method: 'GET',
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _options = _setStreamType<AddreviewResponseModel>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/get-all-skills',
+          '/api/reviews',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -46,42 +47,9 @@ class _SkillService implements SkillService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SkillsModel _value;
+    late AddreviewResponseModel _value;
     try {
-      _value = SkillsModel.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<NewSkillsModel> getNewAllSkills(String id) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NewSkillsModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/getskills-mentor/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NewSkillsModel _value;
-    try {
-      _value = NewSkillsModel.fromJson(_result.data!);
+      _value = AddreviewResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

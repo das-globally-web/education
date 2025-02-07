@@ -1,20 +1,25 @@
+import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/views/home.page.dart';
+import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/perticulertrending.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SkillListPage extends StatefulWidget {
-  const SkillListPage({super.key});
+class SkillListPage extends ConsumerStatefulWidget {
+  final int id;
+  const SkillListPage(this.id, {super.key});
 
   @override
-  State<SkillListPage> createState() => _SkillListPageState();
+  ConsumerState<SkillListPage> createState() => _SkillListPageState();
 }
 
-class _SkillListPageState extends State<SkillListPage> {
+class _SkillListPageState extends ConsumerState<SkillListPage> {
   @override
   Widget build(BuildContext context) {
+    final newskillprovider = ref.watch(newskillsProvider(widget.id.toString()));
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: SingleChildScrollView(
@@ -184,26 +189,53 @@ class _SkillListPageState extends State<SkillListPage> {
                         )
                       ],
                     ),
-                    ListView.builder(
-                        itemCount: 5,
+                    newskillprovider.when(data: (data) {
+                      return ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
+                        itemCount: data.data.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) =>
-                                              PerticulerTrendingPage()));
-                                },
-                                // child: UserTabs()
-                                child: SizedBox(),
-                                ),
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: UserTabs(
+                              id: data.data[index].id,
+                              fullname: data.data[index].fullName,
+                              dec: data.data[index].description,
+                              servicetype: [],
+                            ),
                           );
-                        }),
+                        },
+                      );
+                    }, error: (error, stackTrace) {
+                      return Center(
+                        child: Text("Error :$error"),
+                      );
+                    }, loading: () {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }),
+
+                    // ListView.builder(
+                    //     itemCount: 5,
+                    //     shrinkWrap: true,
+                    //     physics: NeverScrollableScrollPhysics(),
+                    //     itemBuilder: (context, index) {
+                    //       return Padding(
+                    //         padding: const EdgeInsets.all(8.0),
+                    //         child: GestureDetector(
+                    //           onTap: () {
+                    //             Navigator.push(
+                    //                 context,
+                    //                 CupertinoPageRoute(
+                    //                     builder: (context) =>
+                    //                         PerticulerTrendingPage()));
+                    //           },
+                    //           // child: UserTabs()
+                    //           child: SizedBox(),
+                    //         ),
+                    //       );
+                    //     }),
                   ],
                 ),
               ),

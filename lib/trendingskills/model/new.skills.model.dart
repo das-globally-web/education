@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final skillsModel = skillsModelFromJson(jsonString);
+//     final newSkillsModel = newSkillsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-SkillsModel skillsModelFromJson(String str) => SkillsModel.fromJson(json.decode(str));
+NewSkillsModel newSkillsModelFromJson(String str) => NewSkillsModel.fromJson(json.decode(str));
 
-String skillsModelToJson(SkillsModel data) => json.encode(data.toJson());
+String newSkillsModelToJson(NewSkillsModel data) => json.encode(data.toJson());
 
-class SkillsModel {
+class NewSkillsModel {
     String message;
     List<Datum> data;
 
-    SkillsModel({
+    NewSkillsModel({
         required this.message,
         required this.data,
     });
 
-    factory SkillsModel.fromJson(Map<String, dynamic> json) => SkillsModel(
+    factory NewSkillsModel.fromJson(Map<String, dynamic> json) => NewSkillsModel(
         message: json["message"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     );
@@ -29,15 +29,17 @@ class SkillsModel {
 }
 
 class Datum {
+    String fullName;
     int id;
     String title;
     String subTitle;
-    String? image;
+    String image;
     String description;
     DateTime createdAt;
     DateTime updatedAt;
 
     Datum({
+        required this.fullName,
         required this.id,
         required this.title,
         required this.subTitle,
@@ -48,6 +50,7 @@ class Datum {
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        fullName: json["full_name"],
         id: json["id"],
         title: json["title"],
         subTitle: json["sub_title"],
@@ -58,6 +61,7 @@ class Datum {
     );
 
     Map<String, dynamic> toJson() => {
+        "full_name": fullName,
         "id": id,
         "title": title,
         "sub_title": subTitle,

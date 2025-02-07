@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'skills.service.dart';
+part of 'register.service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'skills.service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _SkillService implements SkillService {
-  _SkillService(
+class _RegisterService implements RegisterService {
+  _RegisterService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,21 @@ class _SkillService implements SkillService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SkillsModel> getALLSiklls() async {
+  Future<RegisterResponseModel> register(
+      {required Map<String, dynamic> data}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SkillsModel>(Options(
-      method: 'GET',
+    final _data = FormData.fromMap(data);
+    final _options = _setStreamType<RegisterResponseModel>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
         .compose(
           _dio.options,
-          '/api/get-all-skills',
+          '/api/register',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -46,42 +48,9 @@ class _SkillService implements SkillService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SkillsModel _value;
+    late RegisterResponseModel _value;
     try {
-      _value = SkillsModel.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<NewSkillsModel> getNewAllSkills(String id) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NewSkillsModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/getskills-mentor/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NewSkillsModel _value;
-    try {
-      _value = NewSkillsModel.fromJson(_result.data!);
+      _value = RegisterResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

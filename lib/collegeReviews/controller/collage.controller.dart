@@ -9,8 +9,8 @@ final callagesProviders = FutureProvider<AllUniModel>((ref) async {
   return service.getAllCollages();
 });
 
-
-final perticulerCollageProvider = FutureProvider.family<PerticulerCollageModel, String>((ref, id) async {
+final perticulerCollageProvider =
+    FutureProvider.family<PerticulerCollageModel, String>((ref, id) async {
   final service = CollageService(await createDio());
   return service.getPErticulerCollage(id);
 });

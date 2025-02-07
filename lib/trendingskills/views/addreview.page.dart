@@ -1,20 +1,25 @@
+import 'package:educationapp/trendingskills/views/addreview.page/addreview.page.model.dart';
+import 'package:educationapp/trendingskills/views/addreview.page/addreviewBodyModel.dart';
+import 'package:educationapp/trendingskills/views/addreview.page/addreviewpageController.dart';
+import 'package:educationapp/trendingskills/views/controller.addreview/addreviewController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddReviewPage extends StatefulWidget {
+class AddReviewPage extends ConsumerStatefulWidget {
   const AddReviewPage({super.key});
 
   @override
-  State<AddReviewPage> createState() => _AddReviewPageState();
+  ConsumerState<AddReviewPage> createState() => _AddReviewPageState();
 }
 
-class _AddReviewPageState extends State<AddReviewPage> {
+class _AddReviewPageState extends ConsumerState<AddReviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: false,
         backgroundColor: Color(0xFF1B1B1B),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -198,6 +203,15 @@ class _AddReviewPageState extends State<AddReviewPage> {
                       GestureDetector(
                         onTap: () {
                           // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
+                          final addreviewpageData = ref.watch(addreviewpage(
+                            AddreviewBodyModel(
+                              userId: 1,
+                              count: 4,
+                              description: "hello test",
+                              collegeId: 1,
+                              skillsId: 2,
+                            ),
+                          ));
                         },
                         child: Container(
                           height: 52.h,

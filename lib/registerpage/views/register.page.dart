@@ -1,7 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:educationapp/home/views/home.page.dart';
+import 'package:educationapp/registerpage/registerController.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,19 +23,19 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  File? _image;
+  // File? _image;
 
-  final ImagePicker _picker = ImagePicker();
+  // final ImagePicker _picker = ImagePicker();
 
-  Future<void> _pickImage(ImageSource source) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
+  // Future<void> _pickImage(ImageSource source) async {
+  //   final XFile? pickedFile = await _picker.pickImage(source: source);
 
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
-  }
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _image = File(pickedFile.path);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,20 +96,22 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 }
 
-class RegisterForm extends StatefulWidget {
+class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({super.key});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  ConsumerState<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _RegisterFormState extends ConsumerState<RegisterForm> {
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
   final languageKnownController = TextEditingController();
+  final locationController = TextEditingController();
+  final descriptionController = TextEditingController();
   final totalExperienceController = TextEditingController();
   String _selectedItem = "Select stream";
 
@@ -119,6 +127,65 @@ class _RegisterFormState extends State<RegisterForm> {
     'Metallurgy',
     'Chemical',
   ];
+
+  MultipartFile? multipathfile;
+  File? _image;
+  final picker = ImagePicker();
+
+  Future getImageFromGallery() async {
+    final PickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final imagepath =
+        Base64Decoder().convert(PickedFile!.path.toString().split(',').last);
+    final multipathfile =
+        MultipartFile.fromBytes(imagepath, filename: PickedFile.name);
+    setState(() {
+      if (PickedFile != null) {
+        _image = File(PickedFile.path);
+      }
+    });
+  }
+
+  Future getImageFromCamera() async {
+    final PickedFile = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if (PickedFile != null) {
+        _image = File(PickedFile.path);
+      }
+    });
+  }
+
+  Future showImage() async {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        actions: [
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context);
+              getImageFromGallery();
+            },
+            child: Text("Gallery"),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context);
+              getImageFromCamera();
+            },
+            child: Text("Camera"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<MultipartFile?> getMultipartFile(File? imageFile) async {
+    if (imageFile == null) return null;
+    return await MultipartFile.fromFile(
+      imageFile.path,
+      filename: imageFile.path.split('/').last, // सही फाइल नाम सुनिश्चित करें
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -199,6 +266,7 @@ class _RegisterFormState extends State<RegisterForm> {
           Padding(
             padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
             child: IntlPhoneField(
+              controller: phoneController,
               decoration: InputDecoration(
                 hintText: "XXXXXXXXXXX",
                 focusedBorder: OutlineInputBorder(
@@ -231,6 +299,14 @@ class _RegisterFormState extends State<RegisterForm> {
           RegisterField(
             controller: languageKnownController,
             lable: 'Languages known',
+          ),
+          RegisterField(
+            controller: locationController,
+            lable: 'location',
+          ),
+          RegisterField(
+            controller: descriptionController,
+            lable: 'description',
           ),
           RegisterField(
             controller: totalExperienceController,
@@ -328,20 +404,68 @@ class _RegisterFormState extends State<RegisterForm> {
                   BorderType.RRect, // Shape of the border (RRect, Circle, etc.)
               radius:
                   Radius.circular(12), // Border radius for rounded rectangles
-              child: Container(
-                height: 150,
-                width: 400.w,
-                alignment: Alignment.center,
-                child: Text(
-                  'Upload Image +',
-                  style: GoogleFonts.roboto(color: Colors.black),
+              child: GestureDetector(
+                onTap: () {
+                  showImage();
+                },
+                child: Container(
+                  height: 150,
+                  width: 400.w,
+                  alignment: Alignment.center,
+                  child: _image == null
+                      ? Text(
+                          'Upload Image +',
+                          style: GoogleFonts.roboto(color: Colors.black),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.file(
+                            _image!,
+                            height: 150,
+                            width: 400.w,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                 ),
               ),
             ),
           ),
           GestureDetector(
-            onTap: () {
+            onTap: () async {
               // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
+              // final multipartImage = await getMultipartFile(_image);
+              final registerprovider = ref.watch(
+                registerProvider(
+                  registerBodyModel(
+                    fullName: fullNameController.text,
+                    email: emailController.text,
+                    phoneNumber: phoneController.text.toString(),
+                    password: passwordController.text.toString(),
+                    confirmpassword: confirmpasswordController.text.toString(),
+                    languageKnow: languageKnownController.text,
+                    totlaExperinece: totalExperienceController.text.toString(),
+                    serviceType: '',
+                    profilePic: multipathfile,
+                    skillsId: '',
+                    userType: '',
+                    description: descriptionController.text,
+                    location: locationController.text,
+                  ),
+                ),
+              );
+              registerprovider.when(
+                data: (data) {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => HomePage(),
+                      ));
+                },
+                error: (error, stackTrace) => Text("Error$error"),
+                loading: () => Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
             },
             child: Container(
               height: 52.h,

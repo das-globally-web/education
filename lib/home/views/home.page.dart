@@ -34,9 +34,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   void fetchdata() async {
-    Map<dynamic, String> data = await StoreData.fetchData();
-    setState(() {
-      _username = data['name'];
+    Future.delayed(Duration(seconds: 2), () async {
+      Map<dynamic, String> data = await StoreData.fetchData();
+      setState(() {
+        _username = data['name'] ?? "";
+      });
     });
   }
 

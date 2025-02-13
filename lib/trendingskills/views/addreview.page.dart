@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:educationapp/trendingskills/views/addreview.page/addreview.page.model.dart';
 import 'package:educationapp/trendingskills/views/addreview.page/addreviewBodyModel.dart';
 import 'package:educationapp/trendingskills/views/addreview.page/addreviewpageController.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddReviewPage extends ConsumerStatefulWidget {
@@ -203,15 +206,22 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                       GestureDetector(
                         onTap: () {
                           // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
-                          final addreviewpageData = ref.watch(addreviewpage(
-                            AddreviewBodyModel(
-                              userId: 1,
-                              count: 4,
-                              description: "hello test",
-                              collegeId: 1,
-                              skillsId: 2,
+                          final addreviewpageData = ref.watch(
+                            addreviewpage(
+                              AddreviewBodyModel(
+                                userId: 1,
+                                count: 4,
+                                description: "hello test",
+                                collegeId: 1,
+                                skillsId: 2,
+                              ),
                             ),
-                          ));
+                          );
+                          if (addreviewpageData != null) {
+                            Fluttertoast.showToast(msg: "Review add");
+                          } else {
+                            Fluttertoast.showToast(msg: "Error:$e");
+                          }
                         },
                         child: Container(
                           height: 52.h,

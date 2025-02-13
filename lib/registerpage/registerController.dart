@@ -15,7 +15,7 @@ final registerProvider =
     "email": registerBodyModel.email,
     "phonenumber": registerBodyModel.phoneNumber,
     "password": registerBodyModel.password,
-    "cnf": registerBodyModel.confirmpassword,
+    "cnfirmpassword": registerBodyModel.confirmpassword,
     "language": registerBodyModel.languageKnow,
     "experience": registerBodyModel.totlaExperinece,
     "servicetype": registerBodyModel.serviceType,

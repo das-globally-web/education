@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 
@@ -32,37 +33,60 @@ class _HomePageState extends ConsumerState<HomePage> {
       key: _scaffoldKey,
       backgroundColor: Color(0xFF1B1B1B),
       drawer: Padding(
-        padding: const EdgeInsets.all(23.0),
-        child: Expanded(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: 280,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(30.r)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: 240.h,
-                  width: 289.w,
-                  decoration: BoxDecoration(
-                      color: Color(0xFF9088F1),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.r),
-                          topRight: Radius.circular(30.r))),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 13.w,
+        padding: const EdgeInsets.all(20),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: 280,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(30.r)),
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 250.h,
+                width: 280,
+                // width: 289.w,
+                decoration: BoxDecoration(
+                  color: Color(0xFF9088F1),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.r),
+                    topRight: Radius.circular(30.r),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left: 20, top: 20),
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              size: 20,
+                            ),
                           ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           Container(
+                            margin: EdgeInsets.only(top: 25, left: 10),
                             height: 50.h,
                             width: 50.w,
                             decoration: BoxDecoration(
@@ -71,8 +95,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 image: DecorationImage(
                                     image: AssetImage("assets/Ellipse2.png"))),
                           ),
-                          Spacer(),
                           Container(
+                            margin: EdgeInsets.only(top: 25),
                             height: 38,
                             decoration: BoxDecoration(
                                 color: Color(0xFFDCF881),
@@ -89,79 +113,293 @@ class _HomePageState extends ConsumerState<HomePage> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: 13.w,
-                          ),
                         ],
                       ),
-                      Expanded(
-                        child: ListView(
-                          children: [
-                            ListTile(
-                              leading: Icon(Icons.school),
-                              title: Text("Find a Mentor"),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) =>
-                                            FindMentorPage()));
-                              },
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 10, left: 10),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(
+                              "Jackson Smith",
+                              style: GoogleFonts.roboto(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
                             ),
-                            ListTile(
-                              leading: Icon(Icons.trending_up),
-                              title: Text("Trending Skills"),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) =>
-                                            TrendingSkilsPage()));
-                              },
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.rate_review),
-                              title: Text("Explore College Reviews"),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => AllCollage()));
-                              },
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.account_balance_wallet),
-                              title: Text("Wallet"),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => WalletPage()));
-                              },
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.settings),
-                              title: Text("Settings"),
-                              onTap: () {},
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                      Divider(),
-                      ListTile(
-                        leading: Icon(Icons.logout),
-                        title: Text("Logout"),
-                        onTap: () async {
-                          // Logout logic
-                          var box = await Hive.openBox('userdata');
-                          await box.clear();
-                        },
-                      ),
-                    ],
+                        Container(
+                          margin: EdgeInsets.only(left: 10),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(
+                              "Smith.jackson23@gmail.com",
+                              style: GoogleFonts.roboto(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              // Container(
+              //   height: 240.h,
+              //   width: 280,
+              //   // width: 289.w,
+              //   decoration: BoxDecoration(
+              //       color: Color(0xFF9088F1),
+              //       borderRadius: BorderRadius.only(
+              //           topLeft: Radius.circular(30.r),
+              //           topRight: Radius.circular(30.r))),
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Container(
+              //         margin: EdgeInsets.only(left: 10),
+              //         width: 40,
+              //         height: 40,
+              //         decoration: BoxDecoration(
+              //           color: Colors.white,
+              //           shape: BoxShape.circle,
+              //         ),
+              //         child: Center(
+              //           child: Padding(
+              //             padding: const EdgeInsets.only(left: 8),
+              //             child: Icon(
+              //               Icons.arrow_back_ios,
+              //               size: 20,
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         crossAxisAlignment: CrossAxisAlignment.center,
+              //         children: [
+              //           SizedBox(
+              //             width: 13.w,
+              //           ),
+              //           Container(
+              //             margin: EdgeInsets.only(top: 10),
+              //             height: 50.h,
+              //             width: 50.w,
+              //             decoration: BoxDecoration(
+              //                 color: Color.fromARGB(25, 255, 255, 255),
+              //                 borderRadius: BorderRadius.circular(500.r),
+              //                 image: DecorationImage(
+              //                     image: AssetImage("assets/Ellipse2.png"))),
+              //             // child: Column(
+              //             //   children: [
+              //             //     Text("Jackson Smith"),
+              //             //   ],
+              //             // ),
+              //           ),
+              //           Spacer(),
+              //           Container(
+              //             height: 38,
+              //             decoration: BoxDecoration(
+              //                 color: Color(0xFFDCF881),
+              //                 borderRadius: BorderRadius.circular(40.r)),
+              //             child: Center(
+              //               child: Padding(
+              //                 padding: EdgeInsets.only(left: 12.w, right: 12.w),
+              //                 child: Text(
+              //                   "Edit Profile",
+              //                   style: GoogleFonts.roboto(
+              //                       color: Color(0xFF1B1B1B), fontSize: 12.w),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             width: 13.w,
+              //           ),
+              //         ],
+              //       ),
+              //       // Expanded(
+              //       //   child: ListView(
+              //       //     children: [
+              //       //       ListTile(
+              //       //         leading: Icon(Icons.school),
+              //       //         title: Text("Find a Mentor"),
+              //       //         onTap: () {
+              //       //           Navigator.push(
+              //       //             context,
+              //       //             CupertinoPageRoute(
+              //       //               builder: (context) => FindMentorPage(),
+              //       //             ),
+              //       //           );
+              //       //         },
+              //       //       ),
+              //       //       ListTile(
+              //       //         leading: Icon(Icons.trending_up),
+              //       //         title: Text("Trending Skills"),
+              //       //         onTap: () {
+              //       //           Navigator.push(
+              //       //               context,
+              //       //               CupertinoPageRoute(
+              //       //                   builder: (context) =>
+              //       //                       TrendingSkilsPage()));
+              //       //         },
+              //       //       ),
+              //       //       ListTile(
+              //       //         leading: Icon(Icons.rate_review),
+              //       //         title: Text("Explore College Reviews"),
+              //       //         onTap: () {
+              //       //           Navigator.push(
+              //       //               context,
+              //       //               CupertinoPageRoute(
+              //       //                   builder: (context) => AllCollage()));
+              //       //         },
+              //       //       ),
+              //       //       ListTile(
+              //       //         leading: Icon(Icons.account_balance_wallet),
+              //       //         title: Text("Wallet"),
+              //       //         onTap: () {
+              //       //           Navigator.push(
+              //       //               context,
+              //       //               CupertinoPageRoute(
+              //       //                   builder: (context) => WalletPage()));
+              //       //         },
+              //       //       ),
+              //       //       ListTile(
+              //       //         leading: Icon(Icons.settings),
+              //       //         title: Text("Settings"),
+              //       //         onTap: () {},
+              //       //       ),
+              //       //     ],
+              //       //   ),
+              //       // ),
+
+              //       // Divider(),
+              //       // ListTile(
+              //       //   leading: Icon(Icons.logout),
+              //       //   title: Text("Logout"),
+              //       //   onTap: () async {
+              //       //     // Logout logic
+              //       //     var box = await Hive.openBox('userdata');
+              //       //     await box.clear();
+              //       //   },
+              //       // ),
+              //     ],
+              //   ),
+              // ),
+              SizedBox(height: 10),
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FindMentorPage(),
+                      ));
+                },
+                leading: Container(
+                  child: Image.asset("assets/cartoon.png"),
+                ),
+                title: Text(
+                  "Find a Mentor",
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 27, 27, 27),
                   ),
-                )
-              ],
-            ),
+                ),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => TrendingSkilsPage()));
+                },
+                leading: Container(
+                  child: Image.asset("assets/cartoon.png"),
+                ),
+                title: Text(
+                  "Trending Skills",
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 27, 27, 27),
+                  ),
+                ),
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Container(
+                  child: Image.asset("assets/cartoon.png"),
+                ),
+                title: Text(
+                  "Explore College Reviews",
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 27, 27, 27),
+                  ),
+                ),
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Container(
+                  child: Image.asset("assets/cartoon.png"),
+                ),
+                title: Text(
+                  "Wallet",
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 27, 27, 27),
+                  ),
+                ),
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Container(
+                  child: Image.asset("assets/cartoon.png"),
+                ),
+                title: Text(
+                  "Settings ",
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 27, 27, 27),
+                  ),
+                ),
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(
+                  Icons.logout,
+                  color: Color.fromARGB(255, 27, 27, 27),
+                ),
+                title: Text(
+                  "Logout",
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 27, 27, 27),
+                  ),
+                ),
+                onTap: () async {
+                  // Logout logic
+                  Fluttertoast.showToast(msg: "Logout ");
+                  Navigator.pop(context);
+                  var box = await Hive.openBox('userdata');
+                  await box.clear();
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -204,6 +442,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                   SizedBox(
                     width: 45.w,
                   ),
+                  // Container(
+                  //   child: Image.asset(
+                  //     "assets/logo png.png",
+                  //     width: 100,
+                  //   ),
+                  // ),
                   Text(
                     "Logo",
                     style: GoogleFonts.roboto(
@@ -231,10 +475,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                     height: 44.h,
                     width: 44.w,
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(25, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(500.r),
-                        image: DecorationImage(
-                            image: AssetImage("assets/Ellipse2.png"))),
+                      color: Color.fromARGB(25, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(500.r),
+                      image: DecorationImage(
+                        image: AssetImage("assets/Ellipse2.png"),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 30.w,

@@ -46,10 +46,13 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                         color: Color.fromARGB(25, 255, 255, 255),
                         borderRadius: BorderRadius.circular(500.r)),
                     child: Center(
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        size: 15.w,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 4),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          size: 15.w,
+                        ),
                       ),
                     ),
                   ),

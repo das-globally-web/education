@@ -184,8 +184,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 box.put('email', loginState.response.data.email.toString());
                 final userProviderState = ref.watch(userDataProvider.notifier);
                 userProviderState.setName(profileGet.value.toString());
-                userProviderState.setEmail(loginState.response.data.email.toString());
-                userProviderState.setToken(loginState.response.data.token.toString());
+                userProviderState
+                    .setEmail(loginState.response.data.email.toString());
+                userProviderState
+                    .setToken(loginState.response.data.token.toString());
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => HomePage()));
               }
@@ -200,14 +202,15 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   borderRadius: BorderRadius.circular(40.r),
                   color: Color(0xFFDCF881)),
               child: Center(
-                  child: Text(
-                "Login",
-                style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: -0.4,
-                    fontSize: 14.4.w),
-              )),
+                child: Text(
+                  "Login",
+                  style: GoogleFonts.roboto(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -0.4,
+                      fontSize: 14.4.w),
+                ),
+              ),
             ),
           ),
         ],

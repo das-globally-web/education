@@ -14,7 +14,7 @@ class _RegisterService implements RegisterService {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'http://education.globallywebsolutions.com';
+    baseUrl ??= 'http://education.globallywebsolutions.com/';
   }
 
   final Dio _dio;
@@ -38,7 +38,7 @@ class _RegisterService implements RegisterService {
     )
         .compose(
           _dio.options,
-          '/api/register',
+          'api/register',
           queryParameters: queryParameters,
           data: _data,
         )

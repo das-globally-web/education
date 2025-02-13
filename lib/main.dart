@@ -6,6 +6,7 @@ import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/localstorage/db.dart';
 import 'package:educationapp/localstorage/localdb.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
+import 'package:educationapp/yourMentor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp(
-          home: token == null ? const SplashScreen() : const HomePage(),
+          // home: token == null ? const SplashScreen() : const HomePage(),
+        home: YourMentorPage(),
         );
       },
     );

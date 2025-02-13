@@ -1,6 +1,7 @@
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
+import 'package:educationapp/trendingskills/views/newskillListPage.dart';
 import 'package:educationapp/trendingskills/views/perticulertrending.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +49,13 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                         color: Color.fromARGB(25, 255, 255, 255),
                         borderRadius: BorderRadius.circular(500.r)),
                     child: Center(
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        size: 15.w,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          size: 15.w,
+                        ),
                       ),
                     ),
                   ),
@@ -197,11 +201,20 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 8),
-                            child: UserTabs(
-                              id: data.data[index].id,
-                              fullname: data.data[index].fullName,
-                              dec: data.data[index].description,
-                              servicetype: [],
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Newskilllistpage(),
+                                    ));
+                              },
+                              child: UserTabs(
+                                id: data.data[index].id,
+                                fullname: data.data[index].fullName,
+                                dec: data.data[index].description,
+                                servicetype: [],
+                              ),
                             ),
                           );
                         },

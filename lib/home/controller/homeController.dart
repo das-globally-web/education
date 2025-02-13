@@ -1,11 +1,10 @@
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/service/home.service.dart';
-import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/userprofile.model.dart';
-
-import 'package:flutter/foundation.dart';
+import 'package:educationapp/home/views/home.page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
@@ -14,7 +13,8 @@ final homeMentorsProvider = FutureProvider<AllMentorsModel>((ref) async {
   return homeService.allMentors(MentorsModelBody(userType: "student"));
 });
 
-final saveUserProfileDataToLocalProvider = FutureProvider<bool>((ref) async {
+final saveUserProfileDataToLocalProvider =
+    FutureProvider.family<bool, BuildContext>((ref, context) async {
   final homeService = HomeService(await createDio());
   USerProfieModel profiledata = await homeService.userProfileGet();
   final userNotifier = ref.read(userProvider.notifier);
@@ -22,6 +22,7 @@ final saveUserProfileDataToLocalProvider = FutureProvider<bool>((ref) async {
   userNotifier.updateUser('token', profiledata.data.token);
   userNotifier.updateUser('email', profiledata.data.email);
   userNotifier.updateUser('pic', profiledata.data.profilePic);
+  Navigator.push(context, CupertinoPageRoute(builder: (context) => HomePage()));
   return true;
 });
 

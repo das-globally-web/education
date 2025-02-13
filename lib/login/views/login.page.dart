@@ -1,24 +1,15 @@
-import 'dart:developer';
-
 import 'package:educationapp/config/helpers.dart';
-import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/views/home.page.dart';
-import 'package:educationapp/localstorage/db.dart';
-import 'package:educationapp/localstorage/localdb.dart';
 import 'package:educationapp/login/controller/login.controller.dart';
 import 'package:educationapp/login/controller/login.state.dart';
-import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
-import 'package:educationapp/login/model/login.rsponse.model.dart';
-import 'package:educationapp/main.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -176,10 +167,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               await loginController.login(body);
 
               if (loginState is LoginSuccess) {
-                ref.watch(saveUserProfileDataToLocalProvider);
-
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => HomePage()));
+                ref.watch(saveUserProfileDataToLocalProvider(context));
               }
               if (loginState is LoginError) {
                 Helpers.errorString("Some thing went wrong!");

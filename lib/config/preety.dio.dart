@@ -19,6 +19,7 @@ Future<Dio> createDio() async {
   var box = Hive.box('userdata');
   var token = box.get('token');
   log(token.toString());
+
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) async {
@@ -30,6 +31,6 @@ Future<Dio> createDio() async {
         handler.next(options); // Continue with the request
       },
     ),
-  ); 
+  );
   return dio;
 }

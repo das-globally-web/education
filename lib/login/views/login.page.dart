@@ -176,18 +176,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               await loginController.login(body);
 
               if (loginState is LoginSuccess) {
-                final profileGet =
-                    ref.watch(saveUserProfileDataToLocalProvider);
-                Hive.isBoxOpen('userdata');
-                var box = Hive.box('userdata');
-                box.put('token', loginState.response.data.token.toString());
-                box.put('email', loginState.response.data.email.toString());
-                final userProviderState = ref.watch(userDataProvider.notifier);
-                userProviderState.setName(profileGet.value.toString());
-                userProviderState
-                    .setEmail(loginState.response.data.email.toString());
-                userProviderState
-                    .setToken(loginState.response.data.token.toString());
+                ref.watch(saveUserProfileDataToLocalProvider);
+
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => HomePage()));
               }

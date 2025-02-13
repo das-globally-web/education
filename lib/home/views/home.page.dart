@@ -25,7 +25,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final userState = ref.watch(userDataProvider);
+    final userState = ref.watch(userProvider);
     final skilsProvider = ref.watch(skilssProvide);
     final wallteserviceProvider = ref.watch(walletProvider);
 
@@ -513,7 +513,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 color: Colors.white),
                           ),
                           Text(
-                            "${userState.name}!",
+                            "${userState['name']}!",
                             style: GoogleFonts.roboto(
                                 fontSize: 24.w,
                                 fontWeight: FontWeight.w600,

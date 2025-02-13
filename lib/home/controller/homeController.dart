@@ -14,47 +14,49 @@ final homeMentorsProvider = FutureProvider<AllMentorsModel>((ref) async {
   return homeService.allMentors(MentorsModelBody(userType: "student"));
 });
 
-final saveUserProfileDataToLocalProvider = FutureProvider<String>((ref) async {
+final saveUserProfileDataToLocalProvider = FutureProvider<bool>((ref) async {
   final homeService = HomeService(await createDio());
   USerProfieModel profiledata = await homeService.userProfileGet();
-  Hive.isBoxOpen('userdata');
-  var box = Hive.box('userdata');
-  box.put('name', profiledata.data.fullName);
-  return profiledata.data.fullName;
+  final userNotifier = ref.read(userProvider.notifier);
+  userNotifier.updateUser('name', profiledata.data.fullName);
+  userNotifier.updateUser('token', profiledata.data.token);
+  userNotifier.updateUser('email', profiledata.data.email);
+  userNotifier.updateUser('pic', profiledata.data.profilePic);
+  return true;
 });
 
-final userDataProvider = StateNotifierProvider<UserNotifier, User>((ref) {
-  return UserNotifier();
-});
+class UserNotifier extends StateNotifier<Map<String, String>> {
+  UserNotifier() : super({}) {
+    _initUserData();
+  }
 
-@immutable
-class User {
-  final String name;
-  final String email;
-  final String token;
-  const User({required this.name, required this.email, required this.token});
+  // Initialize Hive Box
+  Future<void> _initUserData() async {
+    if (!Hive.isBoxOpen('userdata')) {
+      await Hive.openBox('userdata');
+    }
+    var box = Hive.box('userdata');
 
-  // Create a copyWith method to modify properties immutably
-  User copyWith({String? name, String? email, String? token}) {
-    return User(
-        name: name ?? this.name,
-        email: email ?? this.email,
-        token: token ?? this.token);
+    // Load initial values from Hive
+    state = {
+      'name': box.get('name', defaultValue: ''),
+      'token': box.get('token', defaultValue: ''),
+      'email': box.get('email', defaultValue: ''),
+      'pic': box.get('pic', defaultValue: ''),
+    };
+  }
+
+  // Set and update a field in Hive
+  void updateUser(String key, String value) {
+    var box = Hive.box('userdata');
+    box.put(key, value);
+
+    // Update state
+    state = {...state, key: value};
   }
 }
 
-class UserNotifier extends StateNotifier<User> {
-  UserNotifier()
-      : super(User(name: ' ', email: ' ', token: ' ')); // Initial state
-  void setName(String name) {
-    state.copyWith(name: name);
-  }
-
-  void setToken(String token) {
-    state.copyWith(token: token);
-  }
-
-  void setEmail(String email) {
-    state.copyWith(email: email);
-  }
-}
+// Riverpod provider
+final userProvider = StateNotifierProvider<UserNotifier, Map<String, String>>(
+  (ref) => UserNotifier(),
+);

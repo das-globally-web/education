@@ -184,7 +184,12 @@ class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => SkillListPage(1)));
+                            builder: (context) => SkillListPage(
+                                  id: 1,
+                                  name: snapshot.data[index].title,
+                                  subtitle: snapshot.data[index].subTitle,
+                                  description: snapshot.data[index].description,
+                                )));
                   },
                   child: Container(
                     decoration: BoxDecoration(

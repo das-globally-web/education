@@ -172,10 +172,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
                 // Call the login API
                 final response = await loginService.login(body);
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => HomePage()));
+
                 ref.watch(saveUserProfileDataToLocalProvider(
                     response.data.token.toString()));
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => HomePage()));
               } catch (_) {
                 Helpers.errorString("Login email & password is invalid");
               }

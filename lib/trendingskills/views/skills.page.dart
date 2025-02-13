@@ -11,7 +11,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SkillListPage extends ConsumerStatefulWidget {
   final int id;
-  const SkillListPage(this.id, {super.key});
+  final String name;
+  final String subtitle;
+  final String description;
+  const SkillListPage(
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.subtitle,
+      required this.description});
 
   @override
   ConsumerState<SkillListPage> createState() => _SkillListPageState();
@@ -131,14 +139,14 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Beginner",
+                            "${widget.subtitle}",
                             style: GoogleFonts.roboto(
                                 fontSize: 11.w,
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFF9088F1)),
                           ),
                           Text(
-                            "UX/UI",
+                            "${widget.name}",
                             style: GoogleFonts.roboto(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -148,16 +156,22 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
-                    child: Text(
-                      "Guiding aspiring entrepreneurs through business development strategies",
-                      style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.w,
-                          color: Colors.white),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+                        child: Text(
+                          "${widget.description}",
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.w,
+                              color: Colors.white),
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),

@@ -33,7 +33,7 @@ class Data {
     String fullName;
     String email;
     String phoneNumber;
-    String token;
+    String? token;
     String profilePic;
     String userType;
     List<String> serviceType;

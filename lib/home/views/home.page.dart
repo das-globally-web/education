@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
+import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
@@ -12,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -22,10 +26,22 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String? _username;
+  @override
+  void initState() {
+    super.initState();
+    fetchdata();
+  }
+
+  void fetchdata() async {
+    Map<dynamic, String> data = await StoreData.fetchData();
+    setState(() {
+      _username = data['name'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final userState = ref.watch(userProvider);
     final skilsProvider = ref.watch(skilssProvide);
     final wallteserviceProvider = ref.watch(walletProvider);
 
@@ -392,11 +408,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 onTap: () async {
-                  // Logout logic
-                  Fluttertoast.showToast(msg: "Logout ");
-                  Navigator.pop(context);
-                  var box = await Hive.openBox('userdata');
-                  await box.clear();
+                  log("hey");
+                  SharedPreferences preferences =
+                      await SharedPreferences.getInstance();
+                  Fluttertoast.showToast(msg: "Logout Succesfuliy");
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(builder: (context) => LoginPage()),
+                      (route) => false);
+
+                  await preferences.clear();
+                  var box = Hive.box('userdata');
+                  box.clear();
                 },
               ),
             ],
@@ -513,7 +536,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 color: Colors.white),
                           ),
                           Text(
-                            "${userState['name']}!",
+                            "$_username!",
                             style: GoogleFonts.roboto(
                                 fontSize: 24.w,
                                 fontWeight: FontWeight.w600,

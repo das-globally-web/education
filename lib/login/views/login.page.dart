@@ -1,8 +1,10 @@
 import 'package:educationapp/config/helpers.dart';
+import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/login/controller/login.controller.dart';
 import 'package:educationapp/login/controller/login.state.dart';
+import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -164,13 +167,17 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 email: emailController.text,
                 password: passwordController.text,
               );
-              await loginController.login(body);
+              try {
+                final loginService = LognService(await createDio());
 
-              if (loginState is LoginSuccess) {
-                ref.watch(saveUserProfileDataToLocalProvider(context));
-              }
-              if (loginState is LoginError) {
-                Helpers.errorString("Some thing went wrong!");
+                // Call the login API
+                final response = await loginService.login(body);
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => HomePage()));
+                ref.watch(saveUserProfileDataToLocalProvider(
+                    response.data.token.toString()));
+              } catch (_) {
+                Helpers.errorString("Login email & password is invalid");
               }
             },
             child: Container(

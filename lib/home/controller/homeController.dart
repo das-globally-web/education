@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
+import 'package:educationapp/CORE/api_controller.dart';
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/service/home.service.dart';
@@ -8,14 +10,20 @@ import 'package:educationapp/home/model/userprofile.model.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/login/views/login.page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final apiClientProvider = Provider<HomeService>((ref) {
+  final dio = createDio();
+  return HomeService(dio);
+});
+
 final homeMentorsProvider = FutureProvider<AllMentorsModel>((ref) async {
-  final homeService = HomeService(await createDio());
-  return homeService.allMentors(MentorsModelBody(userType: "student"));
+  final client = ref.watch(apiClientProvider);
+  return await compute(ApiController.fetchMentors, client);
 });
 
 final saveUserProfileDataToLocalProvider =
@@ -35,7 +43,7 @@ final saveUserProfileDataToLocalProvider =
 class StoreData {
   static void logic(Map<dynamic, String> data) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('name', data['name'].toString());
+    preferences.setStrin9g('name', data['name'].toString());
     preferences.setString('email', data['email'].toString());
     preferences.setString('pic', data['pic'].toString());
   }

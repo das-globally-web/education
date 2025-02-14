@@ -4,10 +4,15 @@ import 'package:dio/dio.dart';
 import 'package:educationapp/config/const.data.dart';
 import 'package:educationapp/localstorage/db.dart';
 import 'package:educationapp/localstorage/localdb.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-createDio() async {
+final dioProvider = FutureProvider<Dio>((ref) async {
+  return await createDio();
+});
+
+Future<Dio> createDio() async {
   final dio = Dio();
 
   dio.interceptors.add(PrettyDioLogger(

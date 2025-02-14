@@ -30,16 +30,14 @@ final saveUserProfileDataToLocalProvider =
   return true;
 });
 
-
 // Riverpod provider
-
 
 class StoreData {
   static void logic(Map<dynamic, String> data) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('name', data['name'].toString());
-    await preferences.setString('email', data['email'].toString());
-    await preferences.setString('pic', data['pic'].toString());
+    preferences.setString('name', data['name'].toString());
+    preferences.setString('email', data['email'].toString());
+    preferences.setString('pic', data['pic'].toString());
   }
 
   static void fsavedata() async {
@@ -61,6 +59,4 @@ class StoreData {
       "pic": preferences.getString('pic').toString(),
     };
   }
-
-
 }

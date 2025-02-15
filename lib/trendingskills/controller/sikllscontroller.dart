@@ -19,6 +19,7 @@ final skilssProvide = FutureProvider<SkillsModel>((ref) async {
 
 final newskillsProvider =
     FutureProvider.family<NewSkillsModel, String>((ref, id) async {
-  final newservice = SkillService(await createDio());
-  return newservice.getNewAllSkills(id);
+  final client = await ref.watch(apiSkillClientProvider.future);
+  return await compute(
+      ApiController.getNewAllSkills, {'service': client, 'id': id});
 });

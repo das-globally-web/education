@@ -131,33 +131,34 @@ class _OnlinePageState extends State<OnlinePage> {
             SizedBox(
               height: 30.h,
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.r),
-                  topRight: Radius.circular(30.r),
+            SingleChildScrollView(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.r),
+                    topRight: Radius.circular(30.r),
+                  ),
                 ),
-              ),
-              child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
+                    Expanded(
                       child: ListView.builder(
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
+                          final message = messages[index];
                           return ChatScreen(
-                            text: messages[index]['text'],
-                            isMe: messages[index]['isMe'],
-                            time: messages[index]['time'],
+                            text: message['text'],
+                            isMe: message['isMe'],
+                            time: message['time'],
                           );
                         },
                       ),
                     ),
                     MessageInput(),
+                    SizedBox(height: 50),
                   ],
                 ),
               ),
@@ -181,9 +182,13 @@ class _MessageInputState extends State<MessageInput> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          decoration: InputDecoration(
-            hintText: "Enter Message...",
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: "Enter Message...",
+              border: OutlineInputBorder(),
+            ),
           ),
         ),
       ],
@@ -207,44 +212,55 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Align(
       alignment: widget.isMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color:
-              widget.isMe ? Color.fromARGB(255, 144, 136, 241) : Colors.white,
-          borderRadius: widget.isMe
-              ? BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                )
-              : BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-          border: Border.all(width: 1),
-        ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 5, right: 5),
         child: Column(
           crossAxisAlignment:
-              widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              widget.isMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
           children: [
-            Text(
-              widget.text,
-              style: GoogleFonts.roboto(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: widget.isMe
-                      ? Colors.white
-                      : Color.fromARGB(255, 38, 50, 56)),
-            ),
-            SizedBox(height: 5),
-            Text(
-              widget.time,
-              style: TextStyle(
-                color: widget.isMe ? Colors.white70 : Colors.black54,
-                fontSize: 10,
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                color: widget.isMe
+                    ? Color.fromARGB(255, 144, 136, 241)
+                    : Colors.white,
+                borderRadius: widget.isMe
+                    ? BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      )
+                    : BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                border: Border.all(width: 1),
+              ),
+              child: Column(
+                crossAxisAlignment: widget.isMe
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.text,
+                    style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: widget.isMe
+                            ? Colors.white
+                            : Color.fromARGB(255, 38, 50, 56)),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    widget.time,
+                    style: TextStyle(
+                      color: widget.isMe ? Colors.white70 : Colors.black54,
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

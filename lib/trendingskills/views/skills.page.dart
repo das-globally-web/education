@@ -218,17 +218,12 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                             child: InkWell(
                               onTap: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Newskilllistpage(),
-                                    ));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Newskilllistpage(),
+                                  ),
+                                );
                               },
-                              // child: UserTabs(
-                              //   id: data.data[index].id,
-                              //   fullname: data.data[index].fullName,
-                              //   dec: data.data[index].description,
-                              //   servicetype: [],
-                              // ),
                               child: Container(
                                 height: 127.h,
                                 width: 400.w,

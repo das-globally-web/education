@@ -14,7 +14,6 @@ final apiSkillClientProvider = FutureProvider<SkillService>((ref) async {
 
 final skilssProvide = FutureProvider<SkillsModel>((ref) async {
   final client = await ref.watch(apiSkillClientProvider.future);
-
   return await compute(ApiController.getAllSkilss, client);
 });
 

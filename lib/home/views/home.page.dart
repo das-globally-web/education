@@ -170,149 +170,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ],
                 ),
               ),
-              // Container(
-              //   height: 240.h,
-              //   width: 280,
-              //   // width: 289.w,
-              //   decoration: BoxDecoration(
-              //       color: Color(0xFF9088F1),
-              //       borderRadius: BorderRadius.only(
-              //           topLeft: Radius.circular(30.r),
-              //           topRight: Radius.circular(30.r))),
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.end,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Container(
-              //         margin: EdgeInsets.only(left: 10),
-              //         width: 40,
-              //         height: 40,
-              //         decoration: BoxDecoration(
-              //           color: Colors.white,
-              //           shape: BoxShape.circle,
-              //         ),
-              //         child: Center(
-              //           child: Padding(
-              //             padding: const EdgeInsets.only(left: 8),
-              //             child: Icon(
-              //               Icons.arrow_back_ios,
-              //               size: 20,
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Row(
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         crossAxisAlignment: CrossAxisAlignment.center,
-              //         children: [
-              //           SizedBox(
-              //             width: 13.w,
-              //           ),
-              //           Container(
-              //             margin: EdgeInsets.only(top: 10),
-              //             height: 50.h,
-              //             width: 50.w,
-              //             decoration: BoxDecoration(
-              //                 color: Color.fromARGB(25, 255, 255, 255),
-              //                 borderRadius: BorderRadius.circular(500.r),
-              //                 image: DecorationImage(
-              //                     image: AssetImage("assets/Ellipse2.png"))),
-              //             // child: Column(
-              //             //   children: [
-              //             //     Text("Jackson Smith"),
-              //             //   ],
-              //             // ),
-              //           ),
-              //           Spacer(),
-              //           Container(
-              //             height: 38,
-              //             decoration: BoxDecoration(
-              //                 color: Color(0xFFDCF881),
-              //                 borderRadius: BorderRadius.circular(40.r)),
-              //             child: Center(
-              //               child: Padding(
-              //                 padding: EdgeInsets.only(left: 12.w, right: 12.w),
-              //                 child: Text(
-              //                   "Edit Profile",
-              //                   style: GoogleFonts.roboto(
-              //                       color: Color(0xFF1B1B1B), fontSize: 12.w),
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           SizedBox(
-              //             width: 13.w,
-              //           ),
-              //         ],
-              //       ),
-              //       // Expanded(
-              //       //   child: ListView(
-              //       //     children: [
-              //       //       ListTile(
-              //       //         leading: Icon(Icons.school),
-              //       //         title: Text("Find a Mentor"),
-              //       //         onTap: () {
-              //       //           Navigator.push(
-              //       //             context,
-              //       //             CupertinoPageRoute(
-              //       //               builder: (context) => FindMentorPage(),
-              //       //             ),
-              //       //           );
-              //       //         },
-              //       //       ),
-              //       //       ListTile(
-              //       //         leading: Icon(Icons.trending_up),
-              //       //         title: Text("Trending Skills"),
-              //       //         onTap: () {
-              //       //           Navigator.push(
-              //       //               context,
-              //       //               CupertinoPageRoute(
-              //       //                   builder: (context) =>
-              //       //                       TrendingSkilsPage()));
-              //       //         },
-              //       //       ),
-              //       //       ListTile(
-              //       //         leading: Icon(Icons.rate_review),
-              //       //         title: Text("Explore College Reviews"),
-              //       //         onTap: () {
-              //       //           Navigator.push(
-              //       //               context,
-              //       //               CupertinoPageRoute(
-              //       //                   builder: (context) => AllCollage()));
-              //       //         },
-              //       //       ),
-              //       //       ListTile(
-              //       //         leading: Icon(Icons.account_balance_wallet),
-              //       //         title: Text("Wallet"),
-              //       //         onTap: () {
-              //       //           Navigator.push(
-              //       //               context,
-              //       //               CupertinoPageRoute(
-              //       //                   builder: (context) => WalletPage()));
-              //       //         },
-              //       //       ),
-              //       //       ListTile(
-              //       //         leading: Icon(Icons.settings),
-              //       //         title: Text("Settings"),
-              //       //         onTap: () {},
-              //       //       ),
-              //       //     ],
-              //       //   ),
-              //       // ),
-
-              //       // Divider(),
-              //       // ListTile(
-              //       //   leading: Icon(Icons.logout),
-              //       //   title: Text("Logout"),
-              //       //   onTap: () async {
-              //       //     // Logout logic
-              //       //     var box = await Hive.openBox('userdata');
-              //       //     await box.clear();
-              //       //   },
-              //       // ),
-              //     ],
-              //   ),
-              // ),
               SizedBox(height: 10),
               ListTile(
                 onTap: () {
@@ -1178,37 +1035,38 @@ class _UserTabsState extends State<UserTabs> {
                 height: 30.h,
                 width: 280.w,
                 child: ListView.builder(
-                    itemCount: widget.servicetype.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(left: 0.w, right: 8.w),
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 26.h,
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(225, 222, 221, 236),
-                                borderRadius: BorderRadius.circular(50.r)),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                              child: Center(
-                                child: Text(
-                                  "${widget.servicetype[index].toString()}",
-                                  style: GoogleFonts.roboto(
-                                      fontSize: 12.w,
-                                      fontWeight: FontWeight.w400,
-                                      letterSpacing: -0.30,
-                                      color: Colors.black),
-                                ),
+                  itemCount: widget.servicetype.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(left: 0.w, right: 8.w),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          height: 26.h,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(225, 222, 221, 236),
+                              borderRadius: BorderRadius.circular(50.r)),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                            child: Center(
+                              child: Text(
+                                "${widget.servicetype[index].toString()}",
+                                style: GoogleFonts.roboto(
+                                    fontSize: 12.w,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: -0.30,
+                                    color: Colors.black),
                               ),
                             ),
                           ),
                         ),
-                      );
-                    }),
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),

@@ -933,8 +933,12 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
             error: (err, stack) => Center(
                   child: Text(err.toString()),
                 ),
-            loading: () => Center(
-                  child: CircularProgressIndicator(),
+            loading: () => SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 3,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 )),
 
         SizedBox(

@@ -145,6 +145,7 @@ class _AllCollageState extends State<AllCollage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
+              // height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(30.r)),
@@ -183,7 +184,8 @@ class _AllCollageBodyState extends ConsumerState<AllCollageBody> {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                                builder: (context) => PerticulerCollagePage(snapshot.data[index].id.toString())));
+                                builder: (context) => PerticulerCollagePage(
+                                    snapshot.data[index].id.toString())));
                       },
                       child: UniversityTab(
                         name: snapshot.data[index].collageName,
@@ -197,8 +199,11 @@ class _AllCollageBodyState extends ConsumerState<AllCollageBody> {
         error: (err, stack) {
           return Text(err.toString());
         },
-        loading: () => Center(
-              child: CircularProgressIndicator(),
+        loading: () => SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             ));
   }
 }

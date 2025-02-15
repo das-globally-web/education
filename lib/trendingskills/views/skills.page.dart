@@ -181,6 +181,7 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(

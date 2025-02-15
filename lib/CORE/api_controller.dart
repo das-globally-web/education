@@ -9,6 +9,8 @@ import 'package:educationapp/trendingskills/model/new.skills.model.dart';
 import 'package:educationapp/trendingskills/model/skills.model.dart';
 import 'package:educationapp/trendingskills/views/model.review/addreview.model.dart';
 import 'package:educationapp/trendingskills/views/service.review/addreview.service.dart';
+import 'package:educationapp/wallet/model.wallet/wallet.model.dart';
+import 'package:educationapp/wallet/service.wallet/wallet.service.dart';
 
 class ApiController {
   static Future<AllMentorsModel> fetchMentors(HomeService service) async {
@@ -42,5 +44,9 @@ class ApiController {
     SkillService service = params['service'];
     String id = params['id'];
     return await service.getNewAllSkills(id);
+  }
+
+  static Future<WalletModel> getAllWallet(WalletService service) async {
+    return await service.getAlltransaction();
   }
 }

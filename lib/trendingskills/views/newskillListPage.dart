@@ -518,8 +518,13 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
       error: (error, stackTrace) => Center(
         child: Text("Error : $error"),
       ),
-      loading: () => Center(
-        child: CircularProgressIndicator(),
+      loading: () => Container(
+        color: Color(0xFF9088F1),
+        child: Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }

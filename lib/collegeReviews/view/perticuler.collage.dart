@@ -88,6 +88,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
                       color: Colors.white,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,

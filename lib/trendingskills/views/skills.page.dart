@@ -223,11 +223,164 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                                       builder: (context) => Newskilllistpage(),
                                     ));
                               },
-                              child: UserTabs(
-                                id: data.data[index].id,
-                                fullname: data.data[index].fullName,
-                                dec: data.data[index].description,
-                                servicetype: [],
+                              // child: UserTabs(
+                              //   id: data.data[index].id,
+                              //   fullname: data.data[index].fullName,
+                              //   dec: data.data[index].description,
+                              //   servicetype: [],
+                              // ),
+                              child: Container(
+                                height: 127.h,
+                                width: 400.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    border: Border.all(
+                                        color: Color.fromARGB(25, 0, 0, 0),
+                                        width: 1)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8.0.w),
+                                      child: Container(
+                                        height: 111.h,
+                                        width: 112.w,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(12.r),
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    "assets/Rectangle 8.jpg"),
+                                                fit: BoxFit.fill)),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        Text(
+                                          data.data[index].fullName,
+                                          style: GoogleFonts.roboto(
+                                              color: Colors.black,
+                                              fontSize: 16.w,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        SizedBox(
+                                          height: 5.h,
+                                        ),
+                                        Container(
+                                          width: 246.w,
+                                          child: Text(
+                                            data.data[index].description,
+                                            style: GoogleFonts.roboto(
+                                                color: Colors.black,
+                                                fontSize: 12.w,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5.h,
+                                        ),
+                                        Container(
+                                          height: 0.5.h,
+                                          width: 246.w,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade400,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        SizedBox(
+                                          height: 30.h,
+                                          width: 280.w,
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 0.w, right: 8.w),
+                                                child: Container(
+                                                  height: 26.h,
+                                                  decoration: BoxDecoration(
+                                                      color: Color.fromARGB(
+                                                          225, 222, 221, 236),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50.r)),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 10.w,
+                                                        right: 10.w),
+                                                    child: Center(
+                                                      child: Text(
+                                                        data.data[index].title,
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                fontSize: 12.w,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                letterSpacing:
+                                                                    -0.30,
+                                                                color: Colors
+                                                                    .black),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 0.w, right: 8.w),
+                                                child: Container(
+                                                  height: 26.h,
+                                                  decoration: BoxDecoration(
+                                                      color: Color.fromARGB(
+                                                          225, 222, 221, 236),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50.r)),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 10.w,
+                                                        right: 10.w),
+                                                    child: Center(
+                                                      child: Text(
+                                                        data.data[index]
+                                                            .subTitle,
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                fontSize: 12.w,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                letterSpacing:
+                                                                    -0.30,
+                                                                color: Colors
+                                                                    .black),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -242,27 +395,6 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                         child: CircularProgressIndicator(),
                       );
                     }),
-
-                    // ListView.builder(
-                    //     itemCount: 5,
-                    //     shrinkWrap: true,
-                    //     physics: NeverScrollableScrollPhysics(),
-                    //     itemBuilder: (context, index) {
-                    //       return Padding(
-                    //         padding: const EdgeInsets.all(8.0),
-                    //         child: GestureDetector(
-                    //           onTap: () {
-                    //             Navigator.push(
-                    //                 context,
-                    //                 CupertinoPageRoute(
-                    //                     builder: (context) =>
-                    //                         PerticulerTrendingPage()));
-                    //           },
-                    //           // child: UserTabs()
-                    //           child: SizedBox(),
-                    //         ),
-                    //       );
-                    //     }),
                   ],
                 ),
               ),

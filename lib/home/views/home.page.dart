@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
@@ -324,24 +323,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                   SizedBox(
                     width: 45.w,
                   ),
-                  // Container(
-                  //   child: Image.asset(
-                  //     "assets/logo png.png",
-                  //     width: 100,
-                  //   ),
+                  Container(
+                    child: Image.asset(
+                      "assets/edulogo.png",
+                      width: 100,
+                    ),
+                  ),
+                  // Text(
+                  //   "Logo",
+                  //   style: GoogleFonts.roboto(
+                  //       fontSize: 18.w,
+                  //       color: Color.fromARGB(255, 144, 136, 241)),
                   // ),
-                  Text(
-                    "Logo",
-                    style: GoogleFonts.roboto(
-                        fontSize: 18.w,
-                        color: Color.fromARGB(255, 144, 136, 241)),
-                  ),
-                  Text(
-                    "Name",
-                    style: GoogleFonts.roboto(
-                        fontSize: 18.w,
-                        color: Color.fromARGB(255, 220, 248, 129)),
-                  ),
+                  // Text(
+                  //   "Name",
+                  //   style: GoogleFonts.roboto(
+                  //       fontSize: 18.w,
+                  //       color: Color.fromARGB(255, 220, 248, 129)),
+                  // ),
                   Spacer(),
                   IconButton(
                       onPressed: () {},

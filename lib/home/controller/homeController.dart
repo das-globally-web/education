@@ -3,12 +3,9 @@ import 'package:educationapp/CORE/api_controller.dart';
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/service/home.service.dart';
-
 import 'package:educationapp/home/model/userprofile.model.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,7 +27,6 @@ final saveUserProfileDataToLocalProvider =
   var box = Hive.box('userdata');
   box.put('token', token);
   StoreData.fsavedata();
-
   return true;
 });
 

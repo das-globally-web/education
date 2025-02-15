@@ -1,16 +1,24 @@
+import 'package:educationapp/CORE/api_controller.dart';
 import 'package:educationapp/collegeReviews/controller/service/collage.service.dart';
 import 'package:educationapp/collegeReviews/model/perticuler.collage.model.dart';
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final apiCollageClientProvider = FutureProvider<CollageService>((ref) async {
+  final dio = await ref.watch(dioProvider.future);
+  return CollageService(dio);
+});
+
 final callagesProviders = FutureProvider<AllUniModel>((ref) async {
-  final service = CollageService(await createDio());
-  return service.getAllCollages();
+  final client = await ref.watch(apiCollageClientProvider.future);
+  return await compute(ApiController.getallCollage, client);
 });
 
 final perticulerCollageProvider =
     FutureProvider.family<PerticulerCollageModel, String>((ref, id) async {
-  final service = CollageService(await createDio());
-  return service.getPErticulerCollage(id);
+  final client = await ref.watch(apiCollageClientProvider.future);
+  return await compute(
+      ApiController.getPerticulerCollage, {'service': client, 'id': id});
 });

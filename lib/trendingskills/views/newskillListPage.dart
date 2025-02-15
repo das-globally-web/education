@@ -288,7 +288,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                   Container(
                                     margin: EdgeInsets.only(top: 7),
                                     child: Text(
-                                      "With over 5 years of experience, I've guided 300+ students to land jobs in top companies like Google, TCS, and Deloitte. My sessions focus on mock interviews, resume building, and effective communication",
+                                      data.data.description,
                                       style: GoogleFonts.roboto(
                                         fontSize: 13,
                                         color:

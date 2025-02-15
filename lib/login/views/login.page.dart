@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:educationapp/config/helpers.dart';
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/home/controller/homeController.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -95,7 +98,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
-
+  bool login = false;
   @override
   Widget build(BuildContext context) {
     final loginState = ref.watch(loginControllerProvider);
@@ -162,12 +165,17 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           ),
           GestureDetector(
             onTap: () async {
+              setState(() {
+                login = true;
+              });
+              log("testing");
               // ignore: unused_result
-              final body = LoginBodyModel(
-                email: emailController.text,
-                password: passwordController.text,
-              );
+
               try {
+                final body = LoginBodyModel(
+                  email: emailController.text,
+                  password: passwordController.text,
+                );
                 final loginService = LognService(await createDio());
 
                 // Call the login API
@@ -178,7 +186,12 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => HomePage()));
               } catch (_) {
-                Helpers.errorString("Login email & password is invalid");
+                setState(() {
+                  login = false;
+                  // Helpers.errorString("Login email & password is invalid");
+                  Fluttertoast.showToast(
+                      msg: "Login email & password is invalid");
+                });
               }
             },
             child: Container(
@@ -188,14 +201,16 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   borderRadius: BorderRadius.circular(40.r),
                   color: Color(0xFFDCF881)),
               child: Center(
-                child: Text(
-                  "Login",
-                  style: GoogleFonts.roboto(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -0.4,
-                      fontSize: 14.4.w),
-                ),
+                child: login == false
+                    ? Text(
+                        "Login",
+                        style: GoogleFonts.roboto(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: -0.4,
+                            fontSize: 14.4.w),
+                      )
+                    : CircularProgressIndicator(),
               ),
             ),
           ),

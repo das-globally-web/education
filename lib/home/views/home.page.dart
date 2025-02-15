@@ -46,7 +46,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final skilsProvider = ref.watch(skilssProvide);
     final wallteserviceProvider = ref.watch(walletProvider);
-
+    var box = Hive.box('userdata');
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xFF1B1B1B),
@@ -395,7 +395,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 color: Colors.white),
                           ),
                           Text(
-                            "$_username!",
+                            "${box.get("name")}!",
                             style: GoogleFonts.roboto(
                                 fontSize: 24.w,
                                 fontWeight: FontWeight.w600,

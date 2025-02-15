@@ -48,6 +48,11 @@ class StoreData {
     log("Saveing data to local");
     final homeService = HomeService(await createDio());
     USerProfieModel profiledata = await homeService.userProfileGet();
+    var box = Hive.box('userdata');
+    box.put(
+      "name",
+      profiledata.data.fullName,
+    );
     logic({
       "name": profiledata.data.fullName,
       "email": profiledata.data.email,

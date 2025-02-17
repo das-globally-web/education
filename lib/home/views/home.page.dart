@@ -233,7 +233,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   style: GoogleFonts.roboto(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 27, 27, 27),
+                    color: Color.fromARGB(255, 56, 18, 18),
                   ),
                 ),
               ),

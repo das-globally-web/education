@@ -130,13 +130,22 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   letterSpacing: -0.50,
                 ),
               ),
-              Text(
-                "Sign up",
-                style: GoogleFonts.roboto(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 15.w,
-                    letterSpacing: -0.50,
-                    color: Color(0xFF9088F1)),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegisterPage(),
+                      ));
+                },
+                child: Text(
+                  "Sign up",
+                  style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15.w,
+                      letterSpacing: -0.50,
+                      color: Color(0xFF9088F1)),
+                ),
               ),
             ],
           ),

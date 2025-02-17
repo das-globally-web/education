@@ -465,7 +465,8 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                         height: 8.h,
                                       ),
                                       Text(
-                                        "Rahul helped me prepare for my TCS interview, and I got the job! His tips are spot-on!",
+                                        // "Rahul helped me prepare for my TCS interview, and I got the job! His tips are spot-on!",
+                                        data.data.description,
                                         style: GoogleFonts.roboto(
                                             color: Color.fromARGB(
                                                 255, 102, 102, 102),
@@ -476,7 +477,8 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                         height: 8.h,
                                       ),
                                       Text(
-                                        "- Vinod Shyam ",
+                                        // "- Vinod Shyam ",
+                                        data.data.fullName,
                                         style: GoogleFonts.roboto(
                                             color: Color.fromARGB(255, 0, 0, 0),
                                             fontSize: 13.w,

@@ -78,10 +78,31 @@ class _FindMentorPageState extends State<FindMentorPage> {
                     color: Color.fromARGB(25, 255, 255, 255),
                     borderRadius: BorderRadius.circular(500.r),
                   ),
-                  child: Center(
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.white,
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Column(
+                            children: [
+                              Container(
+                                width: 200,
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow,
+                                ),
+                                child: Mydropdown(),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Center(
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -157,6 +178,44 @@ class _FindMentorPageState extends State<FindMentorPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Mydropdown extends StatefulWidget {
+  const Mydropdown({super.key});
+
+  @override
+  State<Mydropdown> createState() => _MydropdownState();
+}
+
+class _MydropdownState extends State<Mydropdown> {
+  String? selectedValue;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: DropdownButtonFormField(
+        isExpanded: true,
+        value: selectedValue,
+        dropdownColor: Colors.white,
+        icon: Icon(Icons.search),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+        ),
+        items: [
+          DropdownMenuItem(
+            value: "Hello",
+            child: Text("Hello"),
+          ),
+          DropdownMenuItem(
+            value: "World",
+            child: Text("World"),
+          ),
+        ],
+        onChanged: (value) {
+          selectedValue = value;
+        },
       ),
     );
   }

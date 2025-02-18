@@ -83,8 +83,8 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                     : Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Container(
-                          width: 200,
-                          height: 40,
+                          width: 200.w,
+                          height: 40.w,
                           child: TextField(
                             onChanged: (value) {
                               setState(() {
@@ -96,7 +96,9 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  // searchquery = searchController.text;
+                                 setState(() {
+                                    searchquery = searchController.text;
+                                 });
                                 },
                                 icon: Icon(Icons.search),
                               ),
@@ -219,35 +221,38 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                   borderRadius: BorderRadius.circular(30.r)),
               child: Column(
                 children: [
-                  FindMEntorBoduy(),
-                  Expanded(
-                    child: searchmentorprovider.when(
-                      data: (mentors) => mentors.data.isNotEmpty
-                          ? ListView.builder(
-                              itemCount: mentors.data.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: UserTabs(
-                                    id: mentors.data[index].id,
-                                    fullname: mentors.data[index].fullName,
-                                    dec: mentors.data[index].description,
-                                    servicetype: [],
-                                  ),
-                                );
-                              },
-                            )
-                          : Center(
-                              child: Text(
-                                  "No mentors found")), // अगर कोई डेटा नहीं मिला
-                      error: (error, stackTrace) => Center(
-                        child: Text("Error: $error"),
+                  if (!isSearching) ...[
+                    FindMEntorBoduy(),
+                  ] else ...[
+                    Expanded(
+                      child: searchmentorprovider.when(
+                        data: (mentors) => mentors.data.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: mentors.data.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: UserTabs(
+                                      id: mentors.data[index].id,
+                                      fullname: mentors.data[index].fullName,
+                                      dec: mentors.data[index].description,
+                                      servicetype: [],
+                                    ),
+                                  );
+                                },
+                              )
+                            : Center(
+                                child: Text(
+                                    "No mentors found")), // अगर कोई डेटा नहीं मिला
+                        error: (error, stackTrace) => Center(
+                          child: Text("Error: $error"),
+                        ),
+                        loading: () => Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
-                      loading: () => Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  ),
+                    )
+                  ],
                 ],
               ),
             ),

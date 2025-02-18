@@ -24,7 +24,7 @@ class _SearchCollageService implements SearchCollageService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SearchCollageModel> getAllSearchCollage(String collage) async {
+  Future<SearchCollageModel> getAllCollage(String mdsu) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -36,7 +36,7 @@ class _SearchCollageService implements SearchCollageService {
     )
         .compose(
           _dio.options,
-          '/api/college-search/"collage',
+          '/api/college-search/${mdsu}',
           queryParameters: queryParameters,
           data: _data,
         )

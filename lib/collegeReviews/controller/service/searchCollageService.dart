@@ -9,7 +9,6 @@ abstract class SearchCollageService {
   factory SearchCollageService(Dio dio, {String baseUrl}) =
       _SearchCollageService;
 
-  @GET('/api/college-search/"collage')
-  Future<SearchCollageModel> getAllSearchCollage(
-      @Path('collage') String collage);
+  @GET('/api/college-search/{mdsu}')
+  Future<SearchCollageModel> getAllCollage(@Path("mdsu") String mdsu);
 }

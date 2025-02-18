@@ -230,15 +230,22 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          // CupertinoPageRoute(
-                                          //     builder: (context) => SkillListPage(
-                                          //           id: 1,
-                                          //           name: snapshot.data[index].title,
-                                          //           subtitle: snapshot.data[index].subTitle,
-                                          //           description: snapshot.data[index].description,
-                                          //         )));
+                                          Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                  builder: (context) =>
+                                                      SkillListPage(
+                                                        id: 1,
+                                                        name: trandingSkill
+                                                            .data[index].title,
+                                                        subtitle: trandingSkill
+                                                            .data[index]
+                                                            .subTitle,
+                                                        description:
+                                                            trandingSkill
+                                                                .data[index]
+                                                                .description,
+                                                      )));
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(

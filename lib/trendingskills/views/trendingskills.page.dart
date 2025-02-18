@@ -16,6 +16,9 @@ class TrendingSkilsPage extends ConsumerStatefulWidget {
 }
 
 class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
+  bool isSearchgin = false;
+  final _searchController = TextEditingController();
+  String searchskill = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,30 +61,83 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                   ),
                 ),
                 Spacer(),
-                Text(
-                  "Trending ",
-                  style: GoogleFonts.roboto(
-                      fontSize: 24.w,
-                      color: Color.fromARGB(255, 144, 136, 241)),
-                ),
-                Text(
-                  "Skills",
-                  style: GoogleFonts.roboto(
-                      fontSize: 24.w,
-                      color: Color.fromARGB(255, 220, 248, 129)),
-                ),
+                isSearchgin
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Container(
+                          width: 200,
+                          height: 40,
+                          child: TextField(
+                            textAlign: TextAlign.start,
+                            controller: _searchController,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  searchskill = _searchController.text;
+                                },
+                                icon: Icon(Icons.search),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Search",
+                              hintStyle: TextStyle(
+                                color: Colors.black,
+                                height: 1.8,
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Row(
+                        children: [
+                          Text(
+                            "Trending ",
+                            style: GoogleFonts.roboto(
+                                fontSize: 24.w,
+                                color: Color.fromARGB(255, 144, 136, 241)),
+                          ),
+                          Text(
+                            "Skills",
+                            style: GoogleFonts.roboto(
+                                fontSize: 24.w,
+                                color: Color.fromARGB(255, 220, 248, 129)),
+                          ),
+                        ],
+                      ),
+                // Text(
+                //   "Skills",
+                //   style: GoogleFonts.roboto(
+                //       fontSize: 24.w,
+                //       color: Color.fromARGB(255, 220, 248, 129)),
+                // ),
                 Spacer(),
-                Container(
-                  height: 44.h,
-                  width: 44.w,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(25, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(500.r),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSearchgin = !isSearchgin;
+                      if (!isSearchgin) {
+                        _searchController.clear();
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 44.h,
+                    width: 44.w,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(25, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(500.r),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        isSearchgin ? Icons.close : Icons.search,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

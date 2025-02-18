@@ -2,6 +2,7 @@ import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/controller/service/home.service.dart';
+import 'package:educationapp/home/controller/service/searchMentorController.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/userprofile.model.dart';
 import 'package:educationapp/home/views/home.page.dart';
@@ -11,16 +12,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 
-class FindMentorPage extends StatefulWidget {
+class FindMentorPage extends ConsumerStatefulWidget {
   const FindMentorPage({super.key});
 
   @override
-  State<FindMentorPage> createState() => _FindMentorPageState();
+  ConsumerState<FindMentorPage> createState() => _FindMentorPageState();
 }
 
-class _FindMentorPageState extends State<FindMentorPage> {
+class _FindMentorPageState extends ConsumerState<FindMentorPage> {
+  final searchController = TextEditingController();
+  String searchquery = "";
+  bool isSearching = false;
   @override
   Widget build(BuildContext context) {
+    final searchmentorprovider = ref.watch(searchMentorProvider(searchquery));
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: SingleChildScrollView(
@@ -58,49 +63,87 @@ class _FindMentorPageState extends State<FindMentorPage> {
                   ),
                 ),
                 Spacer(),
-                Text(
-                  "Find a ",
-                  style: GoogleFonts.roboto(
-                      fontSize: 24.w,
-                      color: Color.fromARGB(255, 144, 136, 241)),
-                ),
-                Text(
-                  "Mentor",
-                  style: GoogleFonts.roboto(
-                      fontSize: 24.w,
-                      color: Color.fromARGB(255, 220, 248, 129)),
-                ),
-                Spacer(),
-                Container(
-                  height: 44.h,
-                  width: 44.w,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(25, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(500.r),
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Column(
-                            children: [
-                              Container(
-                                width: 200,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow,
-                                ),
-                                child: Mydropdown(),
+                !isSearching
+                    ? Row(
+                        children: [
+                          Text(
+                            "Find a ",
+                            style: GoogleFonts.roboto(
+                                fontSize: 24.w,
+                                color: Color.fromARGB(255, 144, 136, 241)),
+                          ),
+                          Text(
+                            "Mentor",
+                            style: GoogleFonts.roboto(
+                                fontSize: 24.w,
+                                color: Color.fromARGB(255, 220, 248, 129)),
+                          ),
+                        ],
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Container(
+                          width: 200,
+                          height: 40,
+                          child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                searchquery = value;
+                              });
+                            },
+                            textAlign: TextAlign.start,
+                            controller: searchController,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // searchquery = searchController.text;
+                                },
+                                icon: Icon(Icons.search),
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Search",
+                              hintStyle: TextStyle(
+                                color: Colors.black,
+                                height: 1.8,
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                // Text(
+                //   "Mentor",
+                //   style: GoogleFonts.roboto(
+                //       fontSize: 24.w,
+                //       color: Color.fromARGB(255, 220, 248, 129)),
+                // ),
+                Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSearching = !isSearching;
+                      if (!isSearching) {
+                        searchController.clear();
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 44.h,
+                    width: 44.w,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(25, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(500.r),
+                    ),
                     child: Center(
                       child: Icon(
-                        Icons.search,
+                        isSearching ? Icons.close : Icons.search,
                         color: Colors.white,
                       ),
                     ),
@@ -174,48 +217,42 @@ class _FindMentorPageState extends State<FindMentorPage> {
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(30.r)),
-              child: FindMEntorBoduy(),
+              child: Column(
+                children: [
+                  FindMEntorBoduy(),
+                  Expanded(
+                    child: searchmentorprovider.when(
+                      data: (mentors) => mentors.data.isNotEmpty
+                          ? ListView.builder(
+                              itemCount: mentors.data.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: UserTabs(
+                                    id: mentors.data[index].id,
+                                    fullname: mentors.data[index].fullName,
+                                    dec: mentors.data[index].description,
+                                    servicetype: [],
+                                  ),
+                                );
+                              },
+                            )
+                          : Center(
+                              child: Text(
+                                  "No mentors found")), // अगर कोई डेटा नहीं मिला
+                      error: (error, stackTrace) => Center(
+                        child: Text("Error: $error"),
+                      ),
+                      loading: () => Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class Mydropdown extends StatefulWidget {
-  const Mydropdown({super.key});
-
-  @override
-  State<Mydropdown> createState() => _MydropdownState();
-}
-
-class _MydropdownState extends State<Mydropdown> {
-  String? selectedValue;
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: DropdownButtonFormField(
-        isExpanded: true,
-        value: selectedValue,
-        dropdownColor: Colors.white,
-        icon: Icon(Icons.search),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-        ),
-        items: [
-          DropdownMenuItem(
-            value: "Hello",
-            child: Text("Hello"),
-          ),
-          DropdownMenuItem(
-            value: "World",
-            child: Text("World"),
-          ),
-        ],
-        onChanged: (value) {
-          selectedValue = value;
-        },
       ),
     );
   }
@@ -236,19 +273,21 @@ class _FindMEntorBoduyState extends ConsumerState<FindMEntorBoduy> {
     final mentorProvider = ref.watch(homeMentorsProvider);
     return mentorProvider.when(
       data: (snapshot) {
-        return ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: UserTabs(
-                id: snapshot.data[index].id,
-                fullname: snapshot.data[index].fullName.toString(),
-                dec: snapshot.data[index].description.toString(),
-                servicetype: snapshot.data[index].serviceType,
-              ),
-            );
-          },
+        return Expanded(
+          child: ListView.builder(
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: UserTabs(
+                  id: snapshot.data[index].id,
+                  fullname: snapshot.data[index].fullName.toString(),
+                  dec: snapshot.data[index].description.toString(),
+                  servicetype: snapshot.data[index].serviceType,
+                ),
+              );
+            },
+          ),
         );
       },
       error: (err, stack) => Center(

@@ -24,20 +24,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // File? _image;
-
-  // final ImagePicker _picker = ImagePicker();
-
-  // Future<void> _pickImage(ImageSource source) async {
-  //   final XFile? pickedFile = await _picker.pickImage(source: source);
-
-  //   if (pickedFile != null) {
-  //     setState(() {
-  //       _image = File(pickedFile.path);
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

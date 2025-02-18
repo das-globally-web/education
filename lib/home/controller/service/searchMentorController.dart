@@ -14,7 +14,6 @@ final searchMentorsClientProvider =
 final searchMentorProvider =
     FutureProvider.family<SearchMentorModel, String>((ref, query) async {
   final clinet = await ref.watch(searchMentorsClientProvider.future);
-
   return await compute(
       ApiController.searchMentors, {"service": clinet, "query": query});
 });

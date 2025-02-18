@@ -96,9 +96,9 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                 setState(() {
+                                  setState(() {
                                     searchquery = searchController.text;
-                                 });
+                                  });
                                 },
                                 icon: Icon(Icons.search),
                               ),
@@ -251,8 +251,8 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
-                    )
-                  ],
+                    ),
+                  ]
                 ],
               ),
             ),
@@ -339,27 +339,28 @@ class _MyOptionState extends State<MyOption> {
           child: Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w),
             child: Center(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  widget.title,
-                  style: GoogleFonts.roboto(
-                      fontSize: 12.w,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: -0.30,
-                      color: Colors.white),
-                ),
-                SizedBox(
-                  width: 5.w,
-                ),
-                Icon(
-                  widget.currentIndex,
-                  color: Colors.white,
-                )
-              ],
-            )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.title,
+                    style: GoogleFonts.roboto(
+                        fontSize: 12.w,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: -0.30,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Icon(
+                    widget.currentIndex,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
+import 'package:educationapp/collegeReviews/controller/service/searchCollageController.dart';
 import 'package:educationapp/collegeReviews/view/perticuler.collage.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,16 +8,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AllCollage extends StatefulWidget {
+class AllCollage extends ConsumerStatefulWidget {
   const AllCollage({super.key});
 
   @override
-  State<AllCollage> createState() => _AllCollageState();
+  ConsumerState<AllCollage> createState() => _AllCollageState();
 }
 
-class _AllCollageState extends State<AllCollage> {
+class _AllCollageState extends ConsumerState<AllCollage> {
+  final searchCollageController = TextEditingController();
+  String searchCollage = "";
+  bool isSearching = false;
   @override
   Widget build(BuildContext context) {
+    final searchcollageprovider =
+        ref.watch(searchCollageProvider(searchCollage));
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: SingleChildScrollView(
@@ -54,30 +60,88 @@ class _AllCollageState extends State<AllCollage> {
                   ),
                 ),
                 Spacer(),
-                Text(
-                  "Explore ",
-                  style: GoogleFonts.roboto(
-                      fontSize: 18.w,
-                      color: Color.fromARGB(255, 144, 136, 241)),
-                ),
-                Text(
-                  "College Review",
-                  style: GoogleFonts.roboto(
-                      fontSize: 18.w,
-                      color: Color.fromARGB(255, 220, 248, 129)),
-                ),
+                !isSearching
+                    ? Row(
+                        children: [
+                          Text(
+                            "Explore ",
+                            style: GoogleFonts.roboto(
+                                fontSize: 18.w,
+                                color: Color.fromARGB(255, 144, 136, 241)),
+                          ),
+                          Text(
+                            "College Review",
+                            style: GoogleFonts.roboto(
+                                fontSize: 18.w,
+                                color: Color.fromARGB(255, 220, 248, 129)),
+                          ),
+                        ],
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Container(
+                          width: 200,
+                          height: 40,
+                          child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                searchCollage = value;
+                              });
+                            },
+                            textAlign: TextAlign.start,
+                            controller: searchCollageController,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // searchquery = searchController.text;
+                                },
+                                icon: Icon(Icons.search),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Search",
+                              hintStyle: TextStyle(
+                                color: Colors.black,
+                                height: 1.8,
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                // Text(
+                //   "College Review",
+                //   style: GoogleFonts.roboto(
+                //       fontSize: 18.w,
+                //       color: Color.fromARGB(255, 220, 248, 129)),
+                // ),
                 Spacer(),
-                Container(
-                  height: 44.h,
-                  width: 44.w,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(25, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(500.r),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSearching = !isSearching;
+                      if (!isSearching) {
+                        searchCollageController.clear();
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 44.h,
+                    width: 44.w,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(25, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(500.r),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        isSearching ? Icons.close : Icons.search,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -145,11 +209,59 @@ class _AllCollageState extends State<AllCollage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              // height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(30.r)),
-              child: AllCollageBody(),
+              child: Column(
+                children: [
+                  if (!isSearching) ...[
+                    AllCollageBody(),
+                  ] else ...[
+                    Expanded(
+                      child: searchcollageprovider.when(
+                        data: (collage) => collage.data.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: collage.data.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                  builder: (context) =>
+                                                      PerticulerCollagePage(
+                                                          collage.data[index].id
+                                                              .toString())));
+                                        },
+                                        child: UniversityTab(
+                                          name: collage.data[index].collageName
+                                              .toString(),
+                                          city: collage.data[index].city
+                                              .toString(),
+                                          description: collage
+                                              .data[index].collageDescription
+                                              .toString(),
+                                          rating:
+                                              collage.data[index].id.toString(),
+                                        )),
+                                  );
+                                },
+                              )
+                            : Center(child: Text("No mentors found")),
+                        error: (error, stackTrace) => Center(
+                          child: Text("Error:$error"),
+                        ),
+                        loading: () => Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             ),
           ],
         ),

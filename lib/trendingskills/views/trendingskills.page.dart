@@ -1,4 +1,5 @@
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
+import 'package:educationapp/trendingskills/controller/service/searchSkillController.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/perticulertrending.page.dart';
 import 'package:educationapp/trendingskills/views/skills.page.dart';
@@ -16,11 +17,12 @@ class TrendingSkilsPage extends ConsumerStatefulWidget {
 }
 
 class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
-  bool isSearchgin = false;
+  bool isSearching = false;
   final _searchController = TextEditingController();
   String searchskill = '';
   @override
   Widget build(BuildContext context) {
+    final searchskillprovider = ref.watch(searchSkillProvider(searchskill));
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: SingleChildScrollView(
@@ -61,19 +63,40 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                   ),
                 ),
                 Spacer(),
-                isSearchgin
-                    ? Padding(
+                !isSearching
+                    ? Row(
+                        children: [
+                          Text(
+                            "Trending ",
+                            style: GoogleFonts.roboto(
+                                fontSize: 24.w,
+                                color: Color.fromARGB(255, 144, 136, 241)),
+                          ),
+                          Text(
+                            "Skills",
+                            style: GoogleFonts.roboto(
+                                fontSize: 24.w,
+                                color: Color.fromARGB(255, 220, 248, 129)),
+                          ),
+                        ],
+                      )
+                    : Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Container(
                           width: 200,
                           height: 40,
                           child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                searchskill = value;
+                              });
+                            },
                             textAlign: TextAlign.start,
                             controller: _searchController,
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  searchskill = _searchController.text;
+                                  // searchskill = _searchController.text;
                                 },
                                 icon: Icon(Icons.search),
                               ),
@@ -93,35 +116,13 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                             ),
                           ),
                         ),
-                      )
-                    : Row(
-                        children: [
-                          Text(
-                            "Trending ",
-                            style: GoogleFonts.roboto(
-                                fontSize: 24.w,
-                                color: Color.fromARGB(255, 144, 136, 241)),
-                          ),
-                          Text(
-                            "Skills",
-                            style: GoogleFonts.roboto(
-                                fontSize: 24.w,
-                                color: Color.fromARGB(255, 220, 248, 129)),
-                          ),
-                        ],
                       ),
-                // Text(
-                //   "Skills",
-                //   style: GoogleFonts.roboto(
-                //       fontSize: 24.w,
-                //       color: Color.fromARGB(255, 220, 248, 129)),
-                // ),
                 Spacer(),
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      isSearchgin = !isSearchgin;
-                      if (!isSearchgin) {
+                      isSearching = !isSearching;
+                      if (!isSearching) {
                         _searchController.clear();
                       }
                     });
@@ -135,7 +136,7 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                     ),
                     child: Center(
                       child: Icon(
-                        isSearchgin ? Icons.close : Icons.search,
+                        isSearching ? Icons.close : Icons.search,
                         color: Colors.white,
                       ),
                     ),
@@ -196,11 +197,136 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
               height: 20.h,
             ),
             Container(
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(30.r)),
-              child: TrendingSkillsBody(),
+              child: Column(
+                children: [
+                  if (!isSearching) ...[
+                    TrendingSkillsBody(),
+                  ] else ...[
+                    Expanded(
+                      child: searchskillprovider.when(
+                        data: (trandingSkill) => trandingSkill.data.isNotEmpty
+                            ? ListView.builder(
+                                itemBuilder: (context, index) {
+                                  return GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          2, // Number of items per row
+                                      crossAxisSpacing:
+                                          20, // Spacing between columns
+                                      mainAxisSpacing:
+                                          20, // Spacing between rows
+                                    ),
+                                    itemCount: trandingSkill
+                                        .data.length, // Total items
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.all(10),
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          // Navigator.push(
+                                          //   context,
+                                          // CupertinoPageRoute(
+                                          //     builder: (context) => SkillListPage(
+                                          //           id: 1,
+                                          //           name: snapshot.data[index].title,
+                                          //           subtitle: snapshot.data[index].subTitle,
+                                          //           description: snapshot.data[index].description,
+                                          //         )));
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color.fromARGB(
+                                                255, 241, 242, 246),
+                                            borderRadius:
+                                                BorderRadius.circular(20.w),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                height: 58.h,
+                                                width: 58.w,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            500.r),
+                                                    color: Color(0xFF9088F1)),
+                                                child: Center(
+                                                  child: Image.asset(
+                                                      "assets/image 3.png"),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Text(
+                                                trandingSkill
+                                                    .data[index].subTitle,
+                                                style: GoogleFonts.montserrat(
+                                                    color: Color(0xFF9088F1),
+                                                    fontSize: 13.w,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Text(
+                                                trandingSkill.data[index].title,
+                                                style: GoogleFonts.montserrat(
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                    fontSize: 16.w,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: -0.95),
+                                              ),
+                                              SizedBox(
+                                                height: 3.h,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 4.2.w, right: 4.2.w),
+                                                child: Text(
+                                                  trandingSkill
+                                                      .data[index].description,
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.montserrat(
+                                                      color: Color(0xFF666666),
+                                                      fontSize: 11.w,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              )
+                            : Center(
+                                child: Text("No mentors found"),
+                              ),
+                        error: (error, stackTrace) => Text("Error:$error"),
+                        loading: () =>
+                            Center(child: CircularProgressIndicator()),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             ),
           ],
         ),

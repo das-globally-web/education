@@ -219,35 +219,38 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                   borderRadius: BorderRadius.circular(30.r)),
               child: Column(
                 children: [
-                  FindMEntorBoduy(),
-                  Expanded(
-                    child: searchmentorprovider.when(
-                      data: (mentors) => mentors.data.isNotEmpty
-                          ? ListView.builder(
-                              itemCount: mentors.data.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: UserTabs(
-                                    id: mentors.data[index].id,
-                                    fullname: mentors.data[index].fullName,
-                                    dec: mentors.data[index].description,
-                                    servicetype: [],
-                                  ),
-                                );
-                              },
-                            )
-                          : Center(
-                              child: Text(
-                                  "No mentors found")), // अगर कोई डेटा नहीं मिला
-                      error: (error, stackTrace) => Center(
-                        child: Text("Error: $error"),
-                      ),
-                      loading: () => Center(
-                        child: CircularProgressIndicator(),
+                  if (!isSearching) ...[
+                    FindMEntorBoduy(),
+                  ] else ...[
+                    Expanded(
+                      child: searchmentorprovider.when(
+                        data: (mentors) => mentors.data.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: mentors.data.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: UserTabs(
+                                      id: mentors.data[index].id,
+                                      fullname: mentors.data[index].fullName,
+                                      dec: mentors.data[index].description,
+                                      servicetype: [],
+                                    ),
+                                  );
+                                },
+                              )
+                            : Center(
+                                child: Text(
+                                    "No mentors found")), // अगर कोई डेटा नहीं मिला
+                        error: (error, stackTrace) => Center(
+                          child: Text("Error: $error"),
+                        ),
+                        loading: () => Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ],
               ),
             ),
@@ -334,27 +337,28 @@ class _MyOptionState extends State<MyOption> {
           child: Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w),
             child: Center(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  widget.title,
-                  style: GoogleFonts.roboto(
-                      fontSize: 12.w,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: -0.30,
-                      color: Colors.white),
-                ),
-                SizedBox(
-                  width: 5.w,
-                ),
-                Icon(
-                  widget.currentIndex,
-                  color: Colors.white,
-                )
-              ],
-            )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.title,
+                    style: GoogleFonts.roboto(
+                        fontSize: 12.w,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: -0.30,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Icon(
+                    widget.currentIndex,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

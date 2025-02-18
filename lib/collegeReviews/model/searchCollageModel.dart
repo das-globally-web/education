@@ -30,10 +30,10 @@ class SearchCollageModel {
 
 class Datum {
     int id;
-    Collage collageName;
-    Collage collageDescription;
+    String collageName;
+    String collageDescription;
     String? image;
-    City city;
+    String city;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -49,20 +49,20 @@ class Datum {
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
-        collageName: collageValues.map[json["collage_name"]]!,
-        collageDescription: collageValues.map[json["collage_description"]]!,
+        collageName: json["collage_name"] ?? "",
+        collageDescription:json["collage_description"] ?? "",
         image: json["image"],
-        city: cityValues.map[json["city"]]!,
+        city: json["city"] ?? "",
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "collage_name": collageValues.reverse[collageName],
-        "collage_description": collageValues.reverse[collageDescription],
+        "collage_name": collageName,
+        "collage_description": collageDescription,
         "image": image,
-        "city": cityValues.reverse[city],
+        "city": city,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
     };

@@ -22,7 +22,7 @@ class _AllCollageState extends ConsumerState<AllCollage> {
   @override
   Widget build(BuildContext context) {
     final searchcollageprovider =
-        ref.watch(searchCollageProvider(searchCollage));
+        ref.watch(searchCollageProvider(searchCollageController.text));
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: SingleChildScrollView(
@@ -209,7 +209,6 @@ class _AllCollageState extends ConsumerState<AllCollage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(30.r)),
@@ -218,43 +217,57 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                   if (!isSearching) ...[
                     AllCollageBody(),
                   ] else ...[
-                    Expanded(
-                      child: searchcollageprovider.when(
-                        data: (collage) => collage.data.isNotEmpty
-                            ? ListView.builder(
-                                itemCount: collage.data.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              CupertinoPageRoute(
-                                                  builder: (context) =>
-                                                      PerticulerCollagePage(
-                                                          collage.data[index].id
-                                                              .toString())));
-                                        },
-                                        child: UniversityTab(
-                                          name: collage.data[index].collageName
-                                              .toString(),
-                                          city: collage.data[index].city
-                                              .toString(),
-                                          description: collage
-                                              .data[index].collageDescription
-                                              .toString(),
-                                          rating:
-                                              collage.data[index].id.toString(),
-                                        )),
-                                  );
-                                },
-                              )
-                            : Center(child: Text("No mentors found")),
-                        error: (error, stackTrace) => Center(
-                          child: Text("Error:$error"),
+                    searchcollageprovider.when(
+                      data: (collage) => collage.data.isNotEmpty
+                          ? ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: collage.data.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    PerticulerCollagePage(
+                                                        collage.data[index].id
+                                                            .toString())));
+                                      },
+                                      child: UniversityTab(
+                                        name: collage.data[index].collageName
+                                            .toString(),
+                                        city:
+                                            collage.data[index].city.toString(),
+                                        description: collage
+                                            .data[index].collageDescription
+                                            .toString(),
+                                        rating:
+                                            collage.data[index].id.toString(),
+                                      )),
+                                );
+                              },
+                            )
+                          : Center(child: Text("No mentors found")),
+                      error: (error, stackTrace) => SizedBox(
+                        height: MediaQuery.of(context).size.height / 1.1,
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(
+                          child: Text(
+                            "Collage not found",
+                            style: GoogleFonts.montserrat(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
-                        loading: () => Center(
+                      ),
+                      loading: () => SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(
                           child: CircularProgressIndicator(),
                         ),
                       ),

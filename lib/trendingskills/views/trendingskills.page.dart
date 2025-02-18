@@ -210,116 +210,105 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                     Expanded(
                       child: searchskillprovider.when(
                         data: (trandingSkill) => trandingSkill.data.isNotEmpty
-                            ? ListView.builder(
+                            ? GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, // Number of items per row
+                                  crossAxisSpacing:
+                                      20, // Spacing between columns
+                                  mainAxisSpacing: 20, // Spacing between rows
+                                ),
+                                itemCount:
+                                    trandingSkill.data.length, // Total items
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                padding: EdgeInsets.all(10),
                                 itemBuilder: (context, index) {
-                                  return GridView.builder(
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount:
-                                          2, // Number of items per row
-                                      crossAxisSpacing:
-                                          20, // Spacing between columns
-                                      mainAxisSpacing:
-                                          20, // Spacing between rows
-                                    ),
-                                    itemCount: trandingSkill
-                                        .data.length, // Total items
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    padding: EdgeInsets.all(10),
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              CupertinoPageRoute(
-                                                  builder: (context) =>
-                                                      SkillListPage(
-                                                        id: 1,
-                                                        name: trandingSkill
-                                                            .data[index].title,
-                                                        subtitle: trandingSkill
-                                                            .data[index]
-                                                            .subTitle,
-                                                        description:
-                                                            trandingSkill
-                                                                .data[index]
-                                                                .description,
-                                                      )));
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Color.fromARGB(
-                                                255, 241, 242, 246),
-                                            borderRadius:
-                                                BorderRadius.circular(20.w),
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                height: 58.h,
-                                                width: 58.w,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            500.r),
-                                                    color: Color(0xFF9088F1)),
-                                                child: Center(
-                                                  child: Image.asset(
-                                                      "assets/image 3.png"),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 5.h,
-                                              ),
-                                              Text(
-                                                trandingSkill
-                                                    .data[index].subTitle,
-                                                style: GoogleFonts.montserrat(
-                                                    color: Color(0xFF9088F1),
-                                                    fontSize: 13.w,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              SizedBox(
-                                                height: 5.h,
-                                              ),
-                                              Text(
-                                                trandingSkill.data[index].title,
-                                                style: GoogleFonts.montserrat(
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
-                                                    fontSize: 16.w,
-                                                    fontWeight: FontWeight.w600,
-                                                    letterSpacing: -0.95),
-                                              ),
-                                              SizedBox(
-                                                height: 3.h,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 4.2.w, right: 4.2.w),
-                                                child: Text(
-                                                  trandingSkill
-                                                      .data[index].description,
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.montserrat(
-                                                      color: Color(0xFF666666),
-                                                      fontSize: 11.w,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  SkillListPage(
+                                                    id: 1,
+                                                    name: trandingSkill
+                                                        .data[index].title,
+                                                    subtitle: trandingSkill
+                                                        .data[index].subTitle,
+                                                    description: trandingSkill
+                                                        .data[index]
+                                                        .description,
+                                                  )));
                                     },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 241, 242, 246),
+                                        borderRadius:
+                                            BorderRadius.circular(20.w),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 58.h,
+                                            width: 58.w,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        500.r),
+                                                color: Color(0xFF9088F1)),
+                                            child: Center(
+                                              child: Image.asset(
+                                                  "assets/image 3.png"),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5.h,
+                                          ),
+                                          Text(
+                                            trandingSkill.data[index].subTitle,
+                                            style: GoogleFonts.montserrat(
+                                                color: Color(0xFF9088F1),
+                                                fontSize: 13.w,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          SizedBox(
+                                            height: 5.h,
+                                          ),
+                                          Text(
+                                            trandingSkill.data[index].title,
+                                            style: GoogleFonts.montserrat(
+                                                color: Color.fromARGB(  
+                                                    255, 0, 0, 0),
+                                                fontSize: 16.w,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: -0.95),
+                                          ),
+                                          SizedBox(
+                                            height: 3.h,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 4.2.w, right: 4.2.w),
+                                            child: Text(
+                                              trandingSkill
+                                                  .data[index].description,
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.montserrat(
+                                                  color: Color(0xFF666666),
+                                                  fontSize: 11.w,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   );
                                 },
                               )

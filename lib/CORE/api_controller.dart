@@ -3,7 +3,9 @@ import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/collegeReviews/model/perticuler.collage.model.dart';
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/service/home.service.dart';
+import 'package:educationapp/home/controller/service/searchMentorService.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
+import 'package:educationapp/home/model/searchMentorModel.dart';
 import 'package:educationapp/trendingskills/controller/service/searchSkillService.dart';
 import 'package:educationapp/trendingskills/controller/service/skills.service.dart';
 import 'package:educationapp/trendingskills/model/new.skills.model.dart';
@@ -52,9 +54,17 @@ class ApiController {
     return await service.getAlltransaction();
   }
 
-  static Future<SearchSkillModel> searchSkill(Map<String, dynamic> params) async {
+  static Future<SearchSkillModel> searchSkill(
+      Map<String, dynamic> params) async {
     SearchSkillService service = params['service'];
     String query = params['query'];
     return await service.getAllSearchSkill(query);
+  }
+
+  static Future<SearchMentorModel> searchMentors(
+      Map<String, dynamic> params) async {
+    SearchMentorService service = params['service'];
+    String query = params['query'];
+    return await service.getallSearchMentor(query);
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'addreview.service.dart';
+part of 'walletUpdateService.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'addreview.service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _AddreviewService implements AddreviewService {
-  _AddreviewService(
+class _WalletUpdateService implements WalletUpdateService {
+  _WalletUpdateService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,20 +24,21 @@ class _AddreviewService implements AddreviewService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AddReviewResponseModel> getAllReview(AddReviewBodyModel body) async {
+  Future<WalletUpdateResponseModel> allWalletUpdate(
+      WalletUpdateBodyModel body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
-    final _options = _setStreamType<AddReviewResponseModel>(Options(
+    final _options = _setStreamType<WalletUpdateResponseModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/reviews',
+          '/api/volite-update',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -47,9 +48,9 @@ class _AddreviewService implements AddreviewService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AddReviewResponseModel _value;
+    late WalletUpdateResponseModel _value;
     try {
-      _value = AddReviewResponseModel.fromJson(_result.data!);
+      _value = WalletUpdateResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

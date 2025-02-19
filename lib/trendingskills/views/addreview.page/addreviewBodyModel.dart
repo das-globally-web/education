@@ -1,33 +1,33 @@
 // To parse this JSON data, do
 //
-//     final addreviewBodyModel = addreviewBodyModelFromJson(jsonString);
+//     final addReviewBodyModel = addReviewBodyModelFromJson(jsonString);
 
 import 'dart:convert';
 
-AddreviewBodyModel addreviewBodyModelFromJson(String str) => AddreviewBodyModel.fromJson(json.decode(str));
+AddReviewBodyModel addReviewBodyModelFromJson(String str) => AddReviewBodyModel.fromJson(json.decode(str));
 
-String addreviewBodyModelToJson(AddreviewBodyModel data) => json.encode(data.toJson());
+String addReviewBodyModelToJson(AddReviewBodyModel data) => json.encode(data.toJson());
 
-class AddreviewBodyModel {
+class AddReviewBodyModel {
     int userId;
     int count;
     String description;
-    int collegeId;
+    int collageId;
     int skillsId;
 
-    AddreviewBodyModel({
+    AddReviewBodyModel({
         required this.userId,
         required this.count,
         required this.description,
-        required this.collegeId,
+        required this.collageId,
         required this.skillsId,
     });
 
-    factory AddreviewBodyModel.fromJson(Map<String, dynamic> json) => AddreviewBodyModel(
+    factory AddReviewBodyModel.fromJson(Map<String, dynamic> json) => AddReviewBodyModel(
         userId: json["user_id"],
         count: json["count"],
         description: json["description"],
-        collegeId: json["college_id"],
+        collageId: json["collage_id"],
         skillsId: json["skills_id"],
     );
 
@@ -35,7 +35,7 @@ class AddreviewBodyModel {
         "user_id": userId,
         "count": count,
         "description": description,
-        "college_id": collegeId,
+        "collage_id": collageId,
         "skills_id": skillsId,
     };
 }

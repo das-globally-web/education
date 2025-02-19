@@ -6,9 +6,9 @@ import 'package:retrofit/retrofit.dart';
 part 'addreview.service.g.dart';
 
 @RestApi(baseUrl: 'http://education.globallywebsolutions.com')
-abstract class AddreviewPageService {
-  factory AddreviewPageService(Dio dio, {String baseUrl}) = _AddreviewPageService;
+abstract class AddreviewService {
+  factory AddreviewService(Dio dio, {String baseUrl}) = _AddreviewService;
 
   @POST('/api/reviews')
-  Future<AddreviewResponseModel> getReviewPage(@Body() AddreviewBodyModel body);
+  Future<AddReviewResponseModel> getAllReview(@Body() AddReviewBodyModel body);
 }

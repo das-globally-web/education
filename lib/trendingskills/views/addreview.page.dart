@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:educationapp/trendingskills/views/addreview.page/addreview.page.model.dart';
 import 'package:educationapp/trendingskills/views/addreview.page/addreviewBodyModel.dart';
 import 'package:educationapp/trendingskills/views/addreview.page/addreviewpageController.dart';
 import 'package:educationapp/trendingskills/views/controller.review/reviewController.dart';
@@ -207,20 +205,21 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                         onTap: () {
                           // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
                           final addreviewpageData = ref.watch(
-                            addreviewpage(
-                              AddreviewBodyModel(
+                            addreviewpageProvider(
+                              AddReviewBodyModel(
                                 userId: 1,
                                 count: 4,
                                 description: "hello test",
-                                collegeId: 1,
-                                skillsId: 2,
+                                collageId: 2,
+                                skillsId: 1,
                               ),
                             ),
                           );
                           if (addreviewpageData != null) {
-                            Fluttertoast.showToast(msg: "Review add");
+                            Fluttertoast.showToast(
+                                msg: "Review add successful");
                           } else {
-                            Fluttertoast.showToast(msg: "Error:$e");
+                            Fluttertoast.showToast(msg: "Review faliled");
                           }
                         },
                         child: Container(

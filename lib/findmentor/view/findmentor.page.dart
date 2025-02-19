@@ -84,7 +84,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Container(
                           width: 200.w,
-                          height: 40.w,
+                          height: 40,
                           child: TextField(
                             onChanged: (value) {
                               setState(() {
@@ -102,7 +102,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                               hintText: "Search",
                               hintStyle: TextStyle(
                                 color: Colors.black,
-                                height: 1.5,
+                                height: 1.8,
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),

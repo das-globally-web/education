@@ -83,7 +83,7 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                     : Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Container(
-                          width: 200,
+                          width: 200.w,
                           height: 40,
                           child: TextField(
                             onChanged: (value) {
@@ -284,7 +284,7 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                                           Text(
                                             trandingSkill.data[index].title,
                                             style: GoogleFonts.montserrat(
-                                                color: Color.fromARGB(  
+                                                color: Color.fromARGB(
                                                     255, 0, 0, 0),
                                                 fontSize: 16.w,
                                                 fontWeight: FontWeight.w600,
@@ -313,7 +313,7 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                                 },
                               )
                             : Center(
-                                child: Text("No mentors found"),
+                                child: Text("No trending skills"),
                               ),
                         error: (error, stackTrace) => Text("Error:$error"),
                         loading: () =>

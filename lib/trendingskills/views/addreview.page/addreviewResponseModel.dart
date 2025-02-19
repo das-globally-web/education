@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final addreviewResponseModel = addreviewResponseModelFromJson(jsonString);
+//     final addReviewResponseModel = addReviewResponseModelFromJson(jsonString);
 
 import 'dart:convert';
 
-AddreviewResponseModel addreviewResponseModelFromJson(String str) => AddreviewResponseModel.fromJson(json.decode(str));
+AddReviewResponseModel addReviewResponseModelFromJson(String str) => AddReviewResponseModel.fromJson(json.decode(str));
 
-String addreviewResponseModelToJson(AddreviewResponseModel data) => json.encode(data.toJson());
+String addReviewResponseModelToJson(AddReviewResponseModel data) => json.encode(data.toJson());
 
-class AddreviewResponseModel {
+class AddReviewResponseModel {
     String message;
     Data data;
 
-    AddreviewResponseModel({
+    AddReviewResponseModel({
         required this.message,
         required this.data,
     });
 
-    factory AddreviewResponseModel.fromJson(Map<String, dynamic> json) => AddreviewResponseModel(
+    factory AddReviewResponseModel.fromJson(Map<String, dynamic> json) => AddReviewResponseModel(
         message: json["message"],
         data: Data.fromJson(json["data"]),
     );

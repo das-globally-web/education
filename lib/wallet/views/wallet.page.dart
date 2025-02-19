@@ -1,7 +1,10 @@
+import 'package:educationapp/wallet/views/walletUpdate/walletUpdateBodyModel.dart';
+import 'package:educationapp/wallet/views/walletUpdate/walletUpdateController.dart';
 import 'package:educationapp/wallet/walletController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WalletPage extends ConsumerStatefulWidget {
@@ -368,7 +371,14 @@ class _WalletPageState extends ConsumerState<WalletPage> {
   }
 }
 
-class DraggableBottomSheetContent extends StatelessWidget {
+class DraggableBottomSheetContent extends ConsumerStatefulWidget {
+  @override
+  ConsumerState<DraggableBottomSheetContent> createState() =>
+      _DraggableBottomSheetContentState();
+}
+
+class _DraggableBottomSheetContentState
+    extends ConsumerState<DraggableBottomSheetContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -512,19 +522,36 @@ class DraggableBottomSheetContent extends StatelessWidget {
             SizedBox(
               height: 40.h,
             ),
-            Container(
-              height: 52.h,
-              width: 400.w,
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 220, 248, 129),
-                  borderRadius: BorderRadius.circular(40.r)),
-              child: Center(
-                child: Text(
-                  "Continue",
-                  style: GoogleFonts.roboto(
-                      color: Colors.black,
-                      fontSize: 16.w,
-                      fontWeight: FontWeight.w500),
+            GestureDetector(
+              onTap: () {
+                final walletUpdateData = ref.watch(
+                  walletUpdateProvider(
+                    WalletUpdateBodyModel(
+                      userId: 1,
+                      balance: 50,
+                    ),
+                  ),
+                );
+                if (walletUpdateData != null) {
+                  Fluttertoast.showToast(msg: "Wallet Updata Successful");
+                } else {
+                  Fluttertoast.showToast(msg: "Updata Failed");
+                }
+              },
+              child: Container(
+                height: 52.h,
+                width: 400.w,
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 220, 248, 129),
+                    borderRadius: BorderRadius.circular(40.r)),
+                child: Center(
+                  child: Text(
+                    "Continue",
+                    style: GoogleFonts.roboto(
+                        color: Colors.black,
+                        fontSize: 16.w,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
               ),
             )

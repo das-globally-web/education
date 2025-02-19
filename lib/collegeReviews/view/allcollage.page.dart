@@ -250,7 +250,9 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                                 );
                               },
                             )
-                          : Center(child: Text("No mentors found")),
+                          : Center(
+                              child: Text("No mentors found"),
+                            ),
                       error: (error, stackTrace) => SizedBox(
                         height: MediaQuery.of(context).size.height / 1.1,
                         width: MediaQuery.of(context).size.width,
@@ -310,7 +312,8 @@ class _AllCollageBodyState extends ConsumerState<AllCollageBody> {
                             context,
                             CupertinoPageRoute(
                                 builder: (context) => PerticulerCollagePage(
-                                    snapshot.data[index].id.toString())));
+                                      snapshot.data[index].id.toString(),
+                                    )));
                       },
                       child: UniversityTab(
                         name: snapshot.data[index].collageName,
@@ -427,28 +430,29 @@ class _UniversityTabState extends State<UniversityTab> {
                         child: Padding(
                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
                           child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Color(0xFF9088F1),
-                                size: 13.w,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                "${widget.rating} Review",
-                                style: GoogleFonts.roboto(
-                                    fontSize: 12.w,
-                                    fontWeight: FontWeight.w400,
-                                    letterSpacing: -0.30,
-                                    color: Colors.black),
-                              ),
-                            ],
-                          )),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Color(0xFF9088F1),
+                                  size: 13.w,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  "${widget.rating} Review",
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 12.w,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: -0.30,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'addreview.service.dart';
+part of 'review.service.dart';
 
 // **************************************************************************
 // RetrofitGenerator

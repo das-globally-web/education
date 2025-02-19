@@ -1,5 +1,5 @@
 import 'package:educationapp/trendingskills/views/addreview.page.dart';
-import 'package:educationapp/trendingskills/views/controller.addreview/addreviewController.dart';
+import 'package:educationapp/trendingskills/views/controller.review/reviewController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -326,7 +326,9 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                   },
                   loading: () {
                     return Center(
-                      child: CircularProgressIndicator(color: Colors.white,),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
                     );
                   },
                 ),

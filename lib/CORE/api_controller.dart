@@ -11,8 +11,8 @@ import 'package:educationapp/trendingskills/controller/service/skills.service.da
 import 'package:educationapp/trendingskills/model/new.skills.model.dart';
 import 'package:educationapp/trendingskills/model/searchSkillModel.dart';
 import 'package:educationapp/trendingskills/model/skills.model.dart';
-import 'package:educationapp/trendingskills/views/model.review/addreview.model.dart';
-import 'package:educationapp/trendingskills/views/service.review/addreview.service.dart';
+import 'package:educationapp/trendingskills/views/model.review/review.model.dart';
+import 'package:educationapp/trendingskills/views/service.review/review.service.dart';
 import 'package:educationapp/wallet/model.wallet/wallet.model.dart';
 import 'package:educationapp/wallet/service.wallet/wallet.service.dart';
 

@@ -1,5 +1,5 @@
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
-import 'package:educationapp/trendingskills/views/controller.addreview/addreviewController.dart';
+import 'package:educationapp/trendingskills/views/controller.review/reviewController.dart';
 import 'package:educationapp/trendingskills/views/review.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -533,7 +533,7 @@ class _DraggableBottomSheetContentState
                   ),
                 );
                 if (walletUpdateData != null) {
-                  Fluttertoast.showToast(msg: "Wallet Updata Successful");
+                  Fluttertoast.showToast(msg: "Wallet Update Successful");
                 } else {
                   Fluttertoast.showToast(msg: "Updata Failed");
                 }
@@ -554,7 +554,7 @@ class _DraggableBottomSheetContentState
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

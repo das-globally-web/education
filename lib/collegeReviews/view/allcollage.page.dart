@@ -80,8 +80,8 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                     : Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Container(
-                          width: 200,
-                          height: 40,
+                          width: 250.w,
+                          height: 50.h,
                           child: TextField(
                             onChanged: (value) {
                               setState(() {
@@ -91,18 +91,13 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                             textAlign: TextAlign.start,
                             controller: searchCollageController,
                             decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  // searchquery = searchController.text;
-                                },
-                                icon: Icon(Icons.search),
-                              ),
+                              suffixIcon: Icon(Icons.search),
                               filled: true,
                               fillColor: Colors.white,
                               hintText: "Search",
                               hintStyle: TextStyle(
                                 color: Colors.black,
-                                height: 1.8,
+                                height: 2.3.h,
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),

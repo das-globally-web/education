@@ -83,8 +83,8 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                     : Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Container(
-                          width: 200.w,
-                          height: 40,
+                          width: 250.w,
+                          height: 50.h,
                           child: TextField(
                             onChanged: (value) {
                               setState(() {
@@ -93,16 +93,13 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                             },
                             controller: searchController,
                             decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.search),
-                              ),
+                              suffixIcon: Icon(Icons.search),
                               filled: true,
                               fillColor: Colors.white,
                               hintText: "Search",
                               hintStyle: TextStyle(
                                 color: Colors.black,
-                                height: 1.8,
+                                height: 2.3.h,
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),

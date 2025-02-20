@@ -17,6 +17,7 @@ class AddReviewPage extends ConsumerStatefulWidget {
 }
 
 class _AddReviewPageState extends ConsumerState<AddReviewPage> {
+  final descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,6 +185,7 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                         height: 5.h,
                       ),
                       TextFormField(
+                        controller: descriptionController,
                         maxLines: 8,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -209,7 +211,7 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                               AddReviewBodyModel(
                                 userId: 1,
                                 count: 4,
-                                description: "hello test",
+                                description: descriptionController.text,
                                 collageId: 2,
                                 skillsId: 1,
                               ),

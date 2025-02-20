@@ -131,38 +131,37 @@ class _OnlinePageState extends State<OnlinePage> {
             SizedBox(
               height: 30.h,
             ),
-            SingleChildScrollView(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.r),
-                    topRight: Radius.circular(30.r),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: messages.length,
-                        itemBuilder: (context, index) {
-                          final message = messages[index];
-                          return ChatScreen(
-                            text: message['text'],
-                            isMe: message['isMe'],
-                            time: message['time'],
-                          );
-                        },
-                      ),
-                    ),
-                    MessageInput(),
-                    SizedBox(height: 50),
-                  ],
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.r),
+                  topRight: Radius.circular(30.r),
                 ),
               ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        final message = messages[index];
+                        return ChatScreen(
+                          text: message['text'],
+                          isMe: message['isMe'],
+                          time: message['time'],
+                        );
+                      },
+                    ),
+                  ),
+                  MessageInput(),
+                  SizedBox(height: 50),
+                ],
+              ),
             ),
+            MessageInput(),
           ],
         ),
       ),
@@ -186,6 +185,8 @@ class _MessageInputState extends State<MessageInput> {
           padding: const EdgeInsets.all(15),
           child: TextField(
             decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.blueGrey,
               hintText: "Enter Message...",
               border: OutlineInputBorder(),
             ),

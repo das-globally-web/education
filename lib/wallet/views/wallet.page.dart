@@ -133,7 +133,13 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                       isScrollControlled:
                           true, // Makes the bottom sheet full-screen draggable
                       builder: (context) {
-                        return DraggableBottomSheetContent();
+                        return DraggableBottomSheetContent(
+                          callback: () {
+                            setState(() {
+                              ref.refresh(walletProvider);
+                            });
+                          },
+                        );
                       },
                     );
                   },
@@ -372,6 +378,10 @@ class _WalletPageState extends ConsumerState<WalletPage> {
 }
 
 class DraggableBottomSheetContent extends ConsumerStatefulWidget {
+  final Function callback;
+
+  DraggableBottomSheetContent({super.key, required this.callback});
+
   @override
   ConsumerState<DraggableBottomSheetContent> createState() =>
       _DraggableBottomSheetContentState();
@@ -379,6 +389,8 @@ class DraggableBottomSheetContent extends ConsumerStatefulWidget {
 
 class _DraggableBottomSheetContentState
     extends ConsumerState<DraggableBottomSheetContent> {
+  final coinsController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -418,6 +430,7 @@ class _DraggableBottomSheetContentState
               height: 8.h,
             ),
             TextFormField(
+              controller: coinsController,
               keyboardType:
                   TextInputType.numberWithOptions(signed: true, decimal: true),
               decoration: InputDecoration(
@@ -528,10 +541,11 @@ class _DraggableBottomSheetContentState
                   walletUpdateProvider(
                     WalletUpdateBodyModel(
                       userId: 1,
-                      balance: 50,
+                      balance: int.parse(coinsController.text.toString()),
                     ),
                   ),
                 );
+                widget.callback();
                 if (walletUpdateData != null) {
                   Fluttertoast.showToast(msg: "Wallet Update Successful");
                 } else {

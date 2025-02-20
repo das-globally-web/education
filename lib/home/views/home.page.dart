@@ -210,7 +210,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AllCollage(),
+                      ));
+                },
                 leading: Container(
                   child: Image.asset("assets/cartoon.png"),
                 ),
@@ -224,7 +230,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WalletPage(),
+                      ));
+                },
                 leading: Container(
                   child: Image.asset("assets/cartoon.png"),
                 ),

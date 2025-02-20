@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/registerpage/registerController.dart';
+import 'package:educationapp/registerpage/views/uploadstudent_Id.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,9 +16,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({
-    super.key,
-  });
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -474,7 +473,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => UploadStudentId(),
                   ));
             } else {
               // ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -286,7 +286,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           controller: descriptionController,
           lable: 'description',
         ),
-        
         RegisterField(
           controller: totalExperienceController,
           lable: 'Total Experience',
@@ -443,39 +442,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             }
             // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
             // final multipartImage = await getMultipartFile(_image);
-<<<<<<< HEAD
-            final registerprovider = ref.watch(
-              registerProvider(
-                registerBodyModel(
-                  fullName: fullNameController.text,
-                  email: emailController.text,
-                  phoneNumber: phoneController.text.toString(),
-                  password: passwordController.text.toString(),
-                  confirmpassword: confirmpasswordController.text.toString(),
-                  languageKnow: languageKnownController.text,
-                  totlaExperinece: totalExperienceController.text.toString(),
-                  serviceType: '',
-                  profilePic: multipathfile,
-                  skillsId: '',
-                  userType: '',
-                  description: descriptionController.text,
-                  location: locationController.text,
-                ),
-              ),
-            );
-            if (registerprovider != null) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UploadStudentId(),
-                  ));
-            } else {
-              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //   content: Text("Register Failed"),
-              // ));
-              Fluttertoast.showToast(msg: "Register Failed");
-            }
-=======
             // final registerprovider = ref.watch(
             //   registerProvider(
             //     registerBodyModel(
@@ -519,7 +485,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 useridcard: 'useridcard',
                 password: passwordController.text,
                 skillsId: 1);
->>>>>>> 58fac727a249135733e68a5212ac091d39ed5c93
           },
           child: Container(
             height: 52.h,

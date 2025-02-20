@@ -231,14 +231,7 @@ class _MyImagePickerState extends State<MyImagePicker> {
                             ),
                           ),
                   ),
-                  // Text(
-                  //   "Upload Front Side",
-                  //   style: GoogleFonts.roboto(
-                  //     fontSize: 15,
-                  //     color: Color.fromARGB(255, 77, 77, 77),
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  // ),
+                 
                 ],
               ),
             ),

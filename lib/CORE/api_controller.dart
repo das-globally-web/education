@@ -13,6 +13,7 @@ import 'package:educationapp/trendingskills/model/searchSkillModel.dart';
 import 'package:educationapp/trendingskills/model/skills.model.dart';
 import 'package:educationapp/trendingskills/views/model.review/addreview.model.dart';
 import 'package:educationapp/trendingskills/views/service.review/addreview.service.dart';
+import 'package:educationapp/wallet/model.wallet/user.trx.model.dart';
 import 'package:educationapp/wallet/model.wallet/wallet.model.dart';
 import 'package:educationapp/wallet/service.wallet/wallet.service.dart';
 
@@ -66,5 +67,9 @@ class ApiController {
     SearchMentorService service = params['service'];
     String query = params['query'];
     return await service.getallSearchMentor(query);
+  }
+
+  static Future<UserTranctionModel> getUserTrx(WalletService service) async {
+    return await service.getUserTrack();
   }
 }

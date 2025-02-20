@@ -83,31 +83,23 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                     : Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Container(
-                          width: 200.w,
-                          height: 40.w,
+                          width: 250.w,
+                          height: 50.h,
                           child: TextField(
                             onChanged: (value) {
                               setState(() {
                                 searchquery = value;
                               });
                             },
-                            textAlign: TextAlign.start,
                             controller: searchController,
                             decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    searchquery = searchController.text;
-                                  });
-                                },
-                                icon: Icon(Icons.search),
-                              ),
+                              suffixIcon: Icon(Icons.search),
                               filled: true,
                               fillColor: Colors.white,
                               hintText: "Search",
                               hintStyle: TextStyle(
                                 color: Colors.black,
-                                height: 1.8,
+                                height: 2.3.h,
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
@@ -247,8 +239,12 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                         error: (error, stackTrace) => Center(
                           child: Text("Error: $error"),
                         ),
-                        loading: () => Center(
-                          child: CircularProgressIndicator(),
+                        loading: () => SizedBox(
+                          height: MediaQuery.of(context).size.height / 1.2,
+                          width: MediaQuery.of(context).size.width,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         ),
                       ),
                     ),

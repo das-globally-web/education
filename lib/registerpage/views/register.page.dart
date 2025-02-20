@@ -115,29 +115,19 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
     'Chemical',
   ];
 
-  MultipartFile? multipathfile;
-  File? _image;
-  final picker = ImagePicker();
+  XFile? imageFile;
 
   Future getImageFromGallery() async {
-    final PickedFile = await picker.pickImage(source: ImageSource.gallery);
-    final imagepath =
-        Base64Decoder().convert(PickedFile!.path.toString().split(',').last);
-    final multipathfile =
-        MultipartFile.fromBytes(imagepath, filename: PickedFile.name);
-    setState(() {
-      if (PickedFile != null) {
-        _image = File(PickedFile.path);
-      }
+    final ImagePicker _picker = ImagePicker();
+    setState(() async {
+      imageFile = await _picker.pickImage(source: ImageSource.gallery);
     });
   }
 
   Future getImageFromCamera() async {
-    final PickedFile = await picker.pickImage(source: ImageSource.camera);
-    setState(() {
-      if (PickedFile != null) {
-        _image = File(PickedFile.path);
-      }
+    final ImagePicker _picker = ImagePicker();
+    setState(() async {
+      imageFile = await _picker.pickImage(source: ImageSource.camera);
     });
   }
 
@@ -398,7 +388,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 height: 150,
                 width: 400.w,
                 alignment: Alignment.center,
-                child: _image == null
+                child: imageFile == null
                     ? Text(
                         'Upload Image +',
                         style: GoogleFonts.roboto(color: Colors.black),
@@ -406,7 +396,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: Image.file(
-                          _image!,
+                          File(imageFile!.path),
                           height: 150,
                           width: 400.w,
                           fit: BoxFit.cover,
@@ -451,37 +441,37 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             }
             // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
             // final multipartImage = await getMultipartFile(_image);
-            final registerprovider = ref.watch(
-              registerProvider(
-                registerBodyModel(
-                  fullName: fullNameController.text,
-                  email: emailController.text,
-                  phoneNumber: phoneController.text.toString(),
-                  password: passwordController.text.toString(),
-                  confirmpassword: confirmpasswordController.text.toString(),
-                  languageKnow: languageKnownController.text,
-                  totlaExperinece: totalExperienceController.text.toString(),
-                  serviceType: '',
-                  profilePic: multipathfile,
-                  skillsId: '',
-                  userType: '',
-                  description: descriptionController.text,
-                  location: locationController.text,
-                ),
-              ),
-            );
-            if (registerprovider != null) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(),
-                  ));
-            } else {
-              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //   content: Text("Register Failed"),
-              // ));
-              Fluttertoast.showToast(msg: "Register Failed");
-            }
+            // final registerprovider = ref.watch(
+            //   registerProvider(
+            //     registerBodyModel(
+            //       fullName: fullNameController.text,
+            //       email: emailController.text,
+            //       phoneNumber: phoneController.text.toString(),
+            //       password: passwordController.text.toString(),
+            //       confirmpassword: confirmpasswordController.text.toString(),
+            //       languageKnow: languageKnownController.text,
+            //       totlaExperinece: totalExperienceController.text.toString(),
+            //       serviceType: '',
+            //       profilePic: multipathfile,
+            //       skillsId: '',
+            //       userType: '',
+            //       description: descriptionController.text,
+            //       location: locationController.text,
+            //     ),
+            //   ),
+            // );
+            // if (registerprovider != null) {
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => HomePage(),
+            //       ));
+            // } else {
+            //   // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //   //   content: Text("Register Failed"),
+            //   // ));
+            //   Fluttertoast.showToast(msg: "Register Failed");
+            // }
           },
           child: Container(
             height: 52.h,

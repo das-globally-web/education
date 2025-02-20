@@ -8,8 +8,8 @@ part of 'addreview.service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _AddreviewPageService implements AddreviewPageService {
-  _AddreviewPageService(
+class _AddreviewService implements AddreviewService {
+  _AddreviewService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,13 +24,13 @@ class _AddreviewPageService implements AddreviewPageService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AddreviewResponseModel> getReviewPage(AddreviewBodyModel body) async {
+  Future<AddReviewResponseModel> getAllReview(AddReviewBodyModel body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
-    final _options = _setStreamType<AddreviewResponseModel>(Options(
+    final _options = _setStreamType<AddReviewResponseModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -47,9 +47,9 @@ class _AddreviewPageService implements AddreviewPageService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AddreviewResponseModel _value;
+    late AddReviewResponseModel _value;
     try {
-      _value = AddreviewResponseModel.fromJson(_result.data!);
+      _value = AddReviewResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

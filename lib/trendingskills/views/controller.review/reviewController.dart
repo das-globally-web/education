@@ -1,7 +1,7 @@
 import 'package:educationapp/CORE/api_controller.dart';
 import 'package:educationapp/config/preety.dio.dart';
-import 'package:educationapp/trendingskills/views/model.review/addreview.model.dart';
-import 'package:educationapp/trendingskills/views/service.review/addreview.service.dart';
+import 'package:educationapp/trendingskills/views/model.review/review.model.dart';
+import 'package:educationapp/trendingskills/views/service.review/review.service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

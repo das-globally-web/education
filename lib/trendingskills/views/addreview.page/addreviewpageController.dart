@@ -4,9 +4,9 @@ import 'package:educationapp/trendingskills/views/addreview.page/addreviewBodyMo
 import 'package:educationapp/trendingskills/views/addreview.page/addreviewResponseModel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final addreviewpage =
-    FutureProvider.family<AddreviewResponseModel, AddreviewBodyModel>(
+final addreviewpageProvider =
+    FutureProvider.family<AddReviewResponseModel, AddReviewBodyModel>(
         (ref, body) async {
-  final addreview = AddreviewPageService(await createDio());
-  return addreview.getReviewPage(body);
+  final addreviewservice = AddreviewService(await createDio());
+  return addreviewservice.getAllReview(body);
 });

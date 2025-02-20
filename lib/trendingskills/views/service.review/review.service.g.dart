@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register.service.dart';
+part of 'review.service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,13 +8,13 @@ part of 'register.service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _RegisterService implements RegisterService {
-  _RegisterService(
+class _AddreviewService implements AddreviewService {
+  _AddreviewService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'http://education.globallywebsolutions.com/';
+    baseUrl ??= 'http://education.globallywebsolutions.com';
   }
 
   final Dio _dio;
@@ -24,21 +24,19 @@ class _RegisterService implements RegisterService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<RegisterResponseModel> register(
-      {required Map<String, dynamic> data}) async {
+  Future<AddReviewModel> getAllReview(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData.fromMap(data);
-    final _options = _setStreamType<RegisterResponseModel>(Options(
-      method: 'POST',
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<AddReviewModel>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
-      contentType: 'multipart/form-data',
     )
         .compose(
           _dio.options,
-          'api/register',
+          '/api/reviews/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -48,9 +46,9 @@ class _RegisterService implements RegisterService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late RegisterResponseModel _value;
+    late AddReviewModel _value;
     try {
-      _value = RegisterResponseModel.fromJson(_result.data!);
+      _value = AddReviewModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:educationapp/wallet/model.wallet/user.trx.model.dart';
 import 'package:educationapp/wallet/model.wallet/wallet.model.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -10,4 +11,6 @@ abstract class WalletService {
 
   @GET('/api/get-volite')
   Future<WalletModel> getAlltransaction();
+  @GET('/api/get-user-transaction')
+  Future<UserTranctionModel> getUserTrack();
 }

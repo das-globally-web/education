@@ -6,6 +6,7 @@ import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/localstorage/db.dart';
 import 'package:educationapp/localstorage/localdb.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
+import 'package:educationapp/trendingskills/views/model.review/review.model.dart';
 import 'package:educationapp/yourMentor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,4 +54,11 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+
+class MyFormData{
+  static String userType = '';
+  static String serviceType = '';
+  static int skillId = 0;
 }

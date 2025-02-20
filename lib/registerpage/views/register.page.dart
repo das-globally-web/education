@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:educationapp/CORE/api_controller.dart';
 import 'package:educationapp/home/views/home.page.dart';
+import 'package:educationapp/registerpage/model.register/registerResponseModel.dart';
 import 'package:educationapp/registerpage/registerController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -285,6 +287,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           controller: descriptionController,
           lable: 'description',
         ),
+        
         RegisterField(
           controller: totalExperienceController,
           lable: 'Total Experience',
@@ -472,6 +475,18 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             //   // ));
             //   Fluttertoast.showToast(msg: "Register Failed");
             // }
+            RegisterResponseModel res = await ApiController.registerUser(
+                imageFile: imageFile!,
+                fullName: fullNameController.text,
+                email: emailController.text,
+                phoneNumber: phoneController.text,
+                serviceType: '',
+                userType: 'userType',
+                description: descriptionController.text,
+                location: locationController.text,
+                useridcard: 'useridcard',
+                password: passwordController.text,
+                skillsId: 1);
           },
           child: Container(
             height: 52.h,

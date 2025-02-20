@@ -234,13 +234,13 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                                 },
                               )
                             : Center(
-                                child: Text(
-                                    "No mentors found")), // अगर कोई डेटा नहीं मिला
+                                child: Text("No mentors found"),
+                              ),
                         error: (error, stackTrace) => Center(
                           child: Text("Error: $error"),
                         ),
                         loading: () => SizedBox(
-                          height: MediaQuery.of(context).size.height / 1.2,
+                          height: MediaQuery.of(context).size.height,
                           width: MediaQuery.of(context).size.width,
                           child: Center(
                             child: CircularProgressIndicator(),

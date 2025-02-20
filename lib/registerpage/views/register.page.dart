@@ -442,6 +442,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             }
             // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
             // final multipartImage = await getMultipartFile(_image);
+
             // final registerprovider = ref.watch(
             //   registerProvider(
             //     registerBodyModel(

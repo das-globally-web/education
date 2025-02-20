@@ -10,6 +10,7 @@ import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -188,7 +189,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 final loginService = LognService(await createDio());
 
                 // Call the login API
-                final response = await loginService.login(body);
+                final response = await compute(loginService.login, body);
 
                 ref.watch(saveUserProfileDataToLocalProvider(
                     response.data.token.toString()));

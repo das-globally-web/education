@@ -56,8 +56,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-class MyFormData{
+class MyFormData {
   static String userType = '';
   static String serviceType = '';
   static int skillId = 0;

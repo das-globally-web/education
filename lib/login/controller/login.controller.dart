@@ -14,7 +14,7 @@ final loginControllerProvider =
 
 // LoginController class
 class LoginController extends StateNotifier<LoginState> {
-  LoginController() : super(LoginInitial());
+LoginController() : super(LoginInitial());
 
   // Login method
   Future<void> login(LoginBodyModel body) async {

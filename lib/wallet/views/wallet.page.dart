@@ -278,6 +278,8 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                     userTrxProviderdata.when(
                       data: (snapshot) {
                         return ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
                             itemCount: snapshot.data.length,
                             itemBuilder: (context, index) {
                               return Padding(

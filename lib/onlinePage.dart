@@ -142,11 +142,12 @@ class _OnlinePageState extends State<OnlinePage> {
                   topRight: Radius.circular(30.r),
                 ),
               ),
-              child: Column(
-                children: [
-                  Container(
-                    height: 400,
-                    child: ListView.builder(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
                         final message = messages[index];
@@ -157,15 +158,21 @@ class _OnlinePageState extends State<OnlinePage> {
                         );
                       },
                     ),
-                  ),
-                  MessageInput(
-                    onSend: sendMessage,
-                    controller: _controller,
-                  ),
-                ],
+                    SizedBox(
+                      height: 100.h,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
+        ),
+      ),
+      bottomSheet: Container(
+        height: 80.h,
+        child: MessageInput(
+          onSend: sendMessage,
+          controller: _controller,
         ),
       ),
     );
@@ -192,7 +199,7 @@ class _MessageInputState extends State<MessageInput> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.only(left: 15.w, right: 15.w),
           child: TextField(
             controller: widget.controller,
             decoration: InputDecoration(

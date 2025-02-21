@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -121,14 +120,14 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   XFile? imageFile;
 
-  Future getImageFromGallery() async {
+  getImageFromGallery() async {
     final ImagePicker _picker = ImagePicker();
     setState(() async {
       imageFile = await _picker.pickImage(source: ImageSource.gallery);
     });
   }
 
-  Future getImageFromCamera() async {
+  getImageFromCamera() async {
     final ImagePicker _picker = ImagePicker();
     setState(() async {
       imageFile = await _picker.pickImage(source: ImageSource.camera);
@@ -403,8 +402,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 Padding(
                   padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
                   child: DropdownButtonFormField<Datum>(
-                    value: _selectedSkill,
-                    items: snapshot.data.map((Datum item) {
+                    value: snapshot.data.contains(_selectedSkill)
+                        ? _selectedSkill
+                        : null,
+                    items: snapshot.data.toSet().toList().map((Datum item) {
                       return DropdownMenuItem<Datum>(
                         value: item,
                         child: Text(
@@ -479,6 +480,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   child: GestureDetector(
                     onTap: () {
                       showImage();
+                      Future.delayed(Duration(seconds: 1), () {
+                        setState(() {
+                          ref.refresh(skilssProvide);
+                        });
+                      });
                     },
                     child: Container(
                       height: 150,

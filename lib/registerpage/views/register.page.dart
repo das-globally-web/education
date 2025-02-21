@@ -1,7 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:educationapp/CORE/api_controller.dart';
+import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/registerpage/model.register/registerResponseModel.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
@@ -479,7 +481,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     onTap: () {
                       showImage();
                       setState(() {
-                        // ref.refresh(skilssProvide);
+                        ref.refresh(skilssProvide);
                       });
                     },
                     child: Container(
@@ -507,26 +509,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               GestureDetector(
                 onTap: () async {
                   // Check if any field is empty
-                  if (fullNameController.text.isEmpty ||
-                      emailController.text.isEmpty ||
-                      phoneController.text.isEmpty ||
-                      passwordController.text.isEmpty ||
-                      confirmpasswordController.text.isEmpty ||
-                      languageKnownController.text.isEmpty ||
-                      totalExperienceController.text.isEmpty ||
-                      descriptionController.text.isEmpty ||
-                      locationController.text.isEmpty) {
-                    // Show error toast
-                    Fluttertoast.showToast(
-                      msg: "Please fill in the box",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                    );
-                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    //   content: Text("Please fill in the box"),
-                    // ));
-                    return; // Stop further execution
-                  }
 
                   // Check if password and confirm password match
                   if (passwordController.text !=
@@ -572,18 +554,40 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   //   // ));
                   //   Fluttertoast.showToast(msg: "Register Failed");
                   // }
-                  RegisterResponseModel res = await ApiController.registerUser(
-                      imageFile: imageFile!,
-                      fullName: fullNameController.text,
-                      email: emailController.text,
-                      phoneNumber: phoneController.text,
-                      serviceType: '',
-                      userType: 'userType',
-                      description: descriptionController.text,
-                      location: locationController.text,
-                      useridcard: 'useridcard',
-                      password: passwordController.text,
-                      skillsId: 1);
+                  try {
+                    RegisterResponseModel res =
+                        await ApiController.registerUser(
+                            imageFile: imageFile!,
+                            fullName: fullNameController.text,
+                            email: emailController.text,
+                            phoneNumber: phoneController.text,
+                            serviceType: '',
+                            userType: 'userType',
+                            description: descriptionController.text,
+                            location: locationController.text,
+                            useridcard: 'useridcard',
+                            password: passwordController.text,
+                            skillsId: _selectedSkill!.id,
+                            linkdin_url: linkedinController.text,
+                            gender: genderController.text,
+                            dob: dateofBrithController.text,
+                            totlaExperinece: totalExperienceController.text,
+                            resumeFile: imageFile!,
+                            userfield: _selectedItem,
+                            language_known: languageKnownController.text);
+                    // Fluttertoast.showToast(msg: "User Registered succesfuliy");
+                    log("hola");
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoDialogRoute(
+                            builder: (context) => LoginPage(),
+                            context: context),
+                        (route) => false);
+                  } catch (e) {
+                   
+                    print("hey");
+                    // Fluttertoast.showToast(msg: "Some thing went wrong");
+                  }
                 },
                 child: Container(
                   height: 52.h,

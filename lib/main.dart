@@ -1,19 +1,14 @@
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:educationapp/config/helpers.dart';
 import 'package:educationapp/home/views/home.page.dart';
-import 'package:educationapp/localstorage/db.dart';
-import 'package:educationapp/localstorage/localdb.dart';
+
 import 'package:educationapp/splash/views/splash.page.dart';
-import 'package:educationapp/trendingskills/views/model.review/review.model.dart';
-import 'package:educationapp/yourMentor.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,13 +43,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp(
-<<<<<<< HEAD
           home: token == null ? const SplashScreen() : const HomePage(),
           // home: YourMentorPage(),
-=======
-           home: token == null ? const SplashScreen() : const HomePage(),
-          //home: YourMentorPage(),
->>>>>>> c1b10a13dcd60bb7931db6e0967066f62ed9c4b4
         );
       },
     );

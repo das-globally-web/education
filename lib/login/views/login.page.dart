@@ -182,7 +182,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 final response = await compute(loginService.login, body);
                 ref.watch(saveUserProfileDataToLocalProvider(
                     response.data.token.toString()));
-                Navigator.push(context,
+                Navigator.pushReplacement(context,
                     CupertinoPageRoute(builder: (context) => HomePage()));
               } catch (_) {
                 setState(() {

@@ -45,6 +45,7 @@ class _OnlinePageState extends State<OnlinePage> {
         messages.add({
           'text': _controller.text.trim(),
           'time': TimeOfDay.now().format(context),
+          'isMe': true,
         });
       });
       _controller.clear();
@@ -141,10 +142,12 @@ class _OnlinePageState extends State<OnlinePage> {
                   topRight: Radius.circular(30.r),
                 ),
               ),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
                         final message = messages[index];
@@ -155,14 +158,21 @@ class _OnlinePageState extends State<OnlinePage> {
                         );
                       },
                     ),
-                  ),
-                  MessageInput(),
-                  SizedBox(height: 50),
-                ],
+                    SizedBox(
+                      height: 100.h,
+                    ),
+                  ],
+                ),
               ),
             ),
-            MessageInput(),
           ],
+        ),
+      ),
+      bottomSheet: Container(
+        height: 80.h,
+        child: MessageInput(
+          onSend: sendMessage,
+          controller: _controller,
         ),
       ),
     );
@@ -170,25 +180,73 @@ class _OnlinePageState extends State<OnlinePage> {
 }
 
 class MessageInput extends StatefulWidget {
-  const MessageInput({super.key});
+  final TextEditingController controller;
+  final VoidCallback onSend;
+  const MessageInput({
+    super.key,
+    required this.controller,
+    required this.onSend,
+  });
 
   @override
   State<MessageInput> createState() => _MessageInputState();
 }
 
 class _MessageInputState extends State<MessageInput> {
+  final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.only(left: 15.w, right: 15.w),
           child: TextField(
+            controller: widget.controller,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.blueGrey,
+              fillColor: Color.fromARGB(255, 241, 242, 246),
+              prefixIcon: Padding(
+                padding: EdgeInsets.all(15),
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(255, 144, 136, 241),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
               hintText: "Enter Message...",
-              border: OutlineInputBorder(),
+              hintStyle: GoogleFonts.roboto(
+                fontSize: 12,
+                color: Color.fromARGB(255, 102, 102, 102),
+                fontWeight: FontWeight.w400,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide.none,
+              ),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  widget.onSend();
+                },
+                child: Container(
+                  child: Icon(
+                    Icons.send,
+                    color: Color.fromARGB(255, 144, 136, 241),
+                  ),
+                ),
+              ),
             ),
           ),
         ),

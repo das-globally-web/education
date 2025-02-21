@@ -97,6 +97,7 @@ class _YourMentorPageState extends State<YourMentorPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 30.h),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -112,7 +113,7 @@ class _YourMentorPageState extends State<YourMentorPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 20.h,
                   ),
                   MyContainer(
                     image: "assets/sarah.png",
@@ -121,7 +122,7 @@ class _YourMentorPageState extends State<YourMentorPage> {
                         "\nproposal by next...",
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 20.h,
                   ),
                   MyContainer(
                     image: "assets/Rectangle 8.jpg",
@@ -130,7 +131,7 @@ class _YourMentorPageState extends State<YourMentorPage> {
                         "\nevent on Thurs...",
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 20.h,
                   ),
                   MyContainer(
                     image: "assets/emily.png",
@@ -166,9 +167,8 @@ class _MyContainerState extends State<MyContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      padding: EdgeInsets.only(left: 10.w, right: 10.w),
       child: Container(
-        margin: EdgeInsets.only(top: 20),
         width: 400,
         height: 76,
         decoration: BoxDecoration(

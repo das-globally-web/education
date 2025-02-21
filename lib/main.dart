@@ -48,16 +48,20 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp(
+<<<<<<< HEAD
           home: token == null ? const SplashScreen() : const HomePage(),
           // home: YourMentorPage(),
+=======
+           home: token == null ? const SplashScreen() : const HomePage(),
+          //home: YourMentorPage(),
+>>>>>>> c1b10a13dcd60bb7931db6e0967066f62ed9c4b4
         );
       },
     );
   }
 }
 
-
-class MyFormData{
+class MyFormData {
   static String userType = '';
   static String serviceType = '';
   static int skillId = 0;

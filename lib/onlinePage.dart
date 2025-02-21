@@ -52,6 +52,9 @@ class _OnlinePageState extends State<OnlinePage> {
     }
   }
 
+  String _selectedOption = 'None';
+  void showbutton() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,17 +113,42 @@ class _OnlinePageState extends State<OnlinePage> {
                   ],
                 ),
                 Spacer(),
-                Container(
-                  height: 44.h,
-                  width: 44.w,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(25, 255, 255, 255),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    PopupMenuButton(
+                      onSelected: (value) {
+                        setState(() {
+                          _selectedOption = value;
+                        });
+                      },
+                      itemBuilder: (BuildContext context) => [
+                        PopupMenuItem(
+                          value: 'Option 1',
+                          child: Text('Option 1'),
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'Option 2',
+                          child: Text('Option 2'),
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'Option 3',
+                          child: Text('Option 3'),
+                        ),
+                      ],
+                    );
+                  },
+                  child: Container(
+                    height: 44.h,
+                    width: 44.w,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(25, 255, 255, 255),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.more_horiz,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

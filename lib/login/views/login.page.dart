@@ -193,8 +193,13 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
                 ref.watch(saveUserProfileDataToLocalProvider(
                     response.data.token.toString()));
-                Navigator.pushReplacement(context,
-                    CupertinoPageRoute(builder: (context) => HomePage()));
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                  (route) => false,
+                );
               } catch (_) {
                 setState(() {
                   login = false;

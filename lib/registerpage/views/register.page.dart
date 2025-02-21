@@ -122,19 +122,17 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   getImageFromGallery() async {
     final ImagePicker _picker = ImagePicker();
-    setState(() async {
-      imageFile = await _picker.pickImage(source: ImageSource.gallery);
-    });
+    imageFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {});
   }
 
   getImageFromCamera() async {
     final ImagePicker _picker = ImagePicker();
-    setState(() async {
-      imageFile = await _picker.pickImage(source: ImageSource.camera);
-    });
+    imageFile = await _picker.pickImage(source: ImageSource.camera);
+    setState(() {});
   }
 
-  Future showImage() async {
+  showImage() async {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
@@ -480,10 +478,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   child: GestureDetector(
                     onTap: () {
                       showImage();
-                      Future.delayed(Duration(seconds: 1), () {
-                        setState(() {
-                          ref.refresh(skilssProvide);
-                        });
+                      setState(() {
+                        // ref.refresh(skilssProvide);
                       });
                     },
                     child: Container(

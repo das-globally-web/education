@@ -114,6 +114,7 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                               fontWeight: FontWeight.w600),
                         );
                       },
+
                       error: (error, stackTrace) {
                         return Center(
                           child: Text("Error:$error"),
@@ -569,7 +570,8 @@ class _DraggableBottomSheetContentState
                 height: 52.h,
                 width: 400.w,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 220, 248, 129),
+                    color: Color.fromARGB(255, 220, 248, 129), 
+                    
                     borderRadius: BorderRadius.circular(40.r)),
                 child: Center(
                   child: Text(

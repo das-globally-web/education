@@ -61,7 +61,9 @@ class _MentorshipBodyState extends State<MentorshipBody> {
       children: [
         Spacer(),
         Text(
-          "What brings you here?",
+          UserRegisterDataHold.usertype == "Student"
+              ? "What do you need mentorship for?"
+              : "What do you offer as a mentor?",
           style: GoogleFonts.roboto(
               color: Colors.black,
               fontSize: 26.w,
@@ -79,6 +81,8 @@ class _MentorshipBodyState extends State<MentorshipBody> {
               onTap: () {
                 setState(() {
                   selectIndex = 0;
+                  UserRegisterDataHold.usertype = UserRegisterDataHold.usertype;
+                  UserRegisterDataHold.serviceType = "🎓 Placements";
                 });
                 sendToNextPage();
               },
@@ -106,6 +110,8 @@ class _MentorshipBodyState extends State<MentorshipBody> {
               onTap: () {
                 setState(() {
                   selectIndex = 1;
+                  UserRegisterDataHold.usertype = UserRegisterDataHold.usertype;
+                  UserRegisterDataHold.serviceType = "🧑‍🎓 Career Guidance";
                 });
                 sendToNextPage();
               },
@@ -139,6 +145,8 @@ class _MentorshipBodyState extends State<MentorshipBody> {
               onTap: () {
                 setState(() {
                   selectIndex = 2;
+                  UserRegisterDataHold.usertype = UserRegisterDataHold.usertype;
+                  UserRegisterDataHold.serviceType = "📚 Course Selection";
                 });
                 sendToNextPage();
               },
@@ -166,6 +174,8 @@ class _MentorshipBodyState extends State<MentorshipBody> {
               onTap: () {
                 setState(() {
                   selectIndex = 3;
+                  UserRegisterDataHold.usertype = UserRegisterDataHold.usertype;
+                  UserRegisterDataHold.serviceType = "🤔 General Advice";
                 });
                 sendToNextPage();
               },
@@ -193,4 +203,4 @@ class _MentorshipBodyState extends State<MentorshipBody> {
     );
   }
 }
-// 
+//

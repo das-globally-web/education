@@ -1,11 +1,7 @@
 import 'dart:developer';
-
-import 'package:educationapp/config/helpers.dart';
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/views/home.page.dart';
-import 'package:educationapp/login/controller/login.controller.dart';
-import 'package:educationapp/login/controller/login.state.dart';
 import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
@@ -16,7 +12,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -102,8 +97,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   bool login = false;
   @override
   Widget build(BuildContext context) {
-    final loginState = ref.watch(loginControllerProvider);
-    final loginController = ref.read(loginControllerProvider.notifier);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -179,18 +172,14 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 login = true;
               });
               log("testing");
-              // ignore: unused_result
-
               try {
                 final body = LoginBodyModel(
                   email: emailController.text,
                   password: passwordController.text,
                 );
                 final loginService = LognService(await createDio());
-
                 // Call the login API
                 final response = await compute(loginService.login, body);
-
                 ref.watch(saveUserProfileDataToLocalProvider(
                     response.data.token.toString()));
                 Navigator.push(context,
@@ -198,7 +187,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               } catch (_) {
                 setState(() {
                   login = false;
-                  // Helpers.errorString("Login email & password is invalid");
                   Fluttertoast.showToast(
                       msg: "Login email & password is invalid");
                 });
@@ -220,7 +208,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                             letterSpacing: -0.4,
                             fontSize: 14.4.w),
                       )
-                    : CircularProgressIndicator(),
+                    : Padding(
+                        padding: EdgeInsets.all(4.0.w),
+                        child: CircularProgressIndicator(),
+                      ),
               ),
             ),
           ),

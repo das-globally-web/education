@@ -90,7 +90,7 @@ class _GetstartBodyState extends State<GetstartBody> {
                     child: Text(
                   "Skip",
                   style: GoogleFonts.roboto(
-                      color: Colors.black,
+                      color: Colors.transparent,
                       fontSize: 14.w,
                       fontWeight: FontWeight.w500),
                 )),
@@ -179,7 +179,7 @@ class _GetstartBodyState extends State<GetstartBody> {
         GestureDetector(
           onTap: () {
             setState(() {
-              UserRegisterDataHold.usertype = "Professional";
+              UserRegisterDataHold.usertype = "Mentor";
             });
             Navigator.push(context,
                 CupertinoPageRoute(builder: (context) => MentorShipPage()));
@@ -269,4 +269,6 @@ class BackGroundImage extends StatelessWidget {
 
 class UserRegisterDataHold {
   static String usertype = "";
+  static String serviceType = "";
+  static int skillId = 0;
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:educationapp/collegeReviews/controller/service/collage.service.dart';
 import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
@@ -8,7 +10,9 @@ import 'package:educationapp/home/controller/service/home.service.dart';
 import 'package:educationapp/home/controller/service/searchMentorService.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/searchMentorModel.dart';
+import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/registerpage/model.register/registerResponseModel.dart';
+import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/controller/service/searchSkillService.dart';
 import 'package:educationapp/trendingskills/controller/service/skills.service.dart';
 import 'package:educationapp/trendingskills/model/new.skills.model.dart';
@@ -17,7 +21,9 @@ import 'package:educationapp/trendingskills/model/skills.model.dart';
 import 'package:educationapp/trendingskills/views/model.review/review.model.dart';
 import 'package:educationapp/trendingskills/views/service.review/review.service.dart';
 import 'package:educationapp/wallet/model.wallet/user.trx.model.dart';
-
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:educationapp/wallet/model.wallet/wallet.model.dart';
 import 'package:educationapp/wallet/service.wallet/wallet.service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -81,6 +87,7 @@ class ApiController {
 
   static Future<RegisterResponseModel> registerUser({
     required XFile imageFile,
+    required XFile resumeFile,
     required String fullName,
     required String email,
     required String phoneNumber,
@@ -91,50 +98,77 @@ class ApiController {
     required String useridcard,
     required String password,
     required int skillsId,
+    required String totlaExperinece,
+    required String linkdin_url,
+    required String dob,
+    required String gender,
+    required String userfield,
+    required String language_known,
+    required dynamic context,
+    required Function ifError,
   }) async {
-    final dio = Dio();
+    final Uri url =
+        Uri.parse("http://education.globallywebsolutions.com/api/register");
 
-    // Pick an image from the device
-    // final ImagePicker _picker = ImagePicker();
-    // final XFile? imageFile =
-    //     await _picker.pickImage(source: ImageSource.gallery);
-
-    if (imageFile == null) {
-      Fluttertoast.showToast(msg: "Please select image");
-      throw Exception();
+    if (imageFile == null || resumeFile == null) {
+      Fluttertoast.showToast(msg: "Please select image and resume");
+      throw Exception("Image or resume is missing");
     }
 
-    // Convert XFile to MultipartFile
-    final MultipartFile profilePic = await MultipartFile.fromFile(
-      imageFile.path,
-      filename: imageFile.name,
-      // Adjust content type as needed
-    );
+    var request = http.MultipartRequest("POST", url);
+    request.headers.addAll({
+      // Example Authorization header
+      "Content-Type": "application/json",
+      "Accept": "application/json", // Ensure content type is correct
+      // You can add other custom headers here
+    });
+    // Attach files
+    request.files
+        .add(await http.MultipartFile.fromPath('profile_pic', imageFile.path));
+    request.files.add(
+        await http.MultipartFile.fromPath('resume_upload', resumeFile.path));
 
-    // Prepare form data
-    final FormData formData = FormData.fromMap({
-      'full_name': fullName,
-      'email': email,
-      'phone_number': phoneNumber,
-      'password': password,
-      'service_type': serviceType,
-      'user_type': userType,
-      'description': description,
-      'location': location,
-      'user_id': useridcard,
-      'skills_id': 1,
-      'profile_pic': profilePic,
+    // Add form fields
+    request.fields.addAll({
+      "user_id": "1",
+      "full_name": fullName,
+      "email": email,
+      "phone_number": phoneNumber,
+      "password": password,
+      "service_type": UserRegisterDataHold.serviceType,
+      "user_type": UserRegisterDataHold.usertype,
+      "description": description,
+      "location": location,
+      "skills_id": skillsId.toString(),
+      "users_field": userfield,
+      "total_experience": totlaExperinece,
+      "language_known": language_known,
+      "linkedin_user": linkdin_url,
+      "dob": dob,
+      "gender": gender
     });
 
     try {
-      final response = await dio.post(
-        'http://education.globallywebsolutions.com/api/register',
-        data: formData,
-      );
+      final http.StreamedResponse response = await request.send();
 
-      return RegisterResponseModel.fromJson(response.data);
+      final responseBody = await response.stream.bytesToString();
+      log(responseBody); // Log response for debugging
+      Map<String, dynamic> data = jsonDecode(responseBody);
+      if (response.statusCode == 201) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            CupertinoDialogRoute(
+                builder: (context) => LoginPage(), context: context),
+            (route) => false);
+        return RegisterResponseModel.fromJson(jsonDecode(responseBody));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("${data["message"].toString()}")));
+            ifError();
+        throw Exception("Failed to register: ${response.reasonPhrase}");
+      }
     } catch (e) {
-      throw Exception("Some thing went wrong");
+      throw Exception("Something went wrong: $e");
     }
   }
 }

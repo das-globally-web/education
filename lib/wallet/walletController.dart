@@ -31,7 +31,3 @@ final storeuserTrxProvider =
   return await compute(
       ApiController.storeTrx, {"service": client, "body": body});
 });
-// final walletProvider = FutureProvider<WalletModel>((ref) async {
-//   final wallteservice = WalletService(await createDio());
-//   return wallteservice.getAlltransaction();
-// });

@@ -192,7 +192,7 @@ class _MyImagePickerState extends State<MyImagePicker> {
             borderType:
                 BorderType.RRect, // Shape of the border (RRect, Circle, etc.)
             radius: Radius.circular(12), // Border radius for rounded rectangles
-            child: Container(
+            child: SizedBox(
               width: 400.w,
               height: 220.h,
               child: Column(
@@ -231,7 +231,6 @@ class _MyImagePickerState extends State<MyImagePicker> {
                             ),
                           ),
                   ),
-                 
                 ],
               ),
             ),

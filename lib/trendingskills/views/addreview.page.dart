@@ -8,9 +8,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class AddReviewPage extends ConsumerStatefulWidget {
-  const AddReviewPage({super.key});
+  final String id;
+  const AddReviewPage({super.key, required this.id});
 
   @override
   ConsumerState<AddReviewPage> createState() => _AddReviewPageState();
@@ -18,6 +20,7 @@ class AddReviewPage extends ConsumerStatefulWidget {
 
 class _AddReviewPageState extends ConsumerState<AddReviewPage> {
   final descriptionController = TextEditingController();
+  int revieCount = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,6 +129,10 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              setState(() {
+                                revieCount =
+                                    int.parse(rating.toStringAsFixed(0));
+                              });
                             },
                           )
                         ],
@@ -204,15 +211,19 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                       ),
                       Spacer(),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           // Navigator.push(context, CupertinoPageRoute(builder: (context) => GetStartPAge()));
+                          if (!Hive.isBoxOpen('userdata')) {
+                            await Hive.openBox('userdata');
+                          }
+                          var box = Hive.box('userdata');
                           final addreviewpageData = ref.watch(
                             addreviewpageProvider(
                               AddReviewBodyModel(
-                                userId: 1,
-                                count: 4,
+                                userId: int.parse(box.get('id').toString()),
+                                count: revieCount,
                                 description: descriptionController.text,
-                                collageId: 2,
+                                collageId: int.parse(widget.id),
                                 skillsId: 1,
                               ),
                             ),

@@ -24,6 +24,7 @@ import 'package:educationapp/wallet/model.wallet/user.trx.model.body.dart';
 import 'package:educationapp/wallet/model.wallet/user.trx.model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:educationapp/wallet/model.wallet/wallet.model.dart';
 import 'package:educationapp/wallet/service.wallet/wallet.service.dart';
@@ -250,6 +251,45 @@ class ApiController {
       }
     } catch (e) {
       throw Exception("Something went wrong: $e");
+    }
+  }
+
+  static Future<Map> uploadDocuments(
+      {required String userid,
+      required XFile frontImg,
+      required XFile backImage}) async {
+    final Uri url =
+        Uri.parse("http://education.globallywebsolutions.com/api/documents");
+
+    var request = http.MultipartRequest("POST", url);
+    var box = Hive.box('userdata');
+    var token = box.get('token');
+    request.headers.addAll({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      'Authorization': 'Bearer $token',
+    });
+    request.files
+        .add(await http.MultipartFile.fromPath('image_1', frontImg.path));
+    request.files
+        .add(await http.MultipartFile.fromPath('image_2', frontImg.path));
+    request.fields.addAll({
+      "user_id": userid,
+    });
+
+    try {
+      final http.StreamedResponse response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+      Map<String, dynamic> data = jsonDecode(responseBody);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Fluttertoast.showToast(msg: "Documents Uploded");
+        return data;
+      } else {
+        Fluttertoast.showToast(msg: "Some thing went wrong");
+        throw Exception();
+      }
+    } catch (e) {
+      throw Exception();
     }
   }
 }

@@ -130,7 +130,9 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => AddReviewPage()));
+                            builder: (context) => AddReviewPage(
+                                  id: widget.id,
+                                )));
                   },
                   child: Container(
                     height: 44.h,

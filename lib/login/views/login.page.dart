@@ -136,110 +136,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 child: Text(
                   "Sign up",
                   style: GoogleFonts.roboto(
-<<<<<<< HEAD
-                    fontWeight: FontWeight.w700,
-                    fontSize: 15.w,
-                    letterSpacing: -0.50,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RegisterPage(),
-                        ));
-                  },
-                  child: Text(
-                    "Sign up",
-                    style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15.w,
-                        letterSpacing: -0.50,
-                        color: Color(0xFF9088F1)),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 30.w, right: 30.w),
-              child: Divider(
-                height: 1,
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            RegisterField(
-              controller: emailController,
-              lable: 'Email Address',
-            ),
-            RegisterField(
-              controller: passwordController,
-              lable: 'Password',
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            GestureDetector(
-              onTap: () async {
-                if (_fromKey.currentState!.validate()) {
-                  setState(() {
-                    login = true;
-                  });
-                  log("testing");
-                  try {
-                    final body = LoginBodyModel(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-                    final loginService = LognService(await createDio());
-                    // Call the login API
-                    final response = await compute(loginService.login, body);
-                    await ref.watch(saveUserProfileDataToLocalProvider(
-                        response.data.token.toString()));
-                    Future.delayed(Duration(seconds: 2), () {
-                      Navigator.pushReplacement(context,
-                          CupertinoPageRoute(builder: (context) => HomePage()));
-                    });
-                  } catch (_) {
-                    setState(() {
-                      login = false;
-                      Fluttertoast.showToast(
-                          msg: "Login email & password is invalid");
-                    });
-                  }
-                }
-              },
-              child: Container(
-                height: 52.h,
-                width: 400.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40.r),
-                    color: Color(0xFFDCF881)),
-                child: Center(
-                  child: login == false
-                      ? Text(
-                          "Login",
-                          style: GoogleFonts.roboto(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: -0.4,
-                              fontSize: 14.4.w),
-                        )
-                      : Padding(
-                          padding: EdgeInsets.all(4.0.w),
-                          child: CircularProgressIndicator(),
-                        ),
-=======
                       fontWeight: FontWeight.w700,
                       fontSize: 15.w,
                       letterSpacing: -0.50,
                       color: Color(0xFF9088F1)),
->>>>>>> 564563189b59a52f7b36f2c98c3b1dc4c315bcdb
                 ),
               ),
             ],
@@ -283,8 +183,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 final response = await compute(loginService.login, body);
                 ref.watch(saveUserProfileDataToLocalProvider(
                     response.data.token.toString()));
-                Navigator.pushReplacement(context,
-                    CupertinoPageRoute(builder: (context) => HomePage()));
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.pushReplacement(context,
+                      CupertinoPageRoute(builder: (context) => HomePage()));
+                });
               } catch (_) {
                 setState(() {
                   login = false;

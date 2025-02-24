@@ -257,7 +257,6 @@ class _WalletPageState extends ConsumerState<WalletPage> {
               height: 30.h,
             ),
             Container(
-              height: 1500,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -285,96 +284,103 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                     ),
                     userTrxProviderdata.when(
                       data: (snapshot) {
-                        return ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(bottom: 15.h),
-                                child: Container(
-                                  height: 68,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 241, 242, 246),
-                                      borderRadius:
-                                          BorderRadius.circular(15.r)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Container(
-                                        height: 44,
-                                        width: 44,
-                                        decoration: BoxDecoration(
-                                            color: Color.fromARGB(
-                                                40, 144, 136, 241),
-                                            borderRadius:
-                                                BorderRadius.circular(40.r)),
-                                      ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "${snapshot.data[index].message ?? "Payment"}",
-                                            style: GoogleFonts.roboto(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18.w),
-                                          ),
-                                          Text(
-                                            "Paid to ${snapshot.data[index].userName}",
-                                            style: GoogleFonts.roboto(
-                                              color: Colors.grey.shade600,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 11.w,
+                        return SizedBox(
+                          height: 10 > snapshot.data.length
+                              ? 100.h * 10 
+                              : 100.h * snapshot.data.length,
+                          child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(bottom: 15.h),
+                                  child: Container(
+                                    height: 68.h,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 241, 242, 246),
+                                        borderRadius:
+                                            BorderRadius.circular(15.r)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        Container(
+                                          height: 44,
+                                          width: 44,
+                                          decoration: BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  40, 144, 136, 241),
+                                              borderRadius:
+                                                  BorderRadius.circular(40.r)),
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "${snapshot.data[index].message ?? "Payment"}",
+                                              style: GoogleFonts.roboto(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18.w),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      Spacer(),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            snapshot.data[index].amount,
-                                            style: GoogleFonts.roboto(
-                                                color: Color.fromARGB(
-                                                    255, 144, 136, 241),
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18.w),
-                                          ),
-                                          Text(
-                                            "150 coins",
-                                            style: GoogleFonts.roboto(
-                                              color: Colors.grey.shade600,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 11.w,
+                                            Text(
+                                              "Paid to ${snapshot.data[index].userName}",
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.grey.shade600,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11.w,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Spacer(),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              snapshot.data[index].amount,
+                                              style: GoogleFonts.roboto(
+                                                  color: Color.fromARGB(
+                                                      255, 144, 136, 241),
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18.w),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                    ],
+                                            Text(
+                                              "150 coins",
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.grey.shade600,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11.w,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            });
+                                );
+                              }),
+                        );
                       },
                       error: (error, stackTrace) {
                         return Center(

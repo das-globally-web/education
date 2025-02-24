@@ -18,3 +18,4 @@ abstract class HomeService {
   @GET('/api/profile')
   Future<USerProfieModel> userProfileGet();
 }
+

@@ -338,8 +338,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       _scaffoldKey.currentState?.openDrawer();
                     },
                     child: Container(
-                      height: 50.h,
-                      width: 44.w,
+                      height: 50.w,
+                      width: 50.w,
                       decoration: BoxDecoration(
                           color: Color.fromARGB(25, 255, 255, 255),
                           borderRadius: BorderRadius.circular(500.r)),

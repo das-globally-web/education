@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:educationapp/home/views/home.page.dart';
 
 import 'package:educationapp/splash/views/splash.page.dart';
+import 'package:educationapp/yourMentor.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

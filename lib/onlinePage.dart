@@ -52,6 +52,26 @@ class _OnlinePageState extends State<OnlinePage> {
     }
   }
 
+  String onselect = "val";
+
+  showbutton() {
+    PopupMenuButton(
+      onSelected: (value) {
+        setState(() {
+          value = value;
+        });
+      },
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          child: Text("clear chat"),
+        ),
+        PopupMenuItem(
+          child: Text("setting"),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,17 +130,22 @@ class _OnlinePageState extends State<OnlinePage> {
                   ],
                 ),
                 Spacer(),
-                Container(
-                  height: 44.h,
-                  width: 44.w,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(25, 255, 255, 255),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    showbutton();
+                  },
+                  child: Container(
+                    height: 44.h,
+                    width: 44.w,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(25, 255, 255, 255),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.more_horiz,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

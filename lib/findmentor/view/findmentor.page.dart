@@ -111,13 +111,6 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                           ),
                         ),
                       ),
-
-                // Text(
-                //   "Mentor",
-                //   style: GoogleFonts.roboto(
-                //       fontSize: 24.w,
-                //       color: Color.fromARGB(255, 220, 248, 129)),
-                // ),
                 Spacer(),
                 GestureDetector(
                   onTap: () {

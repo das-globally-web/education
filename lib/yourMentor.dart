@@ -1,19 +1,22 @@
 import 'package:educationapp/onlinePage.dart';
+import 'package:educationapp/yourMentorController..dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class YourMentorPage extends StatefulWidget {
+class YourMentorPage extends ConsumerStatefulWidget {
   const YourMentorPage({super.key});
 
   @override
-  State<YourMentorPage> createState() => _YourMentorPageState();
+  ConsumerState<YourMentorPage> createState() => _YourMentorPageState();
 }
 
-class _YourMentorPageState extends State<YourMentorPage> {
+class _YourMentorPageState extends ConsumerState<YourMentorPage> {
   @override
   Widget build(BuildContext context) {
+    final yourmentorprovider = ref.watch(yourMentorProvider('1'));
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 27, 27, 27),
       body: SingleChildScrollView(
@@ -94,53 +97,88 @@ class _YourMentorPageState extends State<YourMentorPage> {
                   topRight: Radius.circular(30.r),
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 30.h),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OnlinePage(),
-                          ));
+              child: yourmentorprovider.when(
+                data: (mentor) {
+                  return ListView.builder(
+                    itemCount: mentor.data.mentors.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => OnlinePage(),
+                                  ));
+                            },
+                            child: MyContainer(
+                              image: "assets/Mike.png",
+                              title: mentor.data.mentors[index].fullName,
+                              subtitle: mentor.data.mentors[index].email,
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+                        ],
+                      );
                     },
-                    child: MyContainer(
-                      image: "assets/Mike.png",
-                      title: "Mike Pena",
-                      subtitle: "You need to go to Tempa University",
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  MyContainer(
-                    image: "assets/sarah.png",
-                    title: "Sarah Johnson",
-                    subtitle: "Remember to submit your project"
-                        "\nproposal by next...",
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  MyContainer(
-                    image: "assets/Rectangle 8.jpg",
-                    title: "David Lee",
-                    subtitle: "Make sure to attend the networking "
-                        "\nevent on Thurs...",
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  MyContainer(
-                    image: "assets/emily.png",
-                    title: "Emily White",
-                    subtitle: "Don't forget to finalize your presentation "
-                        "\nslides for th...",
-                  ),
-                ],
+                  );
+                },
+                error: (error, stackTrace) => Center(
+                  child: Text(error.toString()),
+                ),
+                loading: () => Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
+
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     SizedBox(height: 30.h),
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //               builder: (context) => OnlinePage(),
+              //             ));
+              //       },
+              //       child: MyContainer(
+              //         image: "assets/Mike.png",
+              //         title: "Mike Pena",
+              //         subtitle: "You need to go to Tempa University",
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       height: 20.h,
+              //     ),
+              //     MyContainer(
+              //       image: "assets/sarah.png",
+              //       title: "Sarah Johnson",
+              //       subtitle: "Remember to submit your project"
+              //           "\nproposal by next...",
+              //     ),
+              //     SizedBox(
+              //       height: 20.h,
+              //     ),
+              //     MyContainer(
+              //       image: "assets/Rectangle 8.jpg",
+              //       title: "David Lee",
+              //       subtitle: "Make sure to attend the networking "
+              //           "\nevent on Thurs...",
+              //     ),
+              //     SizedBox(
+              //       height: 20.h,
+              //     ),
+              //     MyContainer(
+              //       image: "assets/emily.png",
+              //       title: "Emily White",
+              //       subtitle: "Don't forget to finalize your presentation "
+              //           "\nslides for th...",
+              //     ),
+              //   ],
+              // ),
             ),
           ],
         ),

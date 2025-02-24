@@ -18,6 +18,7 @@ class WalletPage extends ConsumerStatefulWidget {
 
 class _WalletPageState extends ConsumerState<WalletPage> {
   int voletId = 0;
+  int currentBalance = 0;
   @override
   Widget build(BuildContext context) {
     final wallteserviceProvider = ref.watch(walletProvider);
@@ -111,6 +112,10 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                       data: (snapshot) {
                         setState(() {
                           voletId = snapshot.data.id;
+                          currentBalance = int.parse(
+                              double.tryParse(snapshot.data.balance)!
+                                  .toStringAsFixed(0)
+                                  .toString());
                         });
                         return Text(
                           "${double.tryParse(snapshot.data.balance)!.toStringAsFixed(0)} Coins",
@@ -147,6 +152,7 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                             });
                           },
                           voletid: voletId.toString(),
+                          currentBalance: currentBalance,
                         );
                       },
                     );
@@ -286,7 +292,7 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                       data: (snapshot) {
                         return SizedBox(
                           height: 10 > snapshot.data.length
-                              ? 100.h * 10 
+                              ? 100.h * 10
                               : 100.h * snapshot.data.length,
                           child: ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
@@ -405,11 +411,15 @@ class _WalletPageState extends ConsumerState<WalletPage> {
 }
 
 class DraggableBottomSheetContent extends ConsumerStatefulWidget {
+  final int currentBalance;
   final String voletid;
   final Function callback;
 
   DraggableBottomSheetContent(
-      {super.key, required this.callback, required this.voletid});
+      {super.key,
+      required this.callback,
+      required this.voletid,
+      required this.currentBalance});
 
   @override
   ConsumerState<DraggableBottomSheetContent> createState() =>
@@ -575,7 +585,8 @@ class _DraggableBottomSheetContentState
                   walletUpdateProvider(
                     WalletUpdateBodyModel(
                       userId: box.get('id'),
-                      balance: int.parse(coinsController.text.toString()),
+                      balance: int.parse(coinsController.text.toString()) +
+                          widget.currentBalance,
                     ),
                   ),
                 );

@@ -105,6 +105,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   final genderController = TextEditingController();
   final addressController = TextEditingController();
   final linkedinController = TextEditingController();
+  final whichSemisterController = TextEditingController();
   String _selectedItem = "Select stream";
   bool buttonLoder = false;
   final List<String> _dropdownItems = [
@@ -387,6 +388,75 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   ),
                   SizedBox(
                     height: 20.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 30.w,
+                      ),
+                      Text(
+                        "Expertise / Skills",
+                        style: GoogleFonts.roboto(
+                            fontSize: 13.w,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4D4D4D)),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
+                    child: DropdownButtonFormField<Datum>(
+                      value: snapshot.data.contains(_selectedSkill)
+                          ? _selectedSkill
+                          : null,
+                      items: snapshot.data.toSet().toList().map((Datum item) {
+                        return DropdownMenuItem<Datum>(
+                          value: item,
+                          child: Text(
+                            item.title,
+                            style: GoogleFonts.roboto(
+                                fontSize: 13.w,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF4D4D4D)),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (Datum? newValue) {
+                        setState(() {
+                          _selectedSkill = newValue!;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(40.r), // Circular radius
+                          borderSide: BorderSide(
+                            color: Colors.grey, // Border color
+                            width: 1, // Border width
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.r),
+                          borderSide: BorderSide(
+                            color: Colors.grey, // Focused border color
+                            width: 1,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor:
+                            Colors.white, // Background color of the dropdown
+                      ),
+                    ),
+                  ),
+                ] else ...[
+                  RegisterField(
+                    controller: whichSemisterController,
+                    lable: 'Which Semster',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,

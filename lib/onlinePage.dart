@@ -52,8 +52,25 @@ class _OnlinePageState extends State<OnlinePage> {
     }
   }
 
-  String _selectedOption = 'None';
-  void showbutton() {}
+  String onselect = "val";
+
+  showbutton() {
+    PopupMenuButton(
+      onSelected: (value) {
+        setState(() {
+          value = value;
+        });
+      },
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          child: Text("clear chat"),
+        ),
+        PopupMenuItem(
+          child: Text("setting"),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,27 +132,7 @@ class _OnlinePageState extends State<OnlinePage> {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    PopupMenuButton(
-                      onSelected: (value) {
-                        setState(() {
-                          _selectedOption = value;
-                        });
-                      },
-                      itemBuilder: (BuildContext context) => [
-                        PopupMenuItem(
-                          value: 'Option 1',
-                          child: Text('Option 1'),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'Option 2',
-                          child: Text('Option 2'),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'Option 3',
-                          child: Text('Option 3'),
-                        ),
-                      ],
-                    );
+                    showbutton();
                   },
                   child: Container(
                     height: 44.h,

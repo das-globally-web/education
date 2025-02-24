@@ -7,6 +7,7 @@ import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
 import 'package:educationapp/wallet/walletController.dart';
+import 'package:educationapp/yourMentor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -246,6 +247,26 @@ class _HomePageState extends ConsumerState<HomePage> {
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Color.fromARGB(255, 56, 18, 18),
+                  ),
+                ),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => YourMentorPage(),
+                      ));
+                },
+                leading: Container(
+                  child: Image.asset("assets/cartoon.png"),
+                ),
+                title: Text(
+                  "Your Mentor ",
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 27, 27, 27),
                   ),
                 ),
               ),
@@ -816,7 +837,7 @@ class HomePageBody extends ConsumerStatefulWidget {
 
   @override
   _HomePageBodyState createState() => _HomePageBodyState();
-}   
+}
 
 class _HomePageBodyState extends ConsumerState<HomePageBody> {
   int curenttabindex = 0;

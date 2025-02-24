@@ -104,12 +104,21 @@ class _YourMentorPageState extends ConsumerState<YourMentorPage> {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          SizedBox(height: 30.h),
-                          MyContainer(
-                            image: mentor.data.mentors[index].profilePic,
-                            title: mentor.data.mentors[index].fullName,
-                            subtitle: mentor.data.mentors[index].email,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => OnlinePage(),
+                                  ));
+                            },
+                            child: MyContainer(
+                              image: "assets/Mike.png",
+                              title: mentor.data.mentors[index].fullName,
+                              subtitle: mentor.data.mentors[index].email,
+                            ),
                           ),
+                          SizedBox(height: 20.h),
                         ],
                       );
                     },
@@ -122,38 +131,6 @@ class _YourMentorPageState extends ConsumerState<YourMentorPage> {
                   child: CircularProgressIndicator(),
                 ),
               ),
-
-              // yourmentorData.when(
-              //   data: (mentor) {
-              //     return ListView.builder(
-              //       itemCount: mentor.data.mentors.length,
-              //       itemBuilder: (context, index) {
-              //         return Column(
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             SizedBox(height: 30.h),
-              //             // MyContainer(
-              //             //   image: "assets/Mike.png",
-              //             //   title: mentor.data.mentors[index].fullName,
-              //             //   subtitle: mentor.data.mentors[index].userType,
-              //             // ),
-              //             MyContainer(
-              //               image: "assets/Mike.png",
-              //               title: mentor.data.user.fullName,
-              //               subtitle: mentor.data.user.email,
-              //             ),
-              //           ],
-              //         );
-              //       },
-              //     );
-              //   },
-              //   error: (error, stackTrace) => Center(
-              //     child: Text(error.toString()),
-              //   ),
-              //   loading: () => Center(
-              //     child: CircularProgressIndicator(),
-              //   ),
-              // ),
 
               // Column(
               //   crossAxisAlignment: CrossAxisAlignment.start,

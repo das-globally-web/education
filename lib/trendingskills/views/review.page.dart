@@ -72,7 +72,6 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
   @override
   Widget build(BuildContext context) {
     final reviewProvider = ref.watch(addreviewProvider(widget.id));
-
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: SingleChildScrollView(

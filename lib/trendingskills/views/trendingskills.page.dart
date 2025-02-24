@@ -387,12 +387,16 @@ class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
                         SizedBox(
                           height: 5.h,
                         ),
-                        Text(
-                          snapshot.data[index].subTitle,
-                          style: GoogleFonts.montserrat(
-                              color: Color(0xFF9088F1),
-                              fontSize: 13.w,
-                              fontWeight: FontWeight.w400),
+                        Padding(
+                          padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            snapshot.data[index].subTitle,
+                            style: GoogleFonts.montserrat(
+                                color: Color(0xFF9088F1),
+                                fontSize: 13.w,
+                                fontWeight: FontWeight.w400),
+                          ),
                         ),
                         SizedBox(
                           height: 5.h,

@@ -95,6 +95,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   final passwordController = TextEditingController();
   bool login = false;
+  final _fromKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -182,13 +183,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 final response = await compute(loginService.login, body);
                 ref.watch(saveUserProfileDataToLocalProvider(
                     response.data.token.toString()));
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => HomePage(),
-                  ),
-                  (route) => false,
-                );
+                Navigator.pushReplacement(context,
+                    CupertinoPageRoute(builder: (context) => HomePage()));
               } catch (_) {
                 setState(() {
                   login = false;

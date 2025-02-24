@@ -33,16 +33,23 @@ class Datum {
     String fullName;
     String email;
     String phoneNumber;
-    String token;
+    String? token;
     String profilePic;
     String userType;
     String serviceType;
     String description;
-    String location;
+    String? location;
     String userId;
     DateTime createdAt;
     DateTime updatedAt;
-    int skillsId;
+    int? skillsId;
+    dynamic totalExperience;
+    dynamic usersField;
+    dynamic languageKnown;
+    dynamic linkedinUser;
+    dynamic dob;
+    dynamic gender;
+    dynamic resumeUpload;
 
     Datum({
         required this.id,
@@ -59,6 +66,13 @@ class Datum {
         required this.createdAt,
         required this.updatedAt,
         required this.skillsId,
+        required this.totalExperience,
+        required this.usersField,
+        required this.languageKnown,
+        required this.linkedinUser,
+        required this.dob,
+        required this.gender,
+        required this.resumeUpload,
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -76,6 +90,13 @@ class Datum {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         skillsId: json["skills_id"],
+        totalExperience: json["total_experience"],
+        usersField: json["users_field"],
+        languageKnown: json["language_known"],
+        linkedinUser: json["linkedin_user"],
+        dob: json["dob"],
+        gender: json["gender"],
+        resumeUpload: json["resume_upload"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -93,5 +114,12 @@ class Datum {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "skills_id": skillsId,
+        "total_experience": totalExperience,
+        "users_field": usersField,
+        "language_known": languageKnown,
+        "linkedin_user": linkedinUser,
+        "dob": dob,
+        "gender": gender,
+        "resume_upload": resumeUpload,
     };
 }

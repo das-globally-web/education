@@ -155,6 +155,8 @@ class ApiController {
       log(responseBody); // Log response for debugging
       Map<String, dynamic> data = jsonDecode(responseBody);
       if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("$fullName your account was created ")));
         Navigator.pushAndRemoveUntil(
             context,
             CupertinoDialogRoute(
@@ -164,7 +166,77 @@ class ApiController {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("${data["message"].toString()}")));
-            ifError();
+        ifError();
+        throw Exception("Failed to register: ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      throw Exception("Something went wrong: $e");
+    }
+  }
+
+  static Future<RegisterResponseModel> register({
+    required XFile imageFile,
+    required String fullName,
+    required String email,
+    required String phoneNumber,
+    required String serviceType,
+    required String userType,
+    required String description,
+    required String location,
+    required String password,
+    required String dob,
+    required String gender,
+    required dynamic context,
+    required Function ifError,
+  }) async {
+    final Uri url =
+        Uri.parse("http://education.globallywebsolutions.com/api/register");
+
+    var request = http.MultipartRequest("POST", url);
+    request.headers.addAll({
+      // Example Authorization header
+      "Content-Type": "application/json",
+      "Accept": "application/json", // Ensure content type is correct
+      // You can add other custom headers here
+    });
+    // Attach files
+    request.files
+        .add(await http.MultipartFile.fromPath('profile_pic', imageFile.path));
+
+    // Add form fields
+    request.fields.addAll({
+      "user_id": "1",
+      "full_name": fullName,
+      "email": email,
+      "phone_number": phoneNumber,
+      "password": password,
+      "service_type": UserRegisterDataHold.serviceType,
+      "user_type": UserRegisterDataHold.usertype,
+      "description": description,
+      "location": location,
+      "dob": dob,
+      "gender": gender
+    });
+
+    try {
+      final http.StreamedResponse response = await request.send();
+
+      final responseBody = await response.stream.bytesToString();
+      log(responseBody); // Log response for debugging
+      Map<String, dynamic> data = jsonDecode(responseBody);
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("$fullName your account was created ")));
+        Navigator.pushAndRemoveUntil(
+            context,
+            CupertinoDialogRoute(
+                builder: (context) => LoginPage(), context: context),
+            (route) => false);
+        return RegisterResponseModel.fromJson(jsonDecode(responseBody));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("${data["message"].toString()}")));
+        ifError();
         throw Exception("Failed to register: ${response.reasonPhrase}");
       }
     } catch (e) {

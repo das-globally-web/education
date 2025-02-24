@@ -516,9 +516,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   onTap: () async {
                     // Check if any field is empty
                     if (_fromKey.currentState!.validate()) {
-                      setState(() {
-                        buttonLoder = true;
-                      });
                       // Check if password and confirm password match
                       if (passwordController.text !=
                           confirmpasswordController.text) {
@@ -529,33 +526,57 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         );
                         return;
                       }
-
-                      RegisterResponseModel res =
-                          await ApiController.registerUser(
-                              context: context,
-                              imageFile: imageFile!,
-                              fullName: fullNameController.text,
-                              email: emailController.text,
-                              phoneNumber: phoneController.text,
-                              serviceType: '',
-                              userType: 'userType',
-                              description: descriptionController.text,
-                              location: locationController.text,
-                              useridcard: 'useridcard',
-                              password: passwordController.text,
-                              skillsId: _selectedSkill!.id,
-                              linkdin_url: linkedinController.text,
-                              gender: genderController.text,
-                              dob: dateofBrithController.text,
-                              totlaExperinece: totalExperienceController.text,
-                              resumeFile: imageFile!,
-                              userfield: _selectedItem,
-                              language_known: languageKnownController.text,
-                              ifError: () {
-                                setState(() {
-                                  buttonLoder = false;
+                      setState(() {
+                        buttonLoder = true;
+                      });
+                      if (UserRegisterDataHold.usertype == "Student") {
+                        RegisterResponseModel res =
+                            await ApiController.register(
+                                context: context,
+                                imageFile: imageFile!,
+                                fullName: fullNameController.text,
+                                email: emailController.text,
+                                phoneNumber: phoneController.text,
+                                serviceType: '',
+                                userType: 'userType',
+                                description: descriptionController.text,
+                                location: locationController.text,
+                                password: passwordController.text,
+                                gender: genderController.text,
+                                dob: dateofBrithController.text,
+                                ifError: () {
+                                  setState(() {
+                                    buttonLoder = false;
+                                  });
                                 });
-                              });
+                      } else {
+                        RegisterResponseModel res =
+                            await ApiController.registerUser(
+                                context: context,
+                                imageFile: imageFile!,
+                                fullName: fullNameController.text,
+                                email: emailController.text,
+                                phoneNumber: phoneController.text,
+                                serviceType: '',
+                                userType: 'userType',
+                                description: descriptionController.text,
+                                location: locationController.text,
+                                useridcard: 'useridcard',
+                                password: passwordController.text,
+                                skillsId: _selectedSkill!.id,
+                                linkdin_url: linkedinController.text,
+                                gender: genderController.text,
+                                dob: dateofBrithController.text,
+                                totlaExperinece: totalExperienceController.text,
+                                resumeFile: imageFile!,
+                                userfield: _selectedItem,
+                                language_known: languageKnownController.text,
+                                ifError: () {
+                                  setState(() {
+                                    buttonLoder = false;
+                                  });
+                                });
+                      }
                     }
                   },
                   child: Container(

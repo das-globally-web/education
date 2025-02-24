@@ -141,7 +141,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 10),
                             child: Text(
-                              "Jackson Smith",
+                              "${box.get('name')}",
                               style: GoogleFonts.roboto(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -155,7 +155,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 10),
                             child: Text(
-                              "Smith.jackson23@gmail.com",
+                              "${box.get('email')}",
                               style: GoogleFonts.roboto(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -816,7 +816,7 @@ class HomePageBody extends ConsumerStatefulWidget {
 
   @override
   _HomePageBodyState createState() => _HomePageBodyState();
-}
+}   
 
 class _HomePageBodyState extends ConsumerState<HomePageBody> {
   int curenttabindex = 0;
@@ -926,7 +926,7 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
         mentorsProvider.when(
             data: (snapshot) {
               return ListView.builder(
-                  itemCount: 5,
+                  itemCount: snapshot.data.length,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {

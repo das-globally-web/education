@@ -49,8 +49,9 @@ class StoreData {
       "name",
       profiledata.data.fullName,
     );
-    box.put("email", profiledata.data.email); 
+    box.put("email", profiledata.data.email);
     box.put("pic", profiledata.data.profilePic);
+    box.put("id", profiledata.data.id);
     logic({
       "name": profiledata.data.fullName,
       "email": profiledata.data.email,

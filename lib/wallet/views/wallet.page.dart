@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class WalletPage extends ConsumerStatefulWidget {
   const WalletPage({super.key});
@@ -114,7 +115,6 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                               fontWeight: FontWeight.w600),
                         );
                       },
-
                       error: (error, stackTrace) {
                         return Center(
                           child: Text("Error:$error"),
@@ -551,10 +551,11 @@ class _DraggableBottomSheetContentState
             ),
             GestureDetector(
               onTap: () {
+                var box = Hive.box('userdata');
                 final walletUpdateData = ref.watch(
                   walletUpdateProvider(
                     WalletUpdateBodyModel(
-                      userId: 1,
+                      userId: box.get('id'),
                       balance: int.parse(coinsController.text.toString()),
                     ),
                   ),
@@ -570,8 +571,7 @@ class _DraggableBottomSheetContentState
                 height: 52.h,
                 width: 400.w,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 220, 248, 129), 
-                    
+                    color: Color.fromARGB(255, 220, 248, 129),
                     borderRadius: BorderRadius.circular(40.r)),
                 child: Center(
                   child: Text(

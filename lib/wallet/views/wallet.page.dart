@@ -1,3 +1,4 @@
+import 'package:educationapp/wallet/model.wallet/user.trx.model.body.dart';
 import 'package:educationapp/wallet/views/walletUpdate/walletUpdateBodyModel.dart';
 import 'package:educationapp/wallet/views/walletUpdate/walletUpdateController.dart';
 import 'package:educationapp/wallet/walletController.dart';
@@ -16,6 +17,7 @@ class WalletPage extends ConsumerStatefulWidget {
 }
 
 class _WalletPageState extends ConsumerState<WalletPage> {
+  int voletId = 0;
   @override
   Widget build(BuildContext context) {
     final wallteserviceProvider = ref.watch(walletProvider);
@@ -107,6 +109,9 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                     ),
                     wallteserviceProvider.when(
                       data: (snapshot) {
+                        setState(() {
+                          voletId = snapshot.data.id;
+                        });
                         return Text(
                           "${double.tryParse(snapshot.data.balance)!.toStringAsFixed(0)} Coins",
                           style: GoogleFonts.roboto(
@@ -138,8 +143,10 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                           callback: () {
                             setState(() {
                               ref.refresh(walletProvider);
+                              ref.refresh(userTrxProvider);
                             });
                           },
+                          voletid: voletId.toString(),
                         );
                       },
                     );
@@ -392,9 +399,11 @@ class _WalletPageState extends ConsumerState<WalletPage> {
 }
 
 class DraggableBottomSheetContent extends ConsumerStatefulWidget {
+  final String voletid;
   final Function callback;
 
-  DraggableBottomSheetContent({super.key, required this.callback});
+  DraggableBottomSheetContent(
+      {super.key, required this.callback, required this.voletid});
 
   @override
   ConsumerState<DraggableBottomSheetContent> createState() =>
@@ -552,6 +561,10 @@ class _DraggableBottomSheetContentState
             GestureDetector(
               onTap: () {
                 var box = Hive.box('userdata');
+                ref.watch(storeuserTrxProvider(UserTranctionBodyModel(
+                    userId: box.get('id').toString(),
+                    voliteId: widget.voletid,
+                    amount: coinsController.text)));
                 final walletUpdateData = ref.watch(
                   walletUpdateProvider(
                     WalletUpdateBodyModel(
@@ -561,6 +574,7 @@ class _DraggableBottomSheetContentState
                   ),
                 );
                 widget.callback();
+                Navigator.pop(context);
                 if (walletUpdateData != null) {
                   Fluttertoast.showToast(msg: "Wallet Update Successful");
                 } else {

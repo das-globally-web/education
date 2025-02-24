@@ -44,6 +44,9 @@ class StoreData {
     log("Saveing data to local");
     final homeService = HomeService(await createDio());
     USerProfieModel profiledata = await homeService.userProfileGet();
+    if (!Hive.isBoxOpen('userdata')) {
+      await Hive.openBox('userdata');
+    }
     var box = Hive.box('userdata');
     box.put(
       "name",

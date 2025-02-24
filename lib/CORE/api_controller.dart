@@ -20,6 +20,7 @@ import 'package:educationapp/trendingskills/model/searchSkillModel.dart';
 import 'package:educationapp/trendingskills/model/skills.model.dart';
 import 'package:educationapp/trendingskills/views/model.review/review.model.dart';
 import 'package:educationapp/trendingskills/views/service.review/review.service.dart';
+import 'package:educationapp/wallet/model.wallet/user.trx.model.body.dart';
 import 'package:educationapp/wallet/model.wallet/user.trx.model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,14 @@ class ApiController {
 
   static Future<UserTranctionModel> getUserTrx(WalletService service) async {
     return await service.getUserTrack();
+  }
+
+  static Future<UserTranctionResModel> storeTrx(
+      Map<String, dynamic> params) async {
+    WalletService service = params['service'];
+    UserTranctionBodyModel body = params['body'];
+
+    return service.storeTrx(body);
   }
 
   static Future<RegisterResponseModel> registerUser({

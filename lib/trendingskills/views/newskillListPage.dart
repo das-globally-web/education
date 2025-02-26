@@ -1,11 +1,13 @@
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/service.newskillListPage/controller.dart';
+import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorBodyModel.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorController.dart';
 import 'package:educationapp/yourMentor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class Newskilllistpage extends ConsumerStatefulWidget {
   const Newskilllistpage({super.key});
@@ -214,7 +216,18 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
+                                  if (!Hive.isBoxOpen("userdata")) {
+                                    await Hive.openBox("userdata");
+                                  }
+                                  var box = Hive.box("userdata");
+
+                                  final storeMentordata = ref.watch(
+                                    storeMentorProvider(
+                                      StoreMentorBodyModel(
+                                          userId: 1, mentorIds: "1"),
+                                    ),
+                                  );
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

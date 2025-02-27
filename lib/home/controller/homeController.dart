@@ -31,7 +31,7 @@ final saveUserProfileDataToLocalProvider =
   }
   var box = Hive.box('userdata');
   box.put('token', token);
-  StoreData.fsavedata();
+  await StoreData.fsavedata();
   return true;
 });
 
@@ -45,7 +45,7 @@ class StoreData {
     preferences.setString('pic', data['pic'].toString());
   }
 
-  static void fsavedata() async {
+  static Future<void> fsavedata() async {
     log("Saveing data to local");
     final homeService = HomeService(await createDio());
     USerProfieModel profiledata = await homeService.userProfileGet();

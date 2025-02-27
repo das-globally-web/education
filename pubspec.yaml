@@ -42,7 +42,7 @@ dependencies:
   dotted_border: ^2.1.0
   intl_phone_field: ^3.2.0
   dio: ^5.7.0
-  logger: ^2.5.0
+
   json_annotation: ^4.9.0
   pretty_dio_logger: ^1.4.0
   flutter_riverpod: ^2.6.1

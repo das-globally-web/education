@@ -12,6 +12,8 @@ import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/searchMentorModel.dart';
 import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/registerpage/model.register/registerResponseModel.dart';
+import 'package:educationapp/splash/models/service.model.dart';
+import 'package:educationapp/splash/service/getstart.service.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/controller/service/searchSkillService.dart';
 import 'package:educationapp/trendingskills/controller/service/skills.service.dart';
@@ -32,8 +34,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ApiController {
+  static Future<ServiceModelRes> fetchService(GetStartService service) async {
+    return await service.getAllService();
+  }
   static Future<AllMentorsModel> fetchMentors(HomeService service) async {
-    return await service.allMentors(MentorsModelBody(userType: 'student'));
+    return await service.allMentors(MentorsModelBody(userType: 'mentor'));
   }
 
   static Future<SkillsModel> getAllSkilss(SkillService service) async {

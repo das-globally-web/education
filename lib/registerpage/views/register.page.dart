@@ -121,6 +121,19 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
     'Chemical',
   ];
 
+  final List<String> semesterList = [
+    "Select Semester",
+    "1 Semester",
+    "2 Semester",
+    "3 Semester",
+    "4 Semester",
+    "5 Semester",
+    "6 Semester",
+    "7 Semester",
+    "8 Semester",
+    "9 Semester",
+  ];
+  String _selectSemseter = "Select Semester";
   XFile? imageFile;
 
   getImageFromGallery() async {
@@ -454,9 +467,77 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     ),
                   ),
                 ] else ...[
-                  RegisterField(
-                    controller: whichSemisterController,
-                    lable: 'Which Semster',
+                  // RegisterField(
+                  //   controller: whichSemisterController,
+                  //   lable: 'Which Semster',
+                  // ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 30.w,
+                      ),
+                      Text(
+                        "Which Semster",
+                        style: GoogleFonts.roboto(
+                            fontSize: 13.w,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4D4D4D)),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
+                    child: DropdownButtonFormField<String>(
+                      value: _selectSemseter,
+                      items: semesterList.map((String item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: GoogleFonts.roboto(
+                                fontSize: 13.w,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF4D4D4D)),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectSemseter = newValue!;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(40.r), // Circular radius
+                          borderSide: BorderSide(
+                            color: Colors.grey, // Border color
+                            width: 1, // Border width
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.r),
+                          borderSide: BorderSide(
+                            color: Colors.grey, // Focused border color
+                            width: 1,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor:
+                            Colors.white, // Background color of the dropdown
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,

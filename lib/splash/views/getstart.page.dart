@@ -24,8 +24,9 @@ class _GetStartPAgeState extends State<GetStartPAge> {
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-            GetstartBody(),
             BackGroundImage(),
+            
+            GetstartBody(),
           ],
         ),
       ),

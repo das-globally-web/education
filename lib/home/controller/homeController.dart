@@ -55,11 +55,11 @@ class StoreData {
     box.put("email", profiledata.data.email);
     box.put("pic", profiledata.data.profilePic);
     box.put("id", profiledata.data.id);
-    logic({
-      "name": profiledata.data.fullName,
-      "email": profiledata.data.email,
-      "pic": profiledata.data.profilePic,
-    });
+    // logic({
+    //   "name": profiledata.data.fullName,
+    //   "email": profiledata.data.email,
+    //   "pic": profiledata.data.profilePic,
+    // });
   }
 
   static Future<Map<dynamic, String>> fetchData() async {

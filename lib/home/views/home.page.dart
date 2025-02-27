@@ -322,7 +322,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: 70.h,
@@ -873,21 +873,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         ));
                                   },
                                   child: Container(
-                                    width: 210,
+                                    width: 240.w,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         color: Color.fromARGB(25, 0, 0, 0),
-                                        // color: Colors.yellow,
                                       ),
                                     ),
                                     child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                          width: 15.w,
-                                        ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -896,8 +892,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               height: 20.h,
                                             ),
                                             Image.asset("assets/pic.png"),
+                                            // Image.asset("assets/pic.png"),
                                             // Image.network(
-                                            //     "http://education.globallywebsolutions.com + ${homeMentor.data[index].profilePic}"),
+                                            //     "${homeMentor.data[index].profilePic}"),
                                             SizedBox(
                                               height: 10.h,
                                             ),
@@ -1076,7 +1073,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       child: Text(
                         "Explore College Review ",
                         style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                           fontSize: 20,
                           color: Color.fromARGB(255, 27, 27, 27),
                         ),
@@ -1102,20 +1099,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     ));
                               },
                               child: Container(
-                                // width: 20,
+                                width: 240.w,
                                 decoration: BoxDecoration(
-                                  // color: Colors.yellow,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
                                     color: Color.fromARGB(25, 0, 0, 0),
                                   ),
                                 ),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
-                                      width: 15.w,
-                                    ),
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -1223,16 +1216,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                 height: 30.h,
               ),
               Container(
-                height: 290,
+                margin: EdgeInsets.only(bottom: 30.h),
+                height: 350.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 20.h,
-                    ),
                     Container(
                       margin: EdgeInsets.only(left: 20.h),
                       child: Text(
@@ -1256,19 +1247,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                             padding: EdgeInsets.only(
                                 left: 10.w, bottom: 20.h, right: 8.w),
                             child: Container(
-                              width: 210,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: Color.fromARGB(25, 0, 0, 0),
-                                ),
-                              ),
+                              // width: 240.w,
+                              // decoration: BoxDecoration(
+                              //   color: Colors.yellow,
+                              //   borderRadius: BorderRadius.circular(20),
+                              //   border: Border.all(
+                              //     color: Color.fromARGB(25, 0, 0, 0),
+                              //   ),
+                              // ),
                               child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
-                                    width: 15.w,
-                                  ),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

@@ -19,6 +19,11 @@ final homeMentorsProvider = FutureProvider<AllMentorsModel>((ref) async {
   return await compute(ApiController.fetchMentors, client);
 });
 
+final companyReviewProvider = FutureProvider((ref) async {
+  final companyreviewservice = HomeService(await createDio());
+  return companyreviewservice.getAllcompanyReview();
+});
+
 final saveUserProfileDataToLocalProvider =
     FutureProvider.family<bool, String>((ref, token) async {
   if (!Hive.isBoxOpen('userdata')) {

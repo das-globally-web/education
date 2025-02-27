@@ -1,6 +1,7 @@
 import 'package:educationapp/config/const.data.dart';
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
+import 'package:educationapp/home/model/companyReviewModel.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/userprofile.model.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
@@ -17,5 +18,6 @@ abstract class HomeService {
   Future<AllMentorsModel> allMentors(@Body() MentorsModelBody body);
   @GET('/api/profile')
   Future<USerProfieModel> userProfileGet();
+  @GET('/api/collage/company')
+  Future<CompanyReviewModel> getAllcompanyReview();
 }
-

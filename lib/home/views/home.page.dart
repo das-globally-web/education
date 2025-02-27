@@ -1123,8 +1123,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         Row(
                                           children: [
                                             Container(
-                                              width: 46,
-                                              height: 26,
+                                              // width: 46.w,
+                                              height: 26.h,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(40),
@@ -1132,13 +1132,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                     255, 222, 221, 236),
                                               ),
                                               child: Center(
-                                                child: Text(
-                                                  "Jaipur",
-                                                  style: GoogleFonts.roboto(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 10,
-                                                    color: Color.fromARGB(
-                                                        255, 46, 46, 46),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 6.w, right: 6.6),
+                                                  child: Text(
+                                                    "Jaipur",
+                                                    style: GoogleFonts.roboto(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 10,
+                                                      color: Color.fromARGB(
+                                                          255, 46, 46, 46),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -1147,38 +1152,40 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               width: 10.w,
                                             ),
                                             Container(
-                                              width: 78,
-                                              height: 26,
+                                              // width: 78.w,
+                                              height: 26.h,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(40),
                                                 color: Color.fromARGB(
                                                     255, 222, 221, 236),
                                               ),
-                                              child: Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Icon(
-                                                    Icons.star,
-                                                    size: 15,
-                                                    color: Color.fromARGB(
-                                                        255, 144, 135, 241),
-                                                  ),
-                                                  Center(
-                                                    child: Text(
-                                                      "4.5 Review",
-                                                      style: GoogleFonts.roboto(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 10,
-                                                        color: Color.fromARGB(
-                                                            255, 46, 46, 46),
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 5.w, right: 8.w),
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.star,
+                                                      size: 15,
+                                                      color: Color.fromARGB(
+                                                          255, 144, 135, 241),
+                                                    ),
+                                                    Center(
+                                                      child: Text(
+                                                        "4.5 Review",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize: 10,
+                                                          color: Color.fromARGB(
+                                                              255, 46, 46, 46),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -1272,8 +1279,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       Row(
                                         children: [
                                           Container(
-                                            width: 46,
-                                            height: 26,
+                                            // width: 46,
+                                            height: 26.h,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(40),
@@ -1281,12 +1288,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                   255, 38, 38, 38),
                                             ),
                                             child: Center(
-                                              child: Text(
-                                                "Jaipur",
-                                                style: GoogleFonts.roboto(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 10,
-                                                  color: Colors.white,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 5.w, right: 5.w),
+                                                child: Text(
+                                                  "Jaipur",
+                                                  style: GoogleFonts.roboto(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 10,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -1295,37 +1306,38 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             width: 10.w,
                                           ),
                                           Container(
-                                            width: 78,
-                                            height: 26,
+                                            // width: 78,
+                                            height: 26.h,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(40),
                                               color: Color.fromARGB(
                                                   255, 38, 38, 38),
                                             ),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  size: 15,
-                                                  color: Color.fromARGB(
-                                                      255, 144, 135, 241),
-                                                ),
-                                                Center(
-                                                  child: Text(
-                                                    "4.5 Review",
-                                                    style: GoogleFonts.roboto(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 10,
-                                                      color: Colors.white,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 5.w, right: 8.w),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    size: 15,
+                                                    color: Color.fromARGB(
+                                                        255, 144, 135, 241),
+                                                  ),
+                                                  Center(
+                                                    child: Text(
+                                                      "4.5 Review",
+                                                      style: GoogleFonts.roboto(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 10,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ],

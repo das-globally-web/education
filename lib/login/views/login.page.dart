@@ -181,12 +181,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 final loginService = LognService(await createDio());
                 // Call the login API
                 final response = await compute(loginService.login, body);
-                await ref.watch(saveUserProfileDataToLocalProvider(
+                final data = await ref.watch(saveUserProfileDataToLocalProvider(
                     response.data.token.toString()));
-                Future.delayed(Duration(seconds: 3), () {
-                  Navigator.pushReplacement(context,
-                      CupertinoPageRoute(builder: (context) => HomePage()));
-                });
+                Navigator.pushReplacement(context,
+                    CupertinoPageRoute(builder: (context) => HomePage()));
               } catch (_) {
                 setState(() {
                   login = false;

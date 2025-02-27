@@ -53,13 +53,13 @@ class StoreData {
       await Hive.openBox('userdata');
     }
     var box = Hive.box('userdata');
-    box.put(
+    await box.put(
       "name",
       profiledata.data.fullName,
     );
-    box.put("email", profiledata.data.email);
-    box.put("pic", profiledata.data.profilePic);
-    box.put("id", profiledata.data.id);
+    await box.put("email", profiledata.data.email);
+    await box.put("pic", profiledata.data.profilePic);
+    await box.put("id", profiledata.data.id);
     // logic({
     //   "name": profiledata.data.fullName,
     //   "email": profiledata.data.email,

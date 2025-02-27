@@ -503,235 +503,242 @@ class _HomePageState extends ConsumerState<HomePage> {
               SizedBox(
                 height: 40.h,
               ),
-              Stack(
-                alignment: Alignment.topCenter,
+              // Stack(
+              //   alignment: Alignment.topCenter,
+              //   children: [
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.push(
+              //             context,
+              //             CupertinoPageRoute(
+              //                 builder: (context) => FindMentorPage()));
+              //       },
+              //       child: Container(
+              //         height: 440,
+              //         width: MediaQuery.of(context).size.width,
+              //         decoration: BoxDecoration(
+              //             color: Color.fromARGB(255, 144, 136, 241),
+              //             borderRadius: BorderRadius.only(
+              //                 topLeft: Radius.circular(45.r),
+              //                 topRight: Radius.circular(45.r))),
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.start,
+              //           crossAxisAlignment: CrossAxisAlignment.center,
+              //           children: [
+              //             SizedBox(
+              //               height: 20.h,
+              //             ),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.start,
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               children: [
+              //                 SizedBox(
+              //                   width: 20.w,
+              //                 ),
+              //                 Container(
+              //                   height: 45.h,
+              //                   width: 45.w,
+              //                   decoration: BoxDecoration(
+              //                       color: Colors.white,
+              //                       borderRadius: BorderRadius.circular(500.r)),
+              //                   child: Image.asset(
+              //                       'assets/fluent-emoji-high-contrast_man-teacher.png'),
+              //                 ),
+              //                 SizedBox(
+              //                   width: 15.w,
+              //                 ),
+              //                 Text(
+              //                   "Find a Mentor",
+              //                   style: GoogleFonts.roboto(
+              //                       color: Colors.black,
+              //                       fontWeight: FontWeight.w600,
+              //                       fontSize: 18.w),
+              //                 ),
+              //                 Spacer(),
+              //                 Container(
+              //                   height: 45.h,
+              //                   width: 45.w,
+              //                   decoration: BoxDecoration(
+              //                       color: Colors.white24,
+              //                       borderRadius: BorderRadius.circular(500.r)),
+              //                   child: Center(
+              //                     child: Icon(
+              //                       Icons.arrow_forward_ios,
+              //                       color: Colors.white,
+              //                       size: 18.h,
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 SizedBox(
+              //                   width: 20.w,
+              //                 ),
+              //               ],
+              //             )
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.push(
+              //             context,
+              //             CupertinoPageRoute(
+              //                 builder: (context) => TrendingSkilsPage()));
+              //       },
+              //       child: Container(
+              //         margin: EdgeInsets.only(top: 90.h),
+              //         height: 440,
+              //         width: MediaQuery.of(context).size.width,
+              //         decoration: BoxDecoration(
+              //             color: Color.fromARGB(255, 220, 248, 129),
+              //             borderRadius: BorderRadius.only(
+              //                 topLeft: Radius.circular(45.r),
+              //                 topRight: Radius.circular(45.r))),
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.start,
+              //           crossAxisAlignment: CrossAxisAlignment.center,
+              //           children: [
+              //             SizedBox(
+              //               height: 20.h,
+              //             ),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.start,
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               children: [
+              //                 SizedBox(
+              //                   width: 20.w,
+              //                 ),
+              //                 Container(
+              //                   height: 45.h,
+              //                   width: 45.w,
+              //                   decoration: BoxDecoration(
+              //                       color: Colors.white,
+              //                       borderRadius: BorderRadius.circular(500.r)),
+              //                   child: Image.asset(
+              //                       'assets/mingcute_code-fill.png'),
+              //                 ),
+              //                 SizedBox(
+              //                   width: 15.w,
+              //                 ),
+              //                 Text(
+              //                   "Trending Skills",
+              //                   style: GoogleFonts.roboto(
+              //                       color: Colors.black,
+              //                       fontWeight: FontWeight.w600,
+              //                       fontSize: 18.w),
+              //                 ),
+              //                 Spacer(),
+              //                 Container(
+              //                   height: 45.h,
+              //                   width: 45.w,
+              //                   decoration: BoxDecoration(
+              //                       color: Colors.black12,
+              //                       borderRadius: BorderRadius.circular(500.r)),
+              //                   child: Center(
+              //                     child: Icon(
+              //                       Icons.arrow_forward_ios,
+              //                       color: Colors.black,
+              //                       size: 18.h,
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 SizedBox(
+              //                   width: 20.w,
+              //                 ),
+              //               ],
+              //             )
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.push(
+              //             context,
+              //             CupertinoPageRoute(
+              //               builder: (context) => AllCollage(),
+              //             ));
+              //       },
+              //       child: Container(
+              //         margin: EdgeInsets.only(top: 90 * 2.h),
+              //         height: 440,
+              //         width: MediaQuery.of(context).size.width,
+              //         decoration: BoxDecoration(
+              //             color: Color(0xFF1B1B1B),
+              //             borderRadius: BorderRadius.only(
+              //                 topLeft: Radius.circular(45.r),
+              //                 topRight: Radius.circular(45.r))),
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.start,
+              //           crossAxisAlignment: CrossAxisAlignment.center,
+              //           children: [
+              //             SizedBox(
+              //               height: 20.h,
+              //             ),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.start,
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               children: [
+              //                 SizedBox(
+              //                   width: 20.w,
+              //                 ),
+              //                 Container(
+              //                   height: 45.h,
+              //                   width: 45.w,
+              //                   decoration: BoxDecoration(
+              //                       color: Colors.white,
+              //                       borderRadius: BorderRadius.circular(500.r)),
+              //                   child: Image.asset('assets/carbon_review.png'),
+              //                 ),
+              //                 SizedBox(
+              //                   width: 15.w,
+              //                 ),
+              //                 Text(
+              //                   "Explore College Reviews",
+              //                   style: GoogleFonts.roboto(
+              //                       color: Colors.white,
+              //                       fontWeight: FontWeight.w600,
+              //                       fontSize: 18.w),
+              //                 ),
+              //                 Spacer(),
+              //                 Container(
+              //                   height: 45.h,
+              //                   width: 45.w,
+              //                   decoration: BoxDecoration(
+              //                       color: Colors.white24,
+              //                       borderRadius: BorderRadius.circular(500.r)),
+              //                   child: Center(
+              //                     child: Icon(
+              //                       Icons.arrow_forward_ios,
+              //                       color: Colors.white,
+              //                       size: 18.h,
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 SizedBox(
+              //                   width: 20.w,
+              //                 ),
+              //               ],
+              //             )
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     Container(
+              //       margin: EdgeInsets.only(top: 90 * 3.h),
+              //       width: MediaQuery.of(context).size.width,
+              //       decoration: BoxDecoration(
+              //           color: Color.fromARGB(255, 255, 255, 255),
+              //           borderRadius: BorderRadius.circular(30.r)),
+              //       child: HomePageBody(),
+              //     ),
+              //   ],
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => FindMentorPage()));
-                    },
-                    child: Container(
-                      height: 440,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 144, 136, 241),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(45.r),
-                              topRight: Radius.circular(45.r))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              Container(
-                                height: 45.h,
-                                width: 45.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(500.r)),
-                                child: Image.asset(
-                                    'assets/fluent-emoji-high-contrast_man-teacher.png'),
-                              ),
-                              SizedBox(
-                                width: 15.w,
-                              ),
-                              Text(
-                                "Find a Mentor",
-                                style: GoogleFonts.roboto(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18.w),
-                              ),
-                              Spacer(),
-                              Container(
-                                height: 45.h,
-                                width: 45.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.white24,
-                                    borderRadius: BorderRadius.circular(500.r)),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Colors.white,
-                                    size: 18.h,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => TrendingSkilsPage()));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 90.h),
-                      height: 440,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 220, 248, 129),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(45.r),
-                              topRight: Radius.circular(45.r))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              Container(
-                                height: 45.h,
-                                width: 45.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(500.r)),
-                                child: Image.asset(
-                                    'assets/mingcute_code-fill.png'),
-                              ),
-                              SizedBox(
-                                width: 15.w,
-                              ),
-                              Text(
-                                "Trending Skills",
-                                style: GoogleFonts.roboto(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18.w),
-                              ),
-                              Spacer(),
-                              Container(
-                                height: 45.h,
-                                width: 45.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.black12,
-                                    borderRadius: BorderRadius.circular(500.r)),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Colors.black,
-                                    size: 18.h,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => AllCollage(),
-                          ));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 90 * 2.h),
-                      height: 440,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Color(0xFF1B1B1B),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(45.r),
-                              topRight: Radius.circular(45.r))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              Container(
-                                height: 45.h,
-                                width: 45.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(500.r)),
-                                child: Image.asset('assets/carbon_review.png'),
-                              ),
-                              SizedBox(
-                                width: 15.w,
-                              ),
-                              Text(
-                                "Explore College Reviews",
-                                style: GoogleFonts.roboto(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18.w),
-                              ),
-                              Spacer(),
-                              Container(
-                                height: 45.h,
-                                width: 45.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.white24,
-                                    borderRadius: BorderRadius.circular(500.r)),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Colors.white,
-                                    size: 18.h,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 90 * 3.h),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(30.r)),
-                    child: HomePageBody(),
-                  ),
+                  
                 ],
               ),
               SizedBox(

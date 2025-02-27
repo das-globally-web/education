@@ -33,7 +33,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ApiController {
   static Future<AllMentorsModel> fetchMentors(HomeService service) async {
-    return await service.allMentors(MentorsModelBody(userType: 'student'));
+    return await service.allMentors(MentorsModelBody(userType: 'mentor'));
   }
 
   static Future<SkillsModel> getAllSkilss(SkillService service) async {

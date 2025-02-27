@@ -217,11 +217,6 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  if (!Hive.isBoxOpen("userdata")) {
-                                    await Hive.openBox("userdata");
-                                  }
-                                  var box = Hive.box("userdata");
-
                                   final storeMentordata = ref.watch(
                                     storeMentorProvider(
                                       StoreMentorBodyModel(

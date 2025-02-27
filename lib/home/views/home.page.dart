@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
@@ -47,6 +48,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final skilsProvider = ref.watch(skilssProvide);
     final wallteserviceProvider = ref.watch(walletProvider);
     final homementrosprovider = ref.watch(homeMentorsProvider);
+    final collages = ref.watch(callagesProviders);
     var box = Hive.box('userdata');
     return Scaffold(
       key: _scaffoldKey,
@@ -847,60 +849,68 @@ class _HomePageState extends ConsumerState<HomePage> {
                     color: Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(30.r)),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     HomePageBody(),
                     SizedBox(
                       height: 15.h,
                     ),
-                    Container(
-                      height: 320.h,
+                    SizedBox(
+                      height: 280.h,
+                      width: MediaQuery.of(context).size.width,
                       child: homementrosprovider.when(
-                        data: (homeMentor) {
+                        data: (homementor) {
                           return ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: homeMentor.data.length,
+                            itemCount: homementor.data.length,
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    left: 10.w, bottom: 20.h, right: 10.w),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                          builder: (context) =>
-                                              FindMentorPage(),
-                                        ));
-                                  },
-                                  child: Container(
-                                    width: 240.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                        color: Color.fromARGB(25, 0, 0, 0),
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 20, left: 20.w),
+                                width: 190.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Color.fromARGB(24, 11, 2, 2),
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(bottom: 8.h),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 8.h,
                                       ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(
+                                      Container(
+                                        width: 174.w,
+                                        height: 112.h,
+                                        child:
+                                            // Image.asset("assets/pic.png"),
+                                            ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
+                                            "http://education.globallywebsolutions.com/public/images/d7NPRUsFdFg067ovmCBmJ7kJ3PgLHltOrLyNaaGa.jpg",
+                                            width: 174.w,
+                                            height: 112.h,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10.w),
+                                        child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            Image.asset("assets/pic.png"),
-                                            // Image.asset("assets/pic.png"),
-                                            // Image.network(
-                                            //     "${homeMentor.data[index].profilePic}"),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
                                             Text(
                                               // "Jennifer Johns",
-                                              homeMentor.data[index].fullName,
+                                              homementor.data[index].fullName,
                                               style: GoogleFonts.roboto(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 16,
@@ -913,7 +923,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             ),
                                             Text(
                                               // "Helping students land their dre...",
-                                              homeMentor.data[index].description
+                                              homementor.data[index].description
                                                   .toString(),
                                               style: GoogleFonts.roboto(
                                                 fontWeight: FontWeight.w400,
@@ -922,10 +932,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                     255, 102, 102, 102),
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 11.h,
-                                            ),
                                             Container(
+                                              margin:
+                                                  EdgeInsets.only(top: 10.h),
                                               width: 170.w,
                                               height: 30.h,
                                               decoration: BoxDecoration(
@@ -947,8 +956,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
@@ -1057,73 +1066,79 @@ class _HomePageState extends ConsumerState<HomePage> {
                 height: 40.h,
               ),
               Container(
-                height: 390.h,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(30.r),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 20.h),
-                      child: Text(
-                        "Explore College Review ",
-                        style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                          color: Color.fromARGB(255, 27, 27, 27),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 8.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20.h),
+                      Container(
+                        margin: EdgeInsets.only(left: 20.h),
+                        child: Text(
+                          "Explore College Review ",
+                          style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 27, 27, 27),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(
-                                left: 10.w, bottom: 20.h, right: 10.w),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) => AllCollage(),
-                                    ));
-                              },
-                              child: Container(
-                                width: 240.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                    color: Color.fromARGB(25, 0, 0, 0),
+                      SizedBox(height: 16.h),
+                      SizedBox(
+                        height: 280.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: collages.when(
+                          data: (collagedata) {
+                            return ListView.builder(
+                              itemCount: collagedata.data.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin:
+                                      EdgeInsets.only(bottom: 20, left: 20.w),
+                                  width: 192.w,
+                                  height: 215.h,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Color.fromARGB(24, 11, 2, 2),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 20.h,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      Container(
+                                        width: 174.w,
+                                        height: 112.h,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.asset(
+                                            "assets/images.png",
+                                            width: 176.w,
+                                            height: 111.h,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                        Image.asset("assets/images.png"),
-                                        SizedBox(
-                                          height: 15.h,
-                                        ),
-                                        Row(
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10.w),
+                                        child: Row(
                                           children: [
                                             Container(
-                                              // width: 46.w,
                                               height: 26.h,
                                               decoration: BoxDecoration(
                                                 borderRadius:
@@ -1131,16 +1146,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 color: Color.fromARGB(
                                                     255, 222, 221, 236),
                                               ),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 6.w, right: 6.6),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10.w),
+                                                child: Center(
                                                   child: Text(
-                                                    "Jaipur",
+                                                    // "Jaipur",
+                                                    collagedata
+                                                        .data[index].city,
                                                     style: GoogleFonts.roboto(
+                                                      fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      fontSize: 10,
                                                       color: Color.fromARGB(
                                                           255, 46, 46, 46),
                                                     ),
@@ -1149,10 +1166,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              width: 10.w,
+                                              width: 7.w,
                                             ),
                                             Container(
-                                              // width: 78.w,
                                               height: 26.h,
                                               decoration: BoxDecoration(
                                                 borderRadius:
@@ -1161,218 +1177,241 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                     255, 222, 221, 236),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 5.w, right: 8.w),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 8.w),
                                                 child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Icon(
                                                       Icons.star,
-                                                      size: 15,
+                                                      size: 12,
                                                       color: Color.fromARGB(
-                                                          255, 144, 135, 241),
+                                                          255, 144, 136, 241),
                                                     ),
-                                                    Center(
-                                                      child: Text(
-                                                        "4.5 Review",
-                                                        style:
-                                                            GoogleFonts.roboto(
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 10,
-                                                          color: Color.fromARGB(
-                                                              255, 46, 46, 46),
-                                                        ),
+                                                    Text(
+                                                      // "4.5 Review",
+                                                      "${collagedata.data[index].avgRating} Review",
+                                                      style: GoogleFonts.roboto(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Color.fromARGB(
+                                                            255, 46, 46, 46),
                                                       ),
-                                                    ),
+                                                    )
                                                   ],
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
-                                          height: 15.h,
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Container(
+                                        width: 176,
+                                        height: 1,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black12,
                                         ),
-                                        Container(
-                                            width: 180,
-                                            height: 1,
-                                            color: Colors.black12),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Text(
-                                          "James Parlour Collage ",
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10.w),
+                                        child: Text(
+                                          // "James Parlour Collage ",
+                                          collagedata.data[index].collageName,
                                           style: GoogleFonts.roboto(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                                Color.fromARGB(255, 27, 27, 27),
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          error: (error, stackTrace) => Center(
+                            child: Text(error.toString()),
+                          ),
+                          loading: () => Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
                 height: 30.h,
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 30.h),
-                height: 350.h,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  // color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(30.r),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 20.h),
-                      child: Text(
-                        "Company Reviews",
-                        style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 8.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20.h),
+                      Container(
+                        margin: EdgeInsets.only(left: 20.h),
+                        child: Text(
+                          "Company Reviews",
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(
-                                left: 10.w, bottom: 20.h, right: 8.w),
-                            child: Container(
-                              // width: 240.w,
-                              // decoration: BoxDecoration(
-                              //   color: Colors.yellow,
-                              //   borderRadius: BorderRadius.circular(20),
-                              //   border: Border.all(
-                              //     color: Color.fromARGB(25, 0, 0, 0),
-                              //   ),
-                              // ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      SizedBox(height: 16.h),
+                      SizedBox(
+                        height: 280.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                          itemCount: 2,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.only(bottom: 20, left: 20.w),
+                              width: 192.w,
+                              height: 215.h,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: Color.fromARGB(24, 11, 2, 2),
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Image.asset("assets/images.png"),
-                                      SizedBox(
-                                        height: 16.h,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            // width: 46,
-                                            height: 26.h,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                              color: Color.fromARGB(
-                                                  255, 38, 38, 38),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 5.w, right: 5.w),
-                                                child: Text(
-                                                  "Jaipur",
-                                                  style: GoogleFonts.roboto(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 10,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10.w,
-                                          ),
-                                          Container(
-                                            // width: 78,
-                                            height: 26.h,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                              color: Color.fromARGB(
-                                                  255, 38, 38, 38),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 5.w, right: 8.w),
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    size: 15,
-                                                    color: Color.fromARGB(
-                                                        255, 144, 135, 241),
-                                                  ),
-                                                  Center(
-                                                    child: Text(
-                                                      "4.5 Review",
-                                                      style: GoogleFonts.roboto(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 10,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 11.h,
-                                      ),
-                                      Container(
-                                        width: 180,
-                                        height: 1,
-                                        color: Colors.white10,
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      Text(
-                                        "James Parlour Collage ",
-                                        style: GoogleFonts.roboto(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16),
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    height: 8.h,
                                   ),
+                                  Container(
+                                    width: 174.w,
+                                    height: 112.h,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.asset(
+                                        "assets/images.png",
+                                        width: 176.w,
+                                        height: 111.h,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 16.h,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10.w),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 46.w,
+                                          height: 26.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(40),
+                                            color:
+                                                Color.fromARGB(255, 38, 38, 38),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Jaipur",
+                                              style: GoogleFonts.roboto(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 7.w,
+                                        ),
+                                        Container(
+                                          width: 78.w,
+                                          height: 26.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(40),
+                                            color:
+                                                Color.fromARGB(255, 38, 38, 38),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                size: 12,
+                                                color: Color.fromARGB(
+                                                    255, 144, 136, 241),
+                                              ),
+                                              Text(
+                                                "4.5 Review",
+                                                style: GoogleFonts.roboto(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Container(
+                                    width: 176,
+                                    height: 1,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white10,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10.w),
+                                    child: Text(
+                                      "James Parlour Collage ",
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),

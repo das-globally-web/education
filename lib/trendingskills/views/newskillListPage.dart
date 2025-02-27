@@ -226,13 +226,22 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                     storeMentorProvider(
                                       StoreMentorBodyModel(
                                           userId: 1, mentorIds: "1"),
-                                    ),
+                                    ).future,
                                   );
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => YourMentorPage(),
-                                      ));
+                                  if (storeMentordata != null) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              YourMentorPage(),
+                                        ));
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content:
+                                          Text("failed to store mentor data!"),
+                                    ));
+                                  }
                                 },
                                 child: Container(
                                   width: 157,

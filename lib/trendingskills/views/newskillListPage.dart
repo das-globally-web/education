@@ -1,9 +1,13 @@
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/service.newskillListPage/controller.dart';
+import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorBodyModel.dart';
+import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorController.dart';
+import 'package:educationapp/yourMentor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class Newskilllistpage extends ConsumerStatefulWidget {
   const Newskilllistpage({super.key});
@@ -211,23 +215,53 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                width: 157,
-                                height: 46,
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 220, 248, 129),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 10),
-                                    child: Text(
-                                      "Contact me",
-                                      style: GoogleFonts.roboto(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color.fromARGB(255, 27, 27, 27),
+                              InkWell(
+                                onTap: () async {
+                                  if (!Hive.isBoxOpen("userdata")) {
+                                    await Hive.openBox("userdata");
+                                  }
+                                  var box = Hive.box("userdata");
+
+                                  final storeMentordata = ref.watch(
+                                    storeMentorProvider(
+                                      StoreMentorBodyModel(
+                                          userId: 1, mentorIds: "1"),
+                                    ).future,
+                                  );
+                                  if (storeMentordata != null) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              YourMentorPage(),
+                                        ));
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content:
+                                          Text("failed to store mentor data!"),
+                                    ));
+                                  }
+                                },
+                                child: Container(
+                                  width: 157,
+                                  height: 46,
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 220, 248, 129),
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "Contact me",
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color:
+                                              Color.fromARGB(255, 27, 27, 27),
+                                        ),
                                       ),
                                     ),
                                   ),

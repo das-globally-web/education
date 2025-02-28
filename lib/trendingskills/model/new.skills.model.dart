@@ -29,45 +29,105 @@ class NewSkillsModel {
 }
 
 class Datum {
-    String fullName;
     int id;
-    String title;
-    String subTitle;
-    String image;
+    String fullName;
+    String email;
+    String phoneNumber;
+    String password;
+    dynamic token;
+    String profilePic;
+    String userType;
+    String serviceType;
     String description;
+    dynamic location;
+    String userId;
     DateTime createdAt;
     DateTime updatedAt;
+    int skillsId;
+    dynamic totalExperience;
+    dynamic usersField;
+    dynamic languageKnown;
+    dynamic linkedinUser;
+    dynamic dob;
+    dynamic gender;
+    dynamic resumeUpload;
+    dynamic samester;
 
     Datum({
-        required this.fullName,
         required this.id,
-        required this.title,
-        required this.subTitle,
-        required this.image,
+        required this.fullName,
+        required this.email,
+        required this.phoneNumber,
+        required this.password,
+        required this.token,
+        required this.profilePic,
+        required this.userType,
+        required this.serviceType,
         required this.description,
+        required this.location,
+        required this.userId,
         required this.createdAt,
         required this.updatedAt,
+        required this.skillsId,
+        required this.totalExperience,
+        required this.usersField,
+        required this.languageKnown,
+        required this.linkedinUser,
+        required this.dob,
+        required this.gender,
+        required this.resumeUpload,
+        required this.samester,
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        fullName: json["full_name"],
         id: json["id"],
-        title: json["title"],
-        subTitle: json["sub_title"],
-        image: json["image"],
+        fullName: json["full_name"],
+        email: json["email"],
+        phoneNumber: json["phone_number"],
+        password: json["password"],
+        token: json["token"],
+        profilePic: json["profile_pic"],
+        userType: json["user_type"],
+        serviceType: json["service_type"],
         description: json["description"],
+        location: json["location"],
+        userId: json["user_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        skillsId: json["skills_id"],
+        totalExperience: json["total_experience"],
+        usersField: json["users_field"],
+        languageKnown: json["language_known"],
+        linkedinUser: json["linkedin_user"],
+        dob: json["dob"],
+        gender: json["gender"],
+        resumeUpload: json["resume_upload"],
+        samester: json["samester"],
     );
 
     Map<String, dynamic> toJson() => {
-        "full_name": fullName,
         "id": id,
-        "title": title,
-        "sub_title": subTitle,
-        "image": image,
+        "full_name": fullName,
+        "email": email,
+        "phone_number": phoneNumber,
+        "password": password,
+        "token": token,
+        "profile_pic": profilePic,
+        "user_type": userType,
+        "service_type": serviceType,
         "description": description,
+        "location": location,
+        "user_id": userId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "skills_id": skillsId,
+        "total_experience": totalExperience,
+        "users_field": usersField,
+        "language_known": languageKnown,
+        "linkedin_user": linkedinUser,
+        "dob": dob,
+        "gender": gender,
+        "resume_upload": resumeUpload,
+        "samester": samester,
     };
 }

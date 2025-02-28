@@ -258,8 +258,8 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                                               BorderRadius.circular(12.r),
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  "http://education.globallywebsolutions.com/public/${data.data[index].image}"),
-                                              fit: BoxFit.fill),
+                                                  "${data.data[index].profilePic}"),
+                                              fit: BoxFit.cover),
                                         ),
                                       ),
                                     ),
@@ -332,7 +332,7 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                                                         right: 10.w),
                                                     child: Center(
                                                       child: Text(
-                                                        data.data[index].title,
+                                                        widget.name,
                                                         style:
                                                             GoogleFonts.roboto(
                                                                 fontSize: 12.w,

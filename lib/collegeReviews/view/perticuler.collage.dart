@@ -449,8 +449,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                     ),
                     child: ClipOval(
                       child: Image.network(
-                        "http://education.globallywebsolutions.com" +
-                            snap.data.image, // Replace with your image URL
+                        snap.data.image, // Replace with your image URL
                         fit: BoxFit.cover,
                       ),
                     ),

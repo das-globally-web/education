@@ -167,7 +167,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                           width: 5.w,
                                         ),
                                         Text(
-                                          "${snap.data.avgRating.toStringAsFixed(1)} Review",
+                                          "${snap.data.avgRating == null ? "3" : snap.data.avgRating.toStringAsFixed(1)} Review",
                                           style: GoogleFonts.roboto(
                                               fontSize: 10.w),
                                         )

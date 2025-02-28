@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/collegeReviews/controller/service/searchCollageController.dart';
 import 'package:educationapp/collegeReviews/view/perticuler.collage.dart';
@@ -241,6 +243,8 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                                             .toString(),
                                         rating:
                                             collage.data[index].id.toString(),
+                                        image: collage.data[index].image
+                                            .toString(),
                                       )),
                                 );
                               },
@@ -315,6 +319,7 @@ class _AllCollageBodyState extends ConsumerState<AllCollageBody> {
                         city: snapshot.data[index].city,
                         description: snapshot.data[index].collageDescription,
                         rating: snapshot.data[index].avgRating.toString(),
+                        image: snapshot.data[index].image.toString(),
                       )),
                 );
               });
@@ -336,12 +341,14 @@ class UniversityTab extends StatefulWidget {
   final String city;
   final String rating;
   final String description;
+  final String image;
   const UniversityTab(
       {super.key,
       required this.name,
       required this.city,
       required this.rating,
-      required this.description});
+      required this.description,
+      required this.image});
 
   @override
   State<UniversityTab> createState() => _UniversityTabState();
@@ -350,6 +357,7 @@ class UniversityTab extends StatefulWidget {
 class _UniversityTabState extends State<UniversityTab> {
   @override
   Widget build(BuildContext context) {
+    log(widget.image);
     return Container(
       height: 135.h,
       width: 400.w,
@@ -367,11 +375,11 @@ class _UniversityTabState extends State<UniversityTab> {
               height: 111.h,
               width: 112.w,
               decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(12.r),
-                  image: DecorationImage(
-                      image: AssetImage("assets/Rectangle 8.jpg"),
-                      fit: BoxFit.fill)),
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(12.r),
+                image: DecorationImage(
+                    image: NetworkImage("${widget.image}"), fit: BoxFit.fill),
+              ),
             ),
           ),
           SizedBox(
@@ -382,7 +390,7 @@ class _UniversityTabState extends State<UniversityTab> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 10.h,
+                height: 20.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,

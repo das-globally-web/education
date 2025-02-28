@@ -36,7 +36,7 @@ class Data {
     String city;
     DateTime createdAt;
     DateTime updatedAt;
-    double avgRating;
+    dynamic avgRating;
     int reviewCount;
 
     Data({
@@ -59,7 +59,7 @@ class Data {
         city: json["city"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        avgRating: json["avg_rating"]?.toDouble(),
+        avgRating: json["avg_rating"],
         reviewCount: json["review_count"],
     );
 

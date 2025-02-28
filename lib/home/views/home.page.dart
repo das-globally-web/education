@@ -4,6 +4,7 @@ import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/login/views/login.page.dart';
+import 'package:educationapp/main.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
@@ -313,11 +314,11 @@ class _HomePageState extends ConsumerState<HomePage> {
 
                   await preferences.clear();
                   var box = Hive.box('userdata');
-                  box.clear();
+                  await box.clear();
                   container.dispose();
                   Navigator.pushAndRemoveUntil(
                       context,
-                      CupertinoPageRoute(builder: (context) => LoginPage()),
+                      CupertinoPageRoute(builder: (context) => MyApp()),
                       (route) => false);
                 },
               ),

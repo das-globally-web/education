@@ -10,15 +10,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SkillListPage extends ConsumerStatefulWidget {
-  final int id;
+  final String id;
   final String name;
   final String subtitle;
   final String description;
+  final String image;
   const SkillListPage(
       {super.key,
       required this.id,
       required this.name,
       required this.subtitle,
+      required this.image,
       required this.description});
 
   @override
@@ -125,11 +127,12 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                         height: 46.h,
                         width: 46.w,
                         decoration: BoxDecoration(
-                            color: Color(0xFF9088F1),
-                            borderRadius: BorderRadius.circular(100.r),
-                            image: DecorationImage(
-                                image:
-                                    AssetImage('assets/Mask group (1).png'))),
+                          // color: Color(0xFF9088F1),
+                          borderRadius: BorderRadius.circular(100.r),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  'http://education.globallywebsolutions.com/public/${widget.image}')),
+                        ),
                       ),
                       SizedBox(
                         width: 15.w,
@@ -139,40 +142,44 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${widget.subtitle}",
-                            style: GoogleFonts.roboto(
-                                fontSize: 11.w,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF9088F1)),
-                          ),
-                          Text(
                             "${widget.name}",
                             style: GoogleFonts.roboto(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16.w),
-                          )
+                          ),
+                          SizedBox(
+                            width: 280.w,
+                            child: Text(
+                              "${widget.subtitle}",
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.roboto(
+                                  fontSize: 11.w,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xFF9088F1)),
+                            ),
+                          ),
                         ],
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
-                        child: Text(
-                          "${widget.description}",
-                          style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.w,
-                              color: Colors.white),
-                        ),
-                      )
-                    ],
-                  )
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     Padding(
+                  //       padding:
+                  //           EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+                  //       child: Text(
+                  //         "${widget.description}",
+                  //         style: GoogleFonts.roboto(
+                  //             fontWeight: FontWeight.w400,
+                  //             fontSize: 12.w,
+                  //             color: Colors.white),
+                  //       ),
+                  //     )
+                  //   ],
+                  // )
                 ],
               ),
             ),
@@ -199,7 +206,7 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 12.r,
+                          width: 12.w,
                         ),
                         Text(
                           "Expert in UX/UI",
@@ -215,7 +222,7 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                         itemCount: data.data.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
+                            padding: EdgeInsets.only(bottom: 8.h),
                             child: InkWell(
                               onTap: () {
                                 Navigator.push(
@@ -244,13 +251,14 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                                         height: 111.h,
                                         width: 112.w,
                                         decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(12.r),
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/Rectangle 8.jpg"),
-                                                fit: BoxFit.fill)),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(12.r),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "http://education.globallywebsolutions.com/public/${data.data[index].image}"),
+                                              fit: BoxFit.fill),
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
@@ -278,6 +286,7 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                                         Container(
                                           width: 246.w,
                                           child: Text(
+                                            overflow: TextOverflow.ellipsis,
                                             data.data[index].description,
                                             style: GoogleFonts.roboto(
                                                 color: Colors.black,
@@ -309,11 +318,12 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                                                 child: Container(
                                                   height: 26.h,
                                                   decoration: BoxDecoration(
-                                                      color: Color.fromARGB(
-                                                          225, 222, 221, 236),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50.r)),
+                                                    color: Color.fromARGB(
+                                                        225, 222, 221, 236),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.r),
+                                                  ),
                                                   child: Padding(
                                                     padding: EdgeInsets.only(
                                                         left: 10.w,
@@ -342,29 +352,31 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                                                 child: Container(
                                                   height: 26.h,
                                                   decoration: BoxDecoration(
-                                                      color: Color.fromARGB(
-                                                          225, 222, 221, 236),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50.r)),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 10.w,
-                                                        right: 10.w),
-                                                    child: Center(
+                                                    color: Color.fromARGB(
+                                                        225, 222, 221, 236),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.r),
+                                                  ),
+                                                  width: 130.w,
+                                                  child: Center(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 10.w,
+                                                          right: 10.w),
                                                       child: Text(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         data.data[index]
-                                                            .subTitle,
+                                                            .description,
                                                         style:
                                                             GoogleFonts.roboto(
+                                                                color: Colors
+                                                                    .black,
                                                                 fontSize: 12.w,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w400,
-                                                                letterSpacing:
-                                                                    -0.30,
-                                                                color: Colors
-                                                                    .black),
+                                                                        .w400),
                                                       ),
                                                     ),
                                                   ),

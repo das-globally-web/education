@@ -226,7 +226,6 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                                           CupertinoPageRoute(
                                               builder: (context) =>
                                                   SkillListPage(
-                                                    id: 1,
                                                     name: trandingSkill
                                                         .data[index].title,
                                                     subtitle: trandingSkill
@@ -234,6 +233,12 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                                                     description: trandingSkill
                                                         .data[index]
                                                         .description,
+                                                    id: trandingSkill
+                                                        .data[index].id
+                                                        .toString(),
+                                                    image: trandingSkill
+                                                        .data[index].image
+                                                        .toString(),
                                                   )));
                                     },
                                     child: Container(
@@ -254,24 +259,14 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                                             height: 58.h,
                                             width: 58.w,
                                             decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "http://education.globallywebsolutions.com/public/${trandingSkill.data[index].image.toString()}"),
+                                                ),
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        500.r),
-                                                color: Color(0xFF9088F1)),
-                                            child: Center(
-                                              child: Image.asset(
-                                                  "assets/image 3.png"),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Text(
-                                            trandingSkill.data[index].subTitle,
-                                            style: GoogleFonts.montserrat(
-                                                color: Color(0xFF9088F1),
-                                                fontSize: 13.w,
-                                                fontWeight: FontWeight.w400),
+                                                    BorderRadius.circular(10.r),
+                                                color: Color.fromARGB(
+                                                    0, 145, 136, 241)),
                                           ),
                                           SizedBox(
                                             height: 5.h,
@@ -286,18 +281,18 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                                                 letterSpacing: -0.95),
                                           ),
                                           SizedBox(
-                                            height: 3.h,
+                                            height: 5.h,
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(
-                                                left: 4.2.w, right: 4.2.w),
+                                                left: 5.w, right: 5.w),
                                             child: Text(
-                                              trandingSkill
-                                                  .data[index].description,
                                               textAlign: TextAlign.center,
+                                              trandingSkill
+                                                  .data[index].subTitle,
                                               style: GoogleFonts.montserrat(
-                                                  color: Color(0xFF666666),
-                                                  fontSize: 11.w,
+                                                  color: Color(0xFF9088F1),
+                                                  fontSize: 13.w,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                           ),
@@ -358,10 +353,11 @@ class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
                         context,
                         CupertinoPageRoute(
                             builder: (context) => SkillListPage(
-                                  id: 1,
                                   name: snapshot.data[index].title,
                                   subtitle: snapshot.data[index].subTitle,
                                   description: snapshot.data[index].description,
+                                  id: snapshot.data[index].id.toString(),
+                                  image: snapshot.data[index].image.toString(),
                                 )));
                   },
                   child: Container(
@@ -378,25 +374,11 @@ class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
                           height: 58.h,
                           width: 58.w,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(500.r),
-                              color: Color(0xFF9088F1)),
-                          child: Center(
-                            child: Image.asset("assets/image 3.png"),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 5.w, right: 5.w),
-                          child: Text(
-                            textAlign: TextAlign.center,
-                            snapshot.data[index].subTitle,
-                            style: GoogleFonts.montserrat(
-                                color: Color(0xFF9088F1),
-                                fontSize: 13.w,
-                                fontWeight: FontWeight.w400),
-                          ),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "http://education.globallywebsolutions.com/public/${snapshot.data[index].image.toString()}")),
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: Color.fromARGB(0, 145, 136, 241)),
                         ),
                         SizedBox(
                           height: 5.h,
@@ -410,16 +392,16 @@ class _TrendingSkillsBodyState extends ConsumerState<TrendingSkillsBody> {
                               letterSpacing: -0.95),
                         ),
                         SizedBox(
-                          height: 3.h,
+                          height: 5.h,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 4.2.w, right: 4.2.w),
+                          padding: EdgeInsets.only(left: 5.w, right: 5.w),
                           child: Text(
-                            snapshot.data[index].description,
                             textAlign: TextAlign.center,
+                            snapshot.data[index].subTitle,
                             style: GoogleFonts.montserrat(
-                                color: Color(0xFF666666),
-                                fontSize: 11.w,
+                                color: Color(0xFF9088F1),
+                                fontSize: 13.w,
                                 fontWeight: FontWeight.w400),
                           ),
                         ),

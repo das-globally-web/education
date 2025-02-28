@@ -38,8 +38,8 @@ class Data {
     DateTime updatedAt;
     dynamic avgRating;
     int reviewCount;
-    // String? branch;
-    // String seat_intake;
+    String? branch;
+    String seat_intake;
     
 
     Data({
@@ -52,8 +52,8 @@ class Data {
         required this.updatedAt,
         required this.avgRating,
         required this.reviewCount,
-        // required this.branch,
-        // required this.seat_intake,
+        required this.branch,
+        required this.seat_intake,
     });
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -66,8 +66,8 @@ class Data {
         updatedAt: DateTime.parse(json["updated_at"]),
         avgRating: json["avg_rating"],
         reviewCount: json["review_count"],
-        // branch: json['branch'],
-        // seat_intake: json['seat_intake'],
+        branch: json['branch'],
+        seat_intake: json['seat_intake'],
     );
 
     Map<String, dynamic> toJson() => {
@@ -80,7 +80,7 @@ class Data {
         "updated_at": updatedAt.toIso8601String(),
         "avg_rating": avgRating,
         "review_count": reviewCount,
-        // "branch": branch,
-        // "seat_intake": seat_intake,
+        "branch": branch,
+        "seat_intake": seat_intake,
     };
 }

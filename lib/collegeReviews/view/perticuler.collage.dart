@@ -31,10 +31,11 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
     final particularProvider = ref.watch(addreviewProvider("${widget.id}"));
     final perticulerCollageData =
         ref.watch(perticulerCollageProvider(widget.id));
+
     return Scaffold(
         body: perticulerCollageData.when(
       data: (snap) {
-        List<String> departments = [];
+        List<String> departments = snap.data.branch!.split(', ');
         return Scaffold(
           backgroundColor: Color(0xFF9088F1),
           body: SingleChildScrollView(
@@ -179,6 +180,34 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                     ),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Container(
+                                height: 26,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFDEDDEC),
+                                    borderRadius: BorderRadius.circular(40.r)),
+                                child: Center(
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 15, right: 15),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Seat intake ${snap.data.seat_intake}",
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 10.w),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
                           ),
@@ -192,35 +221,55 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                           SizedBox(
                             height: 15.h,
                           ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 15.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Branches",
+                                  style: GoogleFonts.roboto(
+                                      color: const Color.fromARGB(255, 0, 0, 0),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15.w),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),
                           SizedBox(
                             height: 50.h,
                             width: MediaQuery.of(context).size.width,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: departments.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(4.0.w),
-                                    child: Container(
-                                      height: 26,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFDEDDEC),
-                                          borderRadius:
-                                              BorderRadius.circular(40.r)),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 15, right: 15),
-                                          child: Text(
-                                            departments[index],
-                                            style: GoogleFonts.roboto(
-                                                fontSize: 10.w),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 8.0.w),
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: departments.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: EdgeInsets.all(4.0.w),
+                                      child: Container(
+                                        height: 26,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFDEDDEC),
+                                            borderRadius:
+                                                BorderRadius.circular(40.r)),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 15, right: 15),
+                                            child: Text(
+                                              departments[index],
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 10.w),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                }),
+                                    );
+                                  }),
+                            ),
                           ),
                           SizedBox(
                             height: 15.h,

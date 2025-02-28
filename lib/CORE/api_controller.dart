@@ -203,6 +203,7 @@ class ApiController {
     required String gender,
     required dynamic context,
     required Function ifError,
+    required String samester,
   }) async {
     final Uri url =
         Uri.parse("http://education.globallywebsolutions.com/api/register");
@@ -230,7 +231,8 @@ class ApiController {
       "description": description,
       "location": location,
       "dob": dob,
-      "gender": gender
+      "gender": gender,
+      "samester": samester,
     });
 
     try {

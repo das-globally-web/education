@@ -24,7 +24,7 @@ class _Servicenewskilllistpage implements Servicenewskilllistpage {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NewskillListPageModel> getAllNewSkillListPage() async {
+  Future<NewskillListPageModel> getAllNewSkillListPage(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -36,7 +36,7 @@ class _Servicenewskilllistpage implements Servicenewskilllistpage {
     )
         .compose(
           _dio.options,
-          '/api/user-data/2',
+          '/api/user-data/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

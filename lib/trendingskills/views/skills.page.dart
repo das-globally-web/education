@@ -228,7 +228,9 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Newskilllistpage(),
+                                    builder: (context) => Newskilllistpage(
+                                      id: data.data[index].id.toString(),
+                                    ),
                                   ),
                                 );
                               },

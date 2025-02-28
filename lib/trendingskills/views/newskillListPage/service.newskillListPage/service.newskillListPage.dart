@@ -9,6 +9,6 @@ abstract class Servicenewskilllistpage {
   factory Servicenewskilllistpage(Dio dio, {String baseUrl}) =
       _Servicenewskilllistpage;
 
-  @GET('/api/user-data/2')
-  Future<NewskillListPageModel> getAllNewSkillListPage();
+  @GET('/api/user-data/{id}')
+  Future<NewskillListPageModel> getAllNewSkillListPage(@Path('id') String id);
 }

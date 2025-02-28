@@ -1,8 +1,9 @@
 import 'package:educationapp/config/preety.dio.dart';
+import 'package:educationapp/trendingskills/views/newskillListPage/model.newskillListpage/newskillListModel.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/service.newskillListPage/service.newskillListPage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final newskillListPageProvider = FutureProvider((ref) async {
+final newskillListPageProvider = FutureProvider.family<NewskillListPageModel, String>((ref , id) async {
   final newskillListPage = Servicenewskilllistpage(await createDio());
-  return newskillListPage.getAllNewSkillListPage();
+  return newskillListPage.getAllNewSkillListPage(id);
 });

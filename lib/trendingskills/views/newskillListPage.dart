@@ -10,7 +10,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 
 class Newskilllistpage extends ConsumerStatefulWidget {
-  const Newskilllistpage({super.key});
+  final String id;
+  const Newskilllistpage({
+    super.key,
+    required this.id,
+  });
 
   @override
   ConsumerState<Newskilllistpage> createState() => _NewskilllistpageState();
@@ -19,7 +23,8 @@ class Newskilllistpage extends ConsumerStatefulWidget {
 class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
   @override
   Widget build(BuildContext context) {
-    final newskillListpageData = ref.watch(newskillListPageProvider);
+    final newskillListpageData =
+        ref.watch(newskillListPageProvider(48.toString()));
     return newskillListpageData.when(
       data: (data) {
         return Scaffold(
@@ -66,7 +71,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                         ),
                         Spacer(),
                         Text(
-                          "New College Review",
+                          "Mentor ",
                           style: GoogleFonts.roboto(
                               fontSize: 18.w,
                               color: Color.fromARGB(255, 255, 255, 255)),
@@ -307,7 +312,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "About Jennifer",
+                                    "About ${data.data.fullName}",
                                     style: GoogleFonts.roboto(
                                       fontSize: 15,
                                       color: Color.fromARGB(255, 27, 27, 27),

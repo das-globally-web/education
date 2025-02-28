@@ -695,11 +695,12 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                                 password: passwordController.text,
                                 gender: genderController.text,
                                 dob: dateofBrithController.text,
+                                samester: _selectedItem,
                                 ifError: () {
                                   setState(() {
                                     buttonLoder = false;
                                   });
-                                });
+                                }, );
                       } else {
                         RegisterResponseModel res =
                             await ApiController.registerUser(

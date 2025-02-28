@@ -23,8 +23,7 @@ class Newskilllistpage extends ConsumerStatefulWidget {
 class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
   @override
   Widget build(BuildContext context) {
-    final newskillListpageData =
-        ref.watch(newskillListPageProvider(48.toString()));
+    final newskillListpageData = ref.watch(newskillListPageProvider(widget.id));
     return newskillListpageData.when(
       data: (data) {
         return Scaffold(
@@ -541,8 +540,9 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                     ),
                     child: ClipOval(
                       child: Image.network(
-                          "http://education.globallywebsolutions.com" +
-                              "${data.data.profilePic}"),
+                        "${data.data.profilePic}",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

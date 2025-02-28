@@ -1164,7 +1164,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               //   fit: BoxFit.cover,
                                               // ),
                                               Image.network(
-                                            "http://education.globallywebsolutions.com${collagedata.data[index].image}",
+                                            "${collagedata.data[index].image}",
                                             width: 176.w,
                                             height: 111.h,
                                             fit: BoxFit.cover,

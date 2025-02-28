@@ -1692,6 +1692,7 @@ class _UserTabsState extends State<UserTabs> {
                 width: 246.w,
                 child: Text(
                   "${widget.dec}",
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.roboto(
                       color: Colors.black,
                       fontSize: 12.w,

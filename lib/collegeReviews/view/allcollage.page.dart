@@ -467,12 +467,16 @@ class _UniversityTabState extends State<UniversityTab> {
               SizedBox(
                 height: 10.h,
               ),
-              Text(
-                widget.name,
-                style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 16.w,
-                    fontWeight: FontWeight.w600),
+              Container(
+                width: 246.w,
+                child: Text(
+                  widget.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.roboto(
+                      color: Colors.black,
+                      fontSize: 16.w,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
               SizedBox(
                 height: 5.h,
@@ -481,6 +485,7 @@ class _UniversityTabState extends State<UniversityTab> {
                 width: 246.w,
                 child: Text(
                   widget.description,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.roboto(
                       color: Colors.black,
                       fontSize: 12.w,

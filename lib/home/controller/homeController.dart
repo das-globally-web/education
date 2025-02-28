@@ -30,7 +30,7 @@ final saveUserProfileDataToLocalProvider =
     await Hive.openBox('userdata');
   }
   var box = Hive.box('userdata');
-  box.put('token', token);
+  await box.put('token', token);
   await StoreData.fsavedata();
   return true;
 });

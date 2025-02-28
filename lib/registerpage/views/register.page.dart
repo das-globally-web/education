@@ -705,6 +705,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         RegisterResponseModel res =
                             await ApiController.registerUser(
                                 context: context,
+                                
                                 imageFile: imageFile!,
                                 fullName: fullNameController.text,
                                 email: emailController.text,

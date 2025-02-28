@@ -14,7 +14,9 @@ final dioProvider = FutureProvider<Dio>((ref) async {
 
 Future<Dio> createDio() async {
   final dio = Dio();
-
+  if (!Hive.isBoxOpen('userdata')) {
+    await Hive.openBox('userdata');
+  }
   dio.interceptors.add(PrettyDioLogger(
     requestHeader: true,
     requestBody: true,

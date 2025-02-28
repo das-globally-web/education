@@ -50,7 +50,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final homementrosprovider = ref.watch(homeMentorsProvider);
     final collages = ref.watch(callagesProviders);
     final companyreviewData = ref.watch(companyReviewProvider);
-   
+
     var box = Hive.box('userdata');
     return Scaffold(
       key: _scaffoldKey,
@@ -116,7 +116,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 color: Color.fromARGB(25, 255, 255, 255),
                                 borderRadius: BorderRadius.circular(500.r),
                                 image: DecorationImage(
-                                    image: AssetImage("assets/Ellipse2.png"))),
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage("${box.get('pic')}"))),
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 25),
@@ -387,7 +388,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          "http://education.globallywebsolutions.com/public/images/d7NPRUsFdFg067ovmCBmJ7kJ3PgLHltOrLyNaaGa.jpg",
+                          "${box.get('pic')}",
                         ),
                       ),
                     ),
@@ -876,7 +877,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               itemCount: homementor.data.length,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  height: 200,
+                                  height: 214.h,
                                   margin:
                                       EdgeInsets.only(bottom: 0, left: 20.w),
                                   width: 190.w,
@@ -946,6 +947,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 homementor
                                                     .data[index].description
                                                     .toString(),
+                                                overflow: TextOverflow.ellipsis,
                                                 style: GoogleFonts.roboto(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 12,
@@ -1026,13 +1028,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                     height: 150.h,
                     width: 440.w,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 25.w),
+                      padding: EdgeInsets.only(left: 0.w),
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: EdgeInsets.only(right: 10.w),
+                              padding: EdgeInsets.only(left: 12.w, right: 12),
                               child: Container(
                                 height: 145.h,
                                 width: 120.w,
@@ -1047,21 +1049,27 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       height: 58.h,
                                       width: 58.w,
                                       decoration: BoxDecoration(
-                                          color: Colors.white10,
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "http://education.globallywebsolutions.com/public/${snapshot.data[index].image}")),
+                                          color: Colors.transparent,
                                           borderRadius:
-                                              BorderRadius.circular(500.r)),
-                                      child:
-                                          Image.asset("assets/Mask group.png"),
+                                              BorderRadius.circular(10.r)),
                                     ),
                                     SizedBox(
                                       height: 10.h,
                                     ),
-                                    Text(
-                                      snapshot.data[index].subTitle,
-                                      style: GoogleFonts.roboto(
-                                          color: Color.fromARGB(
-                                              255, 144, 136, 241),
-                                          fontSize: 11.w),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 5.w),
+                                      child: Text(
+                                        snapshot.data[index].subTitle,
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.roboto(
+                                            color: Color.fromARGB(
+                                                255, 144, 136, 241),
+                                            fontSize: 11.w),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 1.h,

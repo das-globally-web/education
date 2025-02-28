@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/trendingskills/views/controller.review/reviewController.dart';
 import 'package:educationapp/trendingskills/views/review.page.dart';
@@ -29,8 +31,10 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
     final particularProvider = ref.watch(addreviewProvider("${widget.id}"));
     final perticulerCollageData =
         ref.watch(perticulerCollageProvider(widget.id));
-    return perticulerCollageData.when(
+    return Scaffold(
+        body: perticulerCollageData.when(
       data: (snap) {
+        List<String> departments = [];
         return Scaffold(
           backgroundColor: Color(0xFF9088F1),
           body: SingleChildScrollView(
@@ -184,6 +188,49 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                           Divider(
                             color: Colors.grey.shade300,
                             height: 2,
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                            width: MediaQuery.of(context).size.width,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: departments.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: EdgeInsets.all(4.0.w),
+                                    child: Container(
+                                      height: 26,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFFDEDDEC),
+                                          borderRadius:
+                                              BorderRadius.circular(40.r)),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 15, right: 15),
+                                          child: Text(
+                                            departments[index],
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 10.w),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          Divider(
+                            color: Colors.grey.shade300,
+                            height: 2,
+                          ),
+                          SizedBox(
+                            height: 15.h,
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -380,7 +427,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
           ),
         ),
       ),
-    );
+    ));
   }
 
   Widget buildContainer(String title) {

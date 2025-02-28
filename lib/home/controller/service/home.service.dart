@@ -1,11 +1,9 @@
-import 'package:educationapp/config/const.data.dart';
+
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
-import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/home/model/companyReviewModel.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
 import 'package:educationapp/home/model/userprofile.model.dart';
-import 'package:educationapp/login/model/login.body.model.dart';
-import 'package:educationapp/login/model/login.rsponse.model.dart';
+
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart' hide Headers;
 part 'home.service.g.dart';

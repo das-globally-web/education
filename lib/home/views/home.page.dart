@@ -52,6 +52,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final companyreviewData = ref.watch(companyReviewProvider);
 
     var box = Hive.box('userdata');
+    final container = ProviderContainer();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xFF1B1B1B),
@@ -309,14 +310,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                   SharedPreferences preferences =
                       await SharedPreferences.getInstance();
                   Fluttertoast.showToast(msg: "Logout Succesfuliy");
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      CupertinoPageRoute(builder: (context) => LoginPage()),
-                      (route) => false);
 
                   await preferences.clear();
                   var box = Hive.box('userdata');
                   box.clear();
+                  container.dispose();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(builder: (context) => LoginPage()),
+                      (route) => false);
                 },
               ),
             ],
@@ -866,7 +868,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       height: 15.h,
                     ),
                     SizedBox(
-                      height: 250.h,
+                      height: 280.h,
                       width: MediaQuery.of(context).size.width,
                       child: homementrosprovider.when(
                         data: (homementor) {
@@ -877,7 +879,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                               itemCount: homementor.data.length,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  height: 214.h,
                                   margin:
                                       EdgeInsets.only(bottom: 0, left: 20.w),
                                   width: 190.w,
@@ -1025,7 +1026,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               skilsProvider.when(
                 data: (snapshot) {
                   return SizedBox(
-                    height: 150.h,
+                    height: 200.h,
                     width: 440.w,
                     child: Padding(
                       padding: EdgeInsets.only(left: 0.w),
@@ -1036,7 +1037,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                             return Padding(
                               padding: EdgeInsets.only(left: 12.w, right: 12),
                               child: Container(
-                                height: 145.h,
                                 width: 120.w,
                                 decoration: BoxDecoration(
                                     color: Color.fromARGB(255, 38, 38, 38),
@@ -1230,7 +1230,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                     ),
                                                     Text(
                                                       // "4.5 Review",
-                                                      "${collagedata.data[index].avgRating} Review",
+                                                      "${collagedata.data[index].avgRating ?? "4"}",
                                                       style: GoogleFonts.roboto(
                                                         fontSize: 10,
                                                         fontWeight:
@@ -1261,14 +1261,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       ),
                                       Padding(
                                         padding: EdgeInsets.only(left: 10.w),
-                                        child: Text(
-                                          // "James Parlour Collage ",
-                                          collagedata.data[index].collageName,
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500,
-                                            color:
-                                                Color.fromARGB(255, 27, 27, 27),
+                                        child: SizedBox(
+                                          width: 192.w,
+                                          height: 67.h,
+                                          child: Text(
+                                            // "James Parlour Collage ",
+                                            collagedata.data[index].collageName,
+                                            overflow: TextOverflow.fade,
+                                            style: GoogleFonts.roboto(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color.fromARGB(
+                                                  255, 27, 27, 27),
+                                            ),
                                           ),
                                         ),
                                       )

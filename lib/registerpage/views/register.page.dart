@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:educationapp/CORE/api_controller.dart';
 import 'package:educationapp/login/views/login.page.dart';
+import 'package:educationapp/main.dart';
 import 'package:educationapp/registerpage/model.register/registerResponseModel.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
@@ -191,7 +192,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
       updatedAt: DateTime.now());
 
   String? selectedGender;
-  List<String> genders = ['Male', 'Female'];
+  List<String> genders = ['male', 'female'];
   DateTime? selectedDate;
 
   Future<void> _selectDate(BuildContext context) async {
@@ -212,6 +213,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     final skilsProvider = ref.watch(skilssProvide);
+    final formData = ref.watch(formDataProvider);
     return skilsProvider.when(
         data: (snapshot) {
           return Form(
@@ -242,13 +244,21 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         letterSpacing: -0.50,
                       ),
                     ),
-                    Text(
-                      "Login",
-                      style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15.w,
-                          letterSpacing: -0.50,
-                          color: Color(0xFF9088F1)),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => LoginPage()));
+                      },
+                      child: Text(
+                        "Login",
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15.w,
+                            letterSpacing: -0.50,
+                            color: Color(0xFF9088F1)),
+                      ),
                     ),
                   ],
                 ),
@@ -368,7 +378,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                                 child: Text(
                                   selectedDate == null
                                       ? "No Date Selected"
-                                      : " ${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+                                      : "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
                                   style: GoogleFonts.roboto(
                                       fontSize: 13.w,
                                       fontWeight: FontWeight.w400,
@@ -830,13 +840,14 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                           fullName: fullNameController.text,
                           email: emailController.text,
                           phoneNumber: phoneController.text,
-                          serviceType: '',
-                          userType: 'userType',
+                          serviceType: formData.serviceType,
+                          userType: formData.userType,
                           description: descriptionController.text,
                           location: locationController.text,
-                          password: passwordController.text,
+                          password: selectedGender!,
                           gender: genderController.text,
-                          dob: dateofBrithController.text,
+                          dob:
+                              "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
                           samester: _selectedItem,
                           ifError: () {
                             setState(() {
@@ -852,16 +863,17 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                                 fullName: fullNameController.text,
                                 email: emailController.text,
                                 phoneNumber: phoneController.text,
-                                serviceType: '',
-                                userType: 'userType',
+                                serviceType: formData.serviceType,
+                                userType: formData.userType,
                                 description: descriptionController.text,
                                 location: locationController.text,
                                 useridcard: 'useridcard',
                                 password: passwordController.text,
                                 skillsId: _selectedSkill!.id,
                                 linkdin_url: linkedinController.text,
-                                gender: genderController.text,
-                                dob: dateofBrithController.text,
+                                gender: selectedGender!,
+                                dob:
+                                    "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
                                 totlaExperinece: totalExperienceController.text,
                                 resumeFile: imageFile!,
                                 userfield: _selectedItem,

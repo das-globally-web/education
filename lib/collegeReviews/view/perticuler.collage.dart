@@ -309,7 +309,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                                   builder: (context) =>
                                                       ReviewPage(widget.id)));
                                         },
-                                        child: Text(
+                                        child: Text(   
                                           "View All",
                                           style: GoogleFonts.roboto(
                                               fontSize: 11.w,

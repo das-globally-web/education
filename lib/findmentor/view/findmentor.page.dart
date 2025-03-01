@@ -218,10 +218,13 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: UserTabs(
+                                      image: mentors.data[index].profilePic,
                                       id: mentors.data[index].id,
                                       fullname: mentors.data[index].fullName,
                                       dec: mentors.data[index].description,
-                                      servicetype: [],
+                                      servicetype: mentors
+                                          .data[index].serviceType
+                                          .split(', '),
                                     ),
                                   );
                                 },
@@ -269,11 +272,12 @@ class _FindMEntorBoduyState extends ConsumerState<FindMEntorBoduy> {
       data: (snapshot) {
         return Expanded(
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: UserTabs(
+                  image: snapshot.data[index].profilePic!,
                   id: snapshot.data[index].id,
                   fullname: snapshot.data[index].fullName.toString(),
                   dec: snapshot.data[index].description.toString(),

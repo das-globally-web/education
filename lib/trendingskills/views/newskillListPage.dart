@@ -221,15 +221,13 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => YourMentorPage(),
-                                      ));
+                                  var box = Hive.box('userdata');
                                   // final storeMentordata = ref.watch(
                                   //   storeMentorProvider(
                                   //     StoreMentorBodyModel(
-                                  //         userId: 1, mentorIds: "1"),
+                                  //         userId: int.parse(
+                                  //             box.get('id').toString()),
+                                  //         mentorIds: "${data.data.id}"),
                                   //   ).future,
                                   // );
                                   // if (storeMentordata != null) {
@@ -245,7 +243,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                   //     content:
                                   //         Text("failed to store mentor data!"),
                                   //   ));
-                                  //}
+                                  // }
                                 },
                                 child: Container(
                                   width: 157,
@@ -347,6 +345,8 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                             height: 2,
                           ),
                           Container(
+                            height: 120.h,
+                            width: MediaQuery.of(context).size.width,
                             child: Padding(
                               padding: const EdgeInsets.only(
                                   left: 10, right: 10, top: 10),
@@ -362,36 +362,26 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                     ),
                                   ),
                                   SizedBox(height: 15),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        MySkillsContainer(
-                                          txt: "Placement Expert",
-                                        ),
-                                        SizedBox(width: 8),
-                                        MySkillsContainer(
-                                          txt: "Design Specialist",
-                                        ),
-                                        SizedBox(width: 8),
-                                        MySkillsContainer(
-                                          txt: "Visualization Wizard",
-                                        ),
-                                      ],
-                                    ),
+                                  Container(
+                                    height: 55.h,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent),
+                                    child: ListView.builder(
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: data.data.serviceType.length,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: MySkillsContainer(
+                                              txt: data.data.serviceType[index],
+                                            ),
+                                          );
+                                        }),
                                   ),
                                   SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      MySkillsContainer(
-                                        txt: "Visualization Wizard",
-                                      ),
-                                      SizedBox(width: 8),
-                                      MySkillsContainer(
-                                        txt: "Visualization Wizard",
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),

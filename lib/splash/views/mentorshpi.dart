@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:educationapp/main.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:educationapp/splash/controller/serviceController.dart';
 import 'package:educationapp/splash/models/service.model.dart';
@@ -61,6 +62,7 @@ class _MentorshipBodyState extends ConsumerState<MentorshipBody> {
   @override
   Widget build(BuildContext context) {
     final serviceDataProvider = ref.watch(serviceProvider);
+    final formData = ref.watch(formDataProvider);
     return serviceDataProvider.when(
         data: (snapshot) {
           return Column(
@@ -69,7 +71,7 @@ class _MentorshipBodyState extends ConsumerState<MentorshipBody> {
             children: [
               Spacer(),
               Text(
-                UserRegisterDataHold.usertype == "Student"
+                formData.userType == "Student"
                     ? "What do you need mentorship for?"
                     : "What do you offer as a mentor?",
                 style: GoogleFonts.roboto(
@@ -119,69 +121,7 @@ class _MentorshipBodyState extends ConsumerState<MentorshipBody> {
                   }).toList(),
                 ),
               ),
-
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: [
-              //     GestureDetector(
-              //       onTap: () {
-              //         setState(() {
-              //           selectIndex = 2;
-              //           UserRegisterDataHold.usertype =
-              //               UserRegisterDataHold.usertype;
-              //           UserRegisterDataHold.serviceType =
-              //               "📚 Course Selection";
-              //         });
-              //         sendToNextPage();
-              //       },
-              //       child: Container(
-              //         height: 46.h,
-              //         width: 178.w,
-              //         decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(40.r),
-              //             color: selectIndex == 2
-              //                 ? Color(0xFFDCF881)
-              //                 : deselectColor),
-              //         child: Center(
-              //             child: Text(
-              //           "📚 Course Selection",
-              //           style: GoogleFonts.roboto(
-              //               fontWeight: FontWeight.w400,
-              //               fontSize: 15.w,
-              //               letterSpacing: -0.95),
-              //         )),
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       width: 10.w,
-              //     ),
-              //     GestureDetector(
-              //       onTap: () {
-
-              //       },
-              //       child: Container(
-              //         height: 46.h,
-              //         width: 166.w,
-              //         decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(40.r),
-              //             color: selectIndex == 3
-              //                 ? Color(0xFFDCF881)
-              //                 : deselectColor),
-              //         child: Center(
-              //             child: Text(
-              //           "🤔 General Advice",
-              //           style: GoogleFonts.roboto(
-              //               fontWeight: FontWeight.w400,
-              //               fontSize: 15.w,
-              //               letterSpacing: -0.95),
-              //         )),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               Spacer(),
-
               ElevatedButton(
                 onPressed: () {
                   // Your action here
@@ -199,6 +139,9 @@ class _MentorshipBodyState extends ConsumerState<MentorshipBody> {
                     UserRegisterDataHold.usertype =
                         UserRegisterDataHold.usertype;
                     UserRegisterDataHold.serviceType = serviceValue;
+                    ref
+                        .read(formDataProvider.notifier)
+                        .updateServiceType(serviceValue);
                   });
                   sendToNextPage();
                 },

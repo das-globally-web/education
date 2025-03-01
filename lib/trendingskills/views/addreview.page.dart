@@ -231,6 +231,7 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                           if (addreviewpageData != null) {
                             Fluttertoast.showToast(
                                 msg: "Review add successful");
+                            Navigator.pop(context);
                           } else {
                             Fluttertoast.showToast(msg: "Review faliled");
                           }

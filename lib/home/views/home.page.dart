@@ -6,6 +6,7 @@ import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/main.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
+import 'package:educationapp/trendingskills/views/newskillListPage.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
 import 'package:educationapp/wallet/walletController.dart';
@@ -255,40 +256,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Color.fromARGB(255, 56, 18, 18),
-                  ),
-                ),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => YourMentorPage(),
-                      ));
-                },
-                leading: Container(
-                  child: Image.asset("assets/cartoon.png"),
-                ),
-                title: Text(
-                  "Your Mentor ",
-                  style: GoogleFonts.roboto(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 27, 27, 27),
-                  ),
-                ),
-              ),
-              ListTile(
-                onTap: () {},
-                leading: Container(
-                  child: Image.asset("assets/cartoon.png"),
-                ),
-                title: Text(
-                  "Settings ",
-                  style: GoogleFonts.roboto(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 27, 27, 27),
                   ),
                 ),
               ),
@@ -879,111 +846,127 @@ class _HomePageState extends ConsumerState<HomePage> {
                               scrollDirection: Axis.horizontal,
                               itemCount: homementor.data.length,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  margin:
-                                      EdgeInsets.only(bottom: 0, left: 20.w),
-                                  width: 190.w,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 1,
-                                      color: Color.fromARGB(24, 11, 2, 2),
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(bottom: 8.h),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 8.h,
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Newskilllistpage(
+                                          id: homementor.data[index].id
+                                              .toString(),
                                         ),
-                                        Container(
-                                          width: 174.w,
-                                          height: 112.h,
-                                          child:
-                                              // Image.asset("assets/pic.png"),
-                                              ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            child: Image.network(
-                                              homementor
-                                                      .data[index].profilePic ??
-                                                  "https://placehold.co/600x400?text=Profile+Pic",
-                                              width: 174.w,
-                                              height: 112.h,
-                                              fit: BoxFit.cover,
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.only(bottom: 0, left: 20.w),
+                                    width: 190.w,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Color.fromARGB(24, 11, 2, 2),
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(bottom: 8.h),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            height: 8.h,
+                                          ),
+                                          Container(
+                                            width: 174.w,
+                                            height: 112.h,
+                                            child:
+                                                // Image.asset("assets/pic.png"),
+                                                ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: Image.network(
+                                                homementor.data[index]
+                                                        .profilePic ??
+                                                    "https://placehold.co/600x400?text=Profile+Pic",
+                                                width: 174.w,
+                                                height: 112.h,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 10.w, right: 10.w),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                // "Jennifer Johns",
-                                                homementor.data[index].fullName,
-                                                style: GoogleFonts.roboto(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                  color: Color.fromARGB(
-                                                      255, 27, 27, 27),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10.w, right: 10.w),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  // "Jennifer Johns",
+                                                  homementor
+                                                      .data[index].fullName,
+                                                  style: GoogleFonts.roboto(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16,
+                                                    color: Color.fromARGB(
+                                                        255, 27, 27, 27),
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 6.h,
-                                              ),
-                                              Text(
-                                                // "Helping students land their dre...",
-                                                homementor
-                                                    .data[index].description
-                                                    .toString(),
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.roboto(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 12,
-                                                  color: Color.fromARGB(
-                                                      255, 102, 102, 102),
+                                                SizedBox(
+                                                  height: 6.h,
                                                 ),
-                                              ),
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(top: 10.h),
-                                                width: 170.w,
-                                                height: 30.h,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(70),
-                                                  color: Color.fromARGB(
-                                                      255, 144, 136, 241),
+                                                Text(
+                                                  // "Helping students land their dre...",
+                                                  homementor
+                                                      .data[index].description
+                                                      .toString(),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: GoogleFonts.roboto(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12,
+                                                    color: Color.fromARGB(
+                                                        255, 102, 102, 102),
+                                                  ),
                                                 ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Contact me",
-                                                    style: GoogleFonts.roboto(
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.white,
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                      top: 10.h),
+                                                  width: 170.w,
+                                                  height: 30.h,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            70),
+                                                    color: Color.fromARGB(
+                                                        255, 144, 136, 241),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "Contact me",
+                                                      style: GoogleFonts.roboto(
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
@@ -1357,7 +1340,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           child: Image.network(
-                                            companydata.data[index].image,
+                                            companydata.data[index].image ??
+                                                "https://placehold.co/600x400/png",
                                             width: 176.w,
                                             height: 111.h,
                                             fit: BoxFit.cover,
@@ -1636,12 +1620,14 @@ class UserTabs extends StatefulWidget {
   final String fullname;
   final String dec;
   final List<dynamic> servicetype;
+  final String image;
   const UserTabs(
       {super.key,
       required this.id,
       required this.fullname,
       required this.dec,
-      required this.servicetype});
+      required this.servicetype,
+      required this.image});
 
   @override
   State<UserTabs> createState() => _UserTabsState();
@@ -1670,8 +1656,7 @@ class _UserTabsState extends State<UserTabs> {
                   color: Colors.grey,
                   borderRadius: BorderRadius.circular(12.r),
                   image: DecorationImage(
-                      image: AssetImage("assets/Rectangle 8.jpg"),
-                      fit: BoxFit.fill)),
+                      image: NetworkImage(widget.image), fit: BoxFit.cover)),
             ),
           ),
           SizedBox(

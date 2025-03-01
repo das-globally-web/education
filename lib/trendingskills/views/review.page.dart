@@ -233,9 +233,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
             Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40.r),
-                      topRight: Radius.circular(40.r)),
+                  borderRadius: BorderRadius.circular(40.r),
                   color: Colors.white),
               child: Padding(
                 padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -326,9 +324,13 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                     );
                   },
                   loading: () {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height / 2,
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
                       ),
                     );
                   },

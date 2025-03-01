@@ -1,6 +1,8 @@
+import 'package:educationapp/main.dart';
 import 'package:educationapp/splash/views/mentorshpi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,7 +27,6 @@ class _GetStartPAgeState extends State<GetStartPAge> {
           alignment: AlignmentDirectional.center,
           children: [
             BackGroundImage(),
-            
             GetstartBody(),
           ],
         ),
@@ -34,16 +35,17 @@ class _GetStartPAgeState extends State<GetStartPAge> {
   }
 }
 
-class GetstartBody extends StatefulWidget {
+class GetstartBody extends ConsumerStatefulWidget {
   const GetstartBody({super.key});
 
   @override
-  State<GetstartBody> createState() => _GetstartBodyState();
+  _GetstartBodyState createState() => _GetstartBodyState();
 }
 
-class _GetstartBodyState extends State<GetstartBody> {
+class _GetstartBodyState extends ConsumerState<GetstartBody> {
   @override
   Widget build(BuildContext context) {
+    final formData = ref.watch(formDataProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,6 +120,7 @@ class _GetstartBodyState extends State<GetstartBody> {
           onTap: () {
             setState(() {
               UserRegisterDataHold.usertype = "Student";
+              ref.read(formDataProvider.notifier).updateUserType("Student");
             });
             Navigator.push(context,
                 CupertinoPageRoute(builder: (context) => MentorShipPage()));
@@ -181,6 +184,7 @@ class _GetstartBodyState extends State<GetstartBody> {
           onTap: () {
             setState(() {
               UserRegisterDataHold.usertype = "Mentor";
+              ref.read(formDataProvider.notifier).updateUserType("Mentor");
             });
             Navigator.push(context,
                 CupertinoPageRoute(builder: (context) => MentorShipPage()));

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:educationapp/onlinePage.dart';
 import 'package:educationapp/yourMentorController.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class YourMentorPage extends ConsumerStatefulWidget {
   const YourMentorPage({super.key});
@@ -16,7 +19,9 @@ class YourMentorPage extends ConsumerStatefulWidget {
 class _YourMentorPageState extends ConsumerState<YourMentorPage> {
   @override
   Widget build(BuildContext context) {
-    final yourmentorprovider = ref.watch(yourMentorProvider('1'));
+    var box = Hive.box('userdata');
+    final yourmentorprovider =
+        ref.watch(yourMentorProvider(box.get('id').toString()));
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 27, 27, 27),
       body: SingleChildScrollView(
@@ -113,7 +118,7 @@ class _YourMentorPageState extends ConsumerState<YourMentorPage> {
                                   ));
                             },
                             child: MyContainer(
-                              image: "assets/Mike.png",
+                              image: mentor.data.mentors[index].profilePic,
                               title: mentor.data.mentors[index].fullName,
                               subtitle: mentor.data.mentors[index].email,
                             ),
@@ -204,6 +209,9 @@ class MyContainer extends StatefulWidget {
 class _MyContainerState extends State<MyContainer> {
   @override
   Widget build(BuildContext context) {
+    log(
+      widget.image.replaceAll('/public/', ''),
+    );
     return Padding(
       padding: EdgeInsets.only(left: 10.w, right: 10.w),
       child: Container(
@@ -220,7 +228,10 @@ class _MyContainerState extends State<MyContainer> {
           children: [
             Container(
               margin: EdgeInsets.only(left: 10),
-              child: Image.asset(widget.image),
+              child: Image.network(
+                widget.image.replaceAll('/public/', ''),
+                fit: BoxFit.cover,
+              ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

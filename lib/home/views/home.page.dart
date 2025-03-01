@@ -1356,8 +1356,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(12),
-                                          child: Image.asset(
-                                            "assets/images.png",
+                                          child: Image.network(
+                                            companydata.data[index].image,
                                             width: 176.w,
                                             height: 111.h,
                                             fit: BoxFit.cover,

@@ -107,6 +107,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   final linkedinController = TextEditingController();
   final whichSemisterController = TextEditingController();
   String _selectedItem = "Select stream";
+  // String selectedGender = "Select Gender";
   bool buttonLoder = false;
   final List<String> _dropdownItems = [
     'Select stream',
@@ -188,6 +189,24 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
       description: "",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now());
+
+  String? selectedGender;
+  List<String> genders = ['Male', 'Female'];
+  DateTime? selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null && pickedDate != selectedDate) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    }
+  }
 
   final _fromKey = GlobalKey<FormState>();
   @override
@@ -305,13 +324,136 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   controller: confirmpasswordController,
                   lable: 'Confirm Password',
                 ),
-                RegisterField(
-                  controller: dateofBrithController,
-                  lable: 'Date of Birth',
+                Padding(
+                  padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 6.h,
+                      ),
+                      Text(
+                        "Date of Birth",
+                        style: GoogleFonts.roboto(
+                            fontSize: 13.w,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4D4D4D)),
+                      ),
+                      SizedBox(
+                        height: 6.h,
+                      ),
+                      GestureDetector(
+                        onTap: () => _selectDate(context),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 80.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40.r),
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Icon(
+                                Icons.calendar_month,
+                                color: Colors.grey,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10.w),
+                                child: Text(
+                                  selectedDate == null
+                                      ? "No Date Selected"
+                                      : " ${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 13.w,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xFF4D4D4D)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                RegisterField(
-                  controller: genderController,
-                  lable: 'Gender',
+                Padding(
+                  padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Select Gender",
+                        style: GoogleFonts.roboto(
+                            fontSize: 13.w,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4D4D4D)),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      DropdownButtonFormField<String>(
+                        value: selectedGender,
+                        hint: Text(
+                          "Select Gender",
+                          style: GoogleFonts.roboto(
+                              fontSize: 13.w,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF4D4D4D)),
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedGender = newValue;
+                          });
+                        },
+                        items: genders.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: GoogleFonts.roboto(
+                                  fontSize: 13.w,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xFF4D4D4D)),
+                            ),
+                          );
+                        }).toList(),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.circular(40.r), // Circular radius
+                            borderSide: BorderSide(
+                              color: Colors.grey, // Border color
+                              width: 1, // Border width
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40.r),
+                            borderSide: BorderSide(
+                              color: Colors.grey, // Focused border color
+                              width: 1,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor:
+                              Colors.white, // Background color of the dropdown
+                        ),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select a gender';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 RegisterField(
                   controller: addressController,
@@ -683,29 +825,29 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                       if (UserRegisterDataHold.usertype == "Student") {
                         RegisterResponseModel res =
                             await ApiController.register(
-                                context: context,
-                                imageFile: imageFile!,
-                                fullName: fullNameController.text,
-                                email: emailController.text,
-                                phoneNumber: phoneController.text,
-                                serviceType: '',
-                                userType: 'userType',
-                                description: descriptionController.text,
-                                location: locationController.text,
-                                password: passwordController.text,
-                                gender: genderController.text,
-                                dob: dateofBrithController.text,
-                                samester: _selectedItem,
-                                ifError: () {
-                                  setState(() {
-                                    buttonLoder = false;
-                                  });
-                                }, );
+                          context: context,
+                          imageFile: imageFile!,
+                          fullName: fullNameController.text,
+                          email: emailController.text,
+                          phoneNumber: phoneController.text,
+                          serviceType: '',
+                          userType: 'userType',
+                          description: descriptionController.text,
+                          location: locationController.text,
+                          password: passwordController.text,
+                          gender: genderController.text,
+                          dob: dateofBrithController.text,
+                          samester: _selectedItem,
+                          ifError: () {
+                            setState(() {
+                              buttonLoder = false;
+                            });
+                          },
+                        );
                       } else {
                         RegisterResponseModel res =
                             await ApiController.registerUser(
                                 context: context,
-                                
                                 imageFile: imageFile!,
                                 fullName: fullNameController.text,
                                 email: emailController.text,
@@ -803,11 +945,11 @@ class RegisterField extends StatelessWidget {
             controller: controller,
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.grey),
+                borderSide: BorderSide(color: Colors.grey),
                 borderRadius: BorderRadius.circular(40.r),
               ),
               border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.grey),
+                borderSide: BorderSide(color: Colors.grey),
                 borderRadius: BorderRadius.circular(40.r),
               ),
               enabledBorder: OutlineInputBorder(

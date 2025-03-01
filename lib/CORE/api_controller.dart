@@ -37,6 +37,7 @@ class ApiController {
   static Future<ServiceModelRes> fetchService(GetStartService service) async {
     return await service.getAllService();
   }
+
   static Future<AllMentorsModel> fetchMentors(HomeService service) async {
     return await service.allMentors(MentorsModelBody(userType: 'mentor'));
   }
@@ -226,7 +227,7 @@ class ApiController {
       "email": email,
       "phone_number": phoneNumber,
       "password": password,
-      "service_type": UserRegisterDataHold.serviceType,
+      // "service_type": UserRegisterDataHold.serviceType,
       "user_type": UserRegisterDataHold.usertype,
       "description": description,
       "location": location,

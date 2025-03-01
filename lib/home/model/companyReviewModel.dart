@@ -37,6 +37,8 @@ class Datum {
     DateTime createdAt;
     DateTime updatedAt;
     String type;
+    dynamic avgRating;
+    int reviewCount;
 
     Datum({
         required this.id,
@@ -47,6 +49,8 @@ class Datum {
         required this.createdAt,
         required this.updatedAt,
         required this.type,
+        required this.avgRating,
+        required this.reviewCount,
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -58,6 +62,8 @@ class Datum {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         type: json["type"],
+        avgRating: json["avg_rating"],
+        reviewCount: json["review_count"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -69,5 +75,7 @@ class Datum {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "type": type,
+        "avg_rating": avgRating,
+        "review_count": reviewCount,
     };
 }

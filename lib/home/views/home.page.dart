@@ -30,20 +30,9 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String? _username;
-  @override
-  void initState() {
-    super.initState();
-    fetchdata();
-  }
 
-  void fetchdata() async {
-    Future.delayed(Duration(seconds: 2), () async {
-      Map<dynamic, String> data = await StoreData.fetchData();
-      setState(() {
-        _username = data['name'] ?? "";
-      });
-    });
-  }
+
+
 
   @override
   Widget build(BuildContext context) {

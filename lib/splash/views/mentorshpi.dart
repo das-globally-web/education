@@ -58,7 +58,13 @@ class _MentorshipBodyState extends ConsumerState<MentorshipBody> {
   }
 
   Set<Datum> selectedOptions = {};
-
+  List<String> options = [
+    "Career guidance",
+    "Placement assistance",
+    "Skill development",
+    "Interaction"
+  ];
+  Set<String> selectedOptions2 = {};
   @override
   Widget build(BuildContext context) {
     final serviceDataProvider = ref.watch(serviceProvider);
@@ -72,8 +78,8 @@ class _MentorshipBodyState extends ConsumerState<MentorshipBody> {
               Spacer(),
               Text(
                 formData.userType == "Student"
-                    ? "What do you need mentorship for?"
-                    : "What do you offer as a mentor?",
+                    ? "what are you looking for ?"
+                    : "what do u offer as a mentor",
                 style: GoogleFonts.roboto(
                     color: Colors.black,
                     fontSize: 26.w,
@@ -83,57 +89,110 @@ class _MentorshipBodyState extends ConsumerState<MentorshipBody> {
               SizedBox(
                 height: 20.h,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40.w),
-                child: Wrap(
-                  spacing: 8.0, // Space between chips
-                  runSpacing: 8,
-                  children: snapshot.data.map((option) {
-                    return FilterChip(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            50), // Makes the chip fully circular
-                        side: const BorderSide(
-                            color: Colors
-                                .transparent), // Optional: Add border color
-                      ),
-                      label: Text(
-                        option.title,
-                        style: GoogleFonts.glory(
-                            color: Colors.black, fontSize: 18.w),
-                      ),
-                      backgroundColor:
-                          deselectColor, // Color when chip is not selected
-                      selectedColor:
-                          Color(0xFFDCF881), // Color when chip is selected
-                      disabledColor: deselectColor,
-                      selected: selectedOptions.contains(option),
-                      onSelected: (isSelected) {
-                        setState(() {
-                          if (isSelected) {
-                            selectedOptions.add(option);
-                          } else {
-                            selectedOptions.remove(option);
-                          }
-                        });
-                      },
-                    );
-                  }).toList(),
-                ),
-              ),
+              if (formData.userType == "Student") ...[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40.w),
+                  child: Wrap(
+                    spacing: 8.0, // Space between chips
+                    runSpacing: 8,
+                    children: options.map((option) {
+                      return FilterChip(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              50), // Makes the chip fully circular
+                          side: const BorderSide(
+                              color: Colors
+                                  .transparent), // Optional: Add border color
+                        ),
+                        label: Text(
+                          option,
+                          style: GoogleFonts.glory(
+                              color: Colors.black, fontSize: 18.w),
+                        ),
+                        backgroundColor:
+                            deselectColor, // Color when chip is not selected
+                        selectedColor:
+                            Color(0xFFDCF881), // Color when chip is selected
+                        disabledColor: deselectColor,
+                        selected: selectedOptions2.contains(option),
+                        onSelected: (isSelected) {
+                          setState(() {
+                            if (isSelected) {
+                              selectedOptions2.add(option);
+                            } else {
+                              selectedOptions2.remove(option);
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                )
+              ] else ...[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40.w),
+                  child: Wrap(
+                    spacing: 8.0, // Space between chips
+                    runSpacing: 8,
+                    children: snapshot.data.map((option) {
+                      return FilterChip(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              50), // Makes the chip fully circular
+                          side: const BorderSide(
+                              color: Colors
+                                  .transparent), // Optional: Add border color
+                        ),
+                        label: Text(
+                          option.title,
+                          style: GoogleFonts.glory(
+                              color: Colors.black, fontSize: 18.w),
+                        ),
+                        backgroundColor:
+                            deselectColor, // Color when chip is not selected
+                        selectedColor:
+                            Color(0xFFDCF881), // Color when chip is selected
+                        disabledColor: deselectColor,
+                        selected: selectedOptions.contains(option),
+                        onSelected: (isSelected) {
+                          setState(() {
+                            if (isSelected) {
+                              selectedOptions.add(option);
+                            } else {
+                              selectedOptions.remove(option);
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                )
+              ],
               Spacer(),
               ElevatedButton(
                 onPressed: () {
                   // Your action here
                   String serviceValue = "";
-                  List<Datum> selectedList = selectedOptions.toList();
-                  for (int i = 0; i < selectedOptions.length; i++) {
-                    setState(() {
-                      serviceValue = serviceValue == ""
-                          ? selectedList[i].title
-                          : "$serviceValue, ${selectedList[i].title}";
-                    });
+                  if (formData.userType == "Student") {
+                    List<String> selectList = selectedOptions2.toList();
+                    for (int i = 0; i < selectList.length; i++) {
+                      setState(() {
+                        serviceValue = serviceValue == ""
+                            ? selectList[i]
+                            : "$serviceValue, ${selectList[i]}";
+                      });
+                    }
+                  } else {
+                    List<Datum> selectedList = selectedOptions.toList();
+                    for (int i = 0; i < selectedOptions.length; i++) {
+                      setState(() {
+                        serviceValue = serviceValue == ""
+                            ? selectedList[i].title
+                            : "$serviceValue, ${selectedList[i].title}";
+                      });
+                    }
                   }
+
                   log(serviceValue);
                   setState(() {
                     UserRegisterDataHold.usertype =

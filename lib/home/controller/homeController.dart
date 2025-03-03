@@ -67,12 +67,12 @@ class StoreData {
     // });
   }
 
-  static Future<Map<dynamic, String>> fetchData() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return {
-      "name": preferences.getString('name').toString(),
-      "email": preferences.getString('email').toString(),
-      "pic": preferences.getString('pic').toString(),
-    };
-  }
+  // static Future<Map<dynamic, String>> fetchData() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   return {
+  //     "name": preferences.getString('name').toString(),
+  //     "email": preferences.getString('email').toString(),
+  //     "pic": preferences.getString('pic').toString(),
+  //   };
+  // }
 }

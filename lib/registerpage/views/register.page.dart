@@ -944,9 +944,10 @@ class RegisterField extends StatelessWidget {
               Text(
                 "$lable",
                 style: GoogleFonts.roboto(
-                    fontSize: 13.w,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF4D4D4D)),
+                  fontSize: 13.w,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF4D4D4D),
+                ),
               ),
             ],
           ),

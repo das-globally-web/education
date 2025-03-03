@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:educationapp/config/preety.dio.dart';
+import 'package:educationapp/forgot_password/forgot_password.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/login/controller/service/login.service.dart';
@@ -164,12 +165,34 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             controller: passwordController,
             lable: 'Password',
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text("Forgot Password"),
+          SizedBox(
+            height: 6.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 6.h, right: 28.w),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => ForgotPassword(),
+                    ));
+              },
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "Forgot Password?",
+                  style: GoogleFonts.roboto(
+                    fontSize: 13.w,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF4D4D4D),
+                  ),
+                ),
+              ),
+            ),
           ),
           SizedBox(
-            height: 20.h,
+            height: 15.h,
           ),
           GestureDetector(
             onTap: () async {

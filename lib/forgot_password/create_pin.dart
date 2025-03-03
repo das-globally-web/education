@@ -81,10 +81,10 @@ class _CreatePinState extends State<CreatePin> {
                         margin: EdgeInsets.only(left: 5.w),
                         child: Text(
                           "Password",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.normal,
+                          style: GoogleFonts.roboto(
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4D4D4D),
                           ),
                         ),
                       ),
@@ -94,7 +94,11 @@ class _CreatePinState extends State<CreatePin> {
                       TextFormField(
                         decoration: InputDecoration(
                           hintText: "password",
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: TextStyle(
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4D4D4D),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             borderRadius: BorderRadius.circular(40.r),
@@ -113,10 +117,10 @@ class _CreatePinState extends State<CreatePin> {
                         margin: EdgeInsets.only(left: 5.w, top: 20.h),
                         child: Text(
                           "Confirm Password",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.normal,
+                          style: GoogleFonts.roboto(
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4D4D4D),
                           ),
                         ),
                       ),
@@ -126,7 +130,11 @@ class _CreatePinState extends State<CreatePin> {
                       TextFormField(
                         decoration: InputDecoration(
                           hintText: "Confirm password",
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: TextStyle(
+                            fontSize: 15.w,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4D4D4D),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             borderRadius: BorderRadius.circular(40.r),

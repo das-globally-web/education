@@ -1,19 +1,24 @@
 import 'package:educationapp/forgot_password/otp_screen.dart';
+import 'package:educationapp/forgot_password/updataOtpModel/otpController.dart';
+import 'package:educationapp/forgot_password/updataOtpModel/updataOtpBodyModel.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ForgotPassword extends StatefulWidget {
+class ForgotPassword extends ConsumerStatefulWidget {
   const ForgotPassword({super.key});
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  ConsumerState<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
   final emailControlelr = TextEditingController();
+  bool sendotp = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +65,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       SizedBox(
@@ -84,7 +89,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     controller: emailControlelr,
                     decoration: InputDecoration(
                       hintText: "Enter Email",
-                      hintStyle: TextStyle(color: Colors.grey),
+                      hintStyle: TextStyle(
+                        fontSize: 15.w,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF4D4D4D),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(40.r),
@@ -107,11 +116,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   padding: EdgeInsets.only(top: 10.h, right: 28.w, left: 28.w),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => OtpScreen(),
-                          ));
+                      setState(() {
+                        sendotp = true;
+                      });
+                      final updateOptData = ref.watch(otpUpdataProvider(
+                        UpdataOtpBodyModel(email: emailControlelr.text),
+                      ));
+                      // if (updateOptData != null) {
+                      //   Navigator.push(
+                      //       context,
+                      //       CupertinoPageRoute(
+                      //         builder: (context) => OtpScreen(),
+                      //       ));
+                      // } else {
+                      //   Fluttertoast.showToast(msg: "wrong");
+                      // }
                     },
                     child: Container(
                       height: 52.h,
@@ -120,14 +139,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           borderRadius: BorderRadius.circular(40.r),
                           color: Color(0xFFDCF881)),
                       child: Center(
-                        child: Text(
-                          "Send OTP",
-                          style: GoogleFonts.roboto(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: -0.4,
-                              fontSize: 14.4.w),
-                        ),
+                        child: sendotp == false
+                            ? Text(
+                                "Send OTP",
+                                style: GoogleFonts.roboto(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: -0.4,
+                                    fontSize: 14.4.w),
+                              )
+                            : Padding(
+                                padding: EdgeInsets.all(4.0.w),
+                                child: CircularProgressIndicator(),
+                              ),
                       ),
                     ),
                   ),

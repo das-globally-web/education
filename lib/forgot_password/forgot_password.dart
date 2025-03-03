@@ -119,18 +119,18 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
                       setState(() {
                         sendotp = true;
                       });
-                      final updateOptData = ref.watch(otpUpdataProvider(
+                      final updateOtpData = ref.watch(otpUpdataProvider(
                         UpdataOtpBodyModel(email: emailControlelr.text),
                       ));
-                      // if (updateOptData != null) {
-                      //   Navigator.push(
-                      //       context,
-                      //       CupertinoPageRoute(
-                      //         builder: (context) => OtpScreen(),
-                      //       ));
-                      // } else {
-                      //   Fluttertoast.showToast(msg: "wrong");
-                      // }
+                      if (updateOtpData != null) {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => OtpScreen(),
+                            ));
+                      } else {
+                        Fluttertoast.showToast(msg: "wrong");
+                      }
                     },
                     child: Container(
                       height: 52.h,

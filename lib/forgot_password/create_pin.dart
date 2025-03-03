@@ -1,19 +1,25 @@
+import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateController.dart';
+import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateModel.dart';
+import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CreatePin extends StatefulWidget {
+class CreatePin extends ConsumerStatefulWidget {
   const CreatePin({super.key});
 
   @override
-  State<CreatePin> createState() => _CreatePinState();
+  ConsumerState<CreatePin> createState() => _CreatePinState();
 }
 
-class _CreatePinState extends State<CreatePin> {
+class _CreatePinState extends ConsumerState<CreatePin> {
   @override
   Widget build(BuildContext context) {
+    final passwordModel = ref.watch(updatePasswordProvider);
+    final passwordNotifier = ref.read(updatePasswordProvider.notifier);
     return Scaffold(
       body: Container(
         height: 956.h,
@@ -92,6 +98,8 @@ class _CreatePinState extends State<CreatePin> {
                         height: 10.h,
                       ),
                       TextFormField(
+                        onChanged: (email) =>
+                            passwordNotifier.updateEmail(email),
                         decoration: InputDecoration(
                           hintText: "password",
                           hintStyle: TextStyle(
@@ -128,6 +136,7 @@ class _CreatePinState extends State<CreatePin> {
                         height: 10.h,
                       ),
                       TextFormField(
+                        onChanged: (otp) => passwordNotifier.updataOpt(otp),
                         decoration: InputDecoration(
                           hintText: "Confirm password",
                           hintStyle: TextStyle(
@@ -157,20 +166,35 @@ class _CreatePinState extends State<CreatePin> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 25.w, left: 25.w),
-                  child: Container(
-                    height: 52.h,
-                    width: 400.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40.r),
-                        color: Color(0xFFDCF881)),
-                    child: Center(
-                      child: Text(
-                        "Update Password",
-                        style: GoogleFonts.roboto(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: -0.4,
-                            fontSize: 14.4.w),
+                  child: GestureDetector(
+                    onTap: () {
+                      ref
+                          .read(updatePasswordProvider.notifier)
+                          .updateEmail("hdrak6336@gmail.com");
+                      ref
+                          .read(updatePasswordProvider.notifier)
+                          .updataOpt("12345678");
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => LoginPage(),
+                          ));
+                    },
+                    child: Container(
+                      height: 52.h,
+                      width: 400.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40.r),
+                          color: Color(0xFFDCF881)),
+                      child: Center(
+                        child: Text(
+                          "Update Password",
+                          style: GoogleFonts.roboto(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: -0.4,
+                              fontSize: 14.4.w),
+                        ),
                       ),
                     ),
                   ),

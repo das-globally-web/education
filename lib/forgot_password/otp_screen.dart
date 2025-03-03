@@ -1,4 +1,5 @@
 import 'package:educationapp/forgot_password/create_pin.dart';
+import 'package:educationapp/forgot_password/updataOtpModel/otpController.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  String otpValue = ""; // Variable to store OTP
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +81,8 @@ class _OtpScreenState extends State<OtpScreen> {
                   child: Otpify(
                     fields: 6,
                     resendSecond: 10,
+                    width: 50,
+                    height: 50,
                     borderRadius: BorderRadius.circular(15),
                     fieldColor: Colors.white,
                     fieldTextColor: Colors.black,
@@ -89,20 +93,38 @@ class _OtpScreenState extends State<OtpScreen> {
                     resendFontWeight: FontWeight.normal,
                     // resendFontSize: 20,
                     resendColor: Colors.black,
-                    onChanged: (value) {},
+
+                    onChanged: (value) {
+                      setState(() {
+                        otpValue = value;
+                      });
+                    },
                     onResend: () {},
-                    onCompleted: (value) {},
+                    onCompleted: (value) {
+                      setState(() {
+                        otpValue = value;
+                      });
+                    },
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 25.w, left: 25.w),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      if (otpValue.length == 6) {
+                        // Use otpValue for verification
+                        print("Entered OTP: $otpValue");
+                        Navigator.push(
                           context,
                           CupertinoPageRoute(
                             builder: (context) => CreatePin(),
-                          ));
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Please enter a 6-digit OTP")),
+                        );
+                      }
                     },
                     child: Container(
                       height: 52.h,

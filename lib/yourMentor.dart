@@ -229,7 +229,7 @@ class _MyContainerState extends State<MyContainer> {
             Container(
               margin: EdgeInsets.only(left: 10),
               child: Image.network(
-                widget.image.replaceAll('/public/', ''),
+                widget.image,
                 fit: BoxFit.cover,
               ),
             ),

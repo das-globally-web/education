@@ -164,6 +164,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             controller: passwordController,
             lable: 'Password',
           ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text("Forgot Password"),
+          ),
           SizedBox(
             height: 20.h,
           ),

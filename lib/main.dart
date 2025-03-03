@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:educationapp/forgot_password/forgot_password.dart';
 import 'package:educationapp/home/views/home.page.dart';
 
 import 'package:educationapp/splash/views/splash.page.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           home: token == null ? const SplashScreen() : const HomePage(),
-          // home: YourMentorPage(),
+          // home: ForgotPassword(),
         );
       },
     );
@@ -57,7 +58,6 @@ class MyFormData {
   static String serviceType = '';
   static int skillId = 0;
 }
-
 
 class MyFormDataModel {
   final String userType;
@@ -84,8 +84,6 @@ class MyFormDataModel {
   }
 }
 
-
-
 // Define the StateNotifier for MyFormDataModel
 class FormDataNotifier extends StateNotifier<MyFormDataModel> {
   FormDataNotifier()
@@ -107,6 +105,7 @@ class FormDataNotifier extends StateNotifier<MyFormDataModel> {
   }
 }
 
-final formDataProvider = StateNotifierProvider<FormDataNotifier, MyFormDataModel>((ref) {
+final formDataProvider =
+    StateNotifierProvider<FormDataNotifier, MyFormDataModel>((ref) {
   return FormDataNotifier();
 });

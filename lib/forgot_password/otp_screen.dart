@@ -22,6 +22,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     final savedData = ref.watch(updatePasswordProvider);
+
     return Scaffold(
       body: Container(
         height: 956.h,
@@ -98,57 +99,24 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     // resendFontSize: 20,
                     resendColor: Colors.black,
 
-                    onChanged: (value) {
-                      setState(() {
-                        otpValue = value;
-                      });
-                    },
+                    onChanged: (value) {},
                     onResend: () {},
                     onCompleted: (value) {
-                      setState(() {
-                        otpValue = value;
-                      });
+                      ref
+                          .read(updatePasswordProvider.notifier)
+                          .updataOpt(value);
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => CreatePin(
+                            forgetType: 'email',
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(right: 25.w, left: 25.w),
-                  child: GestureDetector(
-                    onTap: () {
-                      if (otpValue.length == 6) {
-                        // Use otpValue for verification
-                        print("Entered OTP: $otpValue");
-                        // Navigator.push(
-                        //   context,
-                        //   CupertinoPageRoute(
-                        //     builder: (context) => CreatePin(),
-                        //   ),
-                        // );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Please enter a 6-digit OTP")),
-                        );
-                      }
-                    },
-                    child: Container(
-                      height: 52.h,
-                      width: 400.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40.r),
-                          color: Color(0xFFDCF881)),
-                      child: Center(
-                        child: Text(
-                          "Verify",
-                          style: GoogleFonts.roboto(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: -0.4,
-                              fontSize: 14.4.w),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                
               ],
             ),
           ],

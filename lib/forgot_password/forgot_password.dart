@@ -22,214 +22,217 @@ class ForgotPassword extends ConsumerStatefulWidget {
 }
 
 class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
+  final _formKey = GlobalKey<FormState>();
   final emailControlelr = TextEditingController();
   bool sendotp = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: 956.h,
-        width: 440.w,
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Stack(
-          // alignment: AlignmentDirectional.center,
-          children: [
-            BackGroundImage(),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                margin: EdgeInsets.only(top: 60.h, left: 20.w),
-                height: 37.h,
-                width: 37.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40.r),
-                  color: Colors.white,
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.arrow_back,
-                    size: 16.41.h,
+      body: Form(
+        key: _formKey,
+        child: Container(
+          height: 956.h,
+          width: 440.w,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Stack(
+            // alignment: AlignmentDirectional.center,
+            children: [
+              BackGroundImage(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 60.h, left: 20.w),
+                  height: 37.h,
+                  width: 37.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40.r),
+                    color: Colors.white,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 16.41.h,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 25.w, left: 25.w),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Forgot Your Password?",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 25.w, left: 25.w),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Forgot Your Password?",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      Text(
-                        textAlign: TextAlign.center,
-                        "Enter your email address and we will send you OTP to reset your password",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal,
+                        SizedBox(
+                          height: 5.h,
                         ),
-                      ),
-                    ],
+                        Text(
+                          textAlign: TextAlign.center,
+                          "Enter your email address and we will send you OTP to reset your password",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 50.h, right: 28.w, left: 28.w),
-                  child: TextFormField(
-                    controller: emailControlelr,
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                      hintStyle: TextStyle(
-                        fontSize: 15.w,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF4D4D4D),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 50.h, right: 28.w, left: 28.w),
+                    child: TextFormField(
+                      controller: emailControlelr,
+                      decoration: InputDecoration(
+                        hintText: "Email",
+                        hintStyle: TextStyle(
+                          fontSize: 15.w,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFF4D4D4D),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(40.r),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(40.r),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(40.r),
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(40.r),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(40.r),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(40.r),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Email is required";
+                        }
+                        String emailPattern =
+                            r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+                        RegExp reg = RegExp(emailPattern);
+                        if (!reg.hasMatch(value)) {
+                          return "Enter a valid email address";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 10.h, right: 28.w, left: 28.w),
+                    child: InkWell(
+                      onTap: () async {
+                        try {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              sendotp = true;
+                            });
+                            final updateOtpData =
+                                await ref.watch(otpUpdataProvider(
+                              UpdataOtpBodyModel(email: emailControlelr.text),
+                            ));
+                            ref
+                                .read(updatePasswordProvider.notifier)
+                                .updateEmail(emailControlelr.text);
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => OtpScreen(
+                                    forgetType: 'email',
+                                  ),
+                                ));
+                          }
+                        } catch (E) {
+                          //  Fluttertoast.showToast(msg: "Something went wrong");
+                          setState(() {
+                            sendotp = false;
+                          });
+                          Fluttertoast.showToast(msg: "Something went wrong");
+                        }
+                      },
+                      child: Container(
+                        height: 52.h,
+                        width: 400.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40.r),
+                            color: Color(0xFFDCF881)),
+                        child: Center(
+                          child: sendotp == false
+                              ? Text(
+                                  "Send OTP",
+                                  style: GoogleFonts.roboto(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: -0.4,
+                                      fontSize: 14.4.w),
+                                )
+                              : Padding(
+                                  padding: EdgeInsets.all(4.0.w),
+                                  child: CircularProgressIndicator(),
+                                ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10.h, right: 28.w, left: 28.w),
-                  child: InkWell(
-                    onTap: () async {
-                      try {
-                        if (emailControlelr.text.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: "Please enter valid email");
-                        } else {
-                          setState(() {
-                            sendotp = true;
-                          });
-                          final updateOtpData =
-                              await ref.watch(otpUpdataProvider(
-                            UpdataOtpBodyModel(email: emailControlelr.text),
-                          ));
-                          ref
-                              .read(updatePasswordProvider.notifier)
-                              .updateEmail(emailControlelr.text);
-                          Navigator.push(
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        final _otplessFlutterPlugin = Otpless();
+                        var arg = {
+                          'appId': 'JYFU6ID218T8YLYRVQFC',
+                        };
+                        _otplessFlutterPlugin.openLoginPage((result) {
+                          var message = "";
+                          if (result['data'] != null) {
+                            log(result.toString());
+
+                            String number = result['data']['identities'][0]
+                                ['identityValue'];
+                            ref
+                                .read(updatePasswordProvider.notifier)
+                                .updateEmail(number.substring(2));
+                            Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                builder: (context) => OtpScreen(
-                                  forgetType: 'email',
+                                builder: (context) => CreatePin(
+                                  forgetType: "phone",
                                 ),
-                              ));
-                        }
-                        // final updateOtpData = await ref.watch(otpUpdataProvider(
-                        //   UpdataOtpBodyModel(email: emailControlelr.text),
-                        // ));
-                        // ref
-                        //     .read(updatePasswordProvider.notifier)
-                        //     .updateEmail(emailControlelr.text);
-                        // Navigator.push(
-                        //     context,
-                        //     CupertinoPageRoute(
-                        //       builder: (context) => OtpScreen(
-                        //         forgetType: 'email',
-                        //       ),
-                        //     ));
-                      } catch (E) {
-                        //  Fluttertoast.showToast(msg: "Something went wrong");
-                        setState(() {
-                          sendotp = false;
-                        });
-                        Fluttertoast.showToast(msg: "Something went wrong");
-                      }
-                    },
-                    child: Container(
-                      height: 52.h,
-                      width: 400.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40.r),
-                          color: Color(0xFFDCF881)),
-                      child: Center(
-                        child: sendotp == false
-                            ? Text(
-                                "Send OTP",
-                                style: GoogleFonts.roboto(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500,
-                                    letterSpacing: -0.4,
-                                    fontSize: 14.4.w),
-                              )
-                            : Padding(
-                                padding: EdgeInsets.all(4.0.w),
-                                child: CircularProgressIndicator(),
                               ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 50.h,
-                ),
-                GestureDetector(
-                    onTap: () {
-                      final _otplessFlutterPlugin = Otpless();
-                      var arg = {
-                        'appId': 'JYFU6ID218T8YLYRVQFC',
-                      };
-                      _otplessFlutterPlugin.openLoginPage((result) {
-                        var message = "";
-                        if (result['data'] != null) {
-                          log(result.toString());
-
-                          String number =
-                              result['data']['identities'][0]['identityValue'];
-                          ref
-                              .read(updatePasswordProvider.notifier)
-                              .updateEmail(number.substring(2));
-                          Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => CreatePin(
-                                forgetType: "phone",
-                              ),
-                            ),
-                          );
-                        } else {
-                          message = result['errorMessage'];
-                          Fluttertoast.showToast(
-                              msg: "${result["errorMessage"]}");
-                        }
-                      }, arg);
-                    },
-                    child: Text(
-                      "Forget password using phone no.",
-                      style: GoogleFonts.montserrat(color: Colors.black),
-                    ))
-              ],
-            ),
-          ],
+                            );
+                          } else {
+                            message = result['errorMessage'];
+                            Fluttertoast.showToast(
+                                msg: "${result["errorMessage"]}");
+                          }
+                        }, arg);
+                      },
+                      child: Text(
+                        "Forget password using phone no.",
+                        style: GoogleFonts.montserrat(color: Colors.black),
+                      ))
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

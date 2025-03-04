@@ -20,8 +20,7 @@ class _YourMentorPageState extends ConsumerState<YourMentorPage> {
   @override
   Widget build(BuildContext context) {
     var box = Hive.box('userdata');
-    final yourmentorprovider =
-        ref.watch(yourMentorProvider(box.get('id').toString()));
+    final yourmentorprovider = ref.watch(yourMentorProvider('46'));
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 27, 27, 27),
       body: SingleChildScrollView(
@@ -230,6 +229,8 @@ class _MyContainerState extends State<MyContainer> {
               margin: EdgeInsets.only(left: 10),
               child: Image.network(
                 widget.image,
+                width: 60.w,
+                height: 60.h,
                 fit: BoxFit.cover,
               ),
             ),

@@ -299,7 +299,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                      data.data[index].collageDescription,
+                                      data.data[index].description,
                                       style: GoogleFonts.roboto(
                                           color: Color.fromARGB(
                                               255, 102, 102, 102),
@@ -310,7 +310,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                      "-${data.data[index].description}",
+                                      "-${data.data[index].userName}",
                                       style: GoogleFonts.roboto(
                                           color: Color.fromARGB(255, 0, 0, 0),
                                           fontSize: 13.w,

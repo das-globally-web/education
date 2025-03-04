@@ -1,10 +1,7 @@
 import 'package:educationapp/config/preety.dio.dart';
-import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateController.dart';
 import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateModel.dart';
 import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateModelphoneBody.dart';
 import 'package:educationapp/forgot_password/updataOtpModel/updateOtpService.dart';
-import 'package:educationapp/login/views/login.page.dart';
-import 'package:educationapp/main.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:flutter/cupertino.dart';
@@ -181,17 +178,7 @@ class _CreatePinState extends ConsumerState<CreatePin> {
                         lodar = true;
                       });
 
-                      // ref
-                      //     .read(updatePasswordProvider.notifier)
-                      //     .updateEmail("hdrak6336@gmail.com");
-                      // ref
-                      //     .read(updatePasswordProvider.notifier)
-                      //     .updataOpt("12345678");
-                      // Navigator.push(
-                      //     context,
-                      //     CupertinoPageRoute(
-                      //       builder: (context) => LoginPage(),
-                      //     ));
+                      
                       if (widget.forgetType == "phone") {
                         final service = UpdateOtpService(await createDio());
                         try {

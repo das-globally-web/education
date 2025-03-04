@@ -7,7 +7,6 @@ import 'package:educationapp/home/model/userprofile.model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final apiClientProvider = FutureProvider<HomeService>((ref) async {
   final dio = await ref.watch(dioProvider.future);
@@ -26,23 +25,18 @@ final companyReviewProvider = FutureProvider((ref) async {
 
 final saveUserProfileDataToLocalProvider =
     FutureProvider.family<bool, String>((ref, token) async {
-  if (!Hive.isBoxOpen('userdata')) {
-    await Hive.openBox('userdata');
-  }
-  var box = Hive.box('userdata');
-  await box.put('token', token);
-  await StoreData.fsavedata();
   return true;
 });
 
-// Riverpod provider
-
 class StoreData {
-  static void logic(Map<dynamic, String> data) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('name', data['name'].toString());
-    preferences.setString('email', data['email'].toString());
-    preferences.setString('pic', data['pic'].toString());
+  static Future<bool> logic(String token) async {
+    if (!Hive.isBoxOpen('userdata')) {
+      await Hive.openBox('userdata');
+    }
+    var box = Hive.box('userdata');
+    await box.put('token', token);
+    await StoreData.fsavedata();
+    return true;
   }
 
   static Future<void> fsavedata() async {
@@ -60,19 +54,5 @@ class StoreData {
     await box.put("email", profiledata.data.email);
     await box.put("pic", profiledata.data.profilePic);
     await box.put("id", profiledata.data.id);
-    // logic({
-    //   "name": profiledata.data.fullName,
-    //   "email": profiledata.data.email,
-    //   "pic": profiledata.data.profilePic,
-    // });
   }
-
-  // static Future<Map<dynamic, String>> fetchData() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   return {
-  //     "name": preferences.getString('name').toString(),
-  //     "email": preferences.getString('email').toString(),
-  //     "pic": preferences.getString('pic').toString(),
-  //   };
-  // }
 }

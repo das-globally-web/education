@@ -199,6 +199,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               setState(() {
                 login = true;
               });
+              final container = ProviderContainer();
+              container.dispose();
               log("testing");
               try {
                 final body = LoginBodyModel(
@@ -206,12 +208,15 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   password: passwordController.text,
                 );
                 final loginService = LognService(await createDio());
-                // Call the login API
                 final response = await compute(loginService.login, body);
-                final data = await ref.watch(saveUserProfileDataToLocalProvider(
-                    response.data.token.toString()));
-                Navigator.pushReplacement(context,
-                    CupertinoPageRoute(builder: (context) => HomePage()));
+                final dataLoder =
+                    await StoreData.logic(response.data.token.toString());
+                if (dataLoder == true) {
+                  Navigator.pushReplacement(context,
+                      CupertinoPageRoute(builder: (context) => HomePage()));
+                } else {
+                  Fluttertoast.showToast(msg: "Some thing went wrong");
+                }
               } catch (_) {
                 setState(() {
                   login = false;

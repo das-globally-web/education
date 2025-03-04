@@ -31,9 +31,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String? _username;
 
-
-
-
   @override
   Widget build(BuildContext context) {
     final skilsProvider = ref.watch(skilssProvide);
@@ -43,7 +40,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final companyreviewData = ref.watch(companyReviewProvider);
 
     var box = Hive.box('userdata');
-    final container = ProviderContainer();
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xFF1B1B1B),
@@ -264,18 +261,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
                 onTap: () async {
                   log("hey");
-                  SharedPreferences preferences =
-                      await SharedPreferences.getInstance();
-                  Fluttertoast.showToast(msg: "Logout Succesfuliy");
-
-                  await preferences.clear();
                   var box = Hive.box('userdata');
                   await box.clear();
+                  final container = ProviderContainer();
                   container.dispose();
                   Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) => MyApp()),
                       (route) => false);
+                  Fluttertoast.showToast(msg: "Logout Succesfuliy");
                 },
               ),
             ],

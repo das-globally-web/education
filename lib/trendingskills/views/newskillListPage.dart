@@ -344,7 +344,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                             height: 2,
                           ),
                           Container(
-                            // height: 132.h,
+                            height: 0.13.sh,
                             width: MediaQuery.of(context).size.width,
                             child: Padding(
                               padding: EdgeInsets.only(
@@ -360,7 +360,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                       color: Color.fromARGB(255, 27, 27, 27),
                                     ),
                                   ),
-                                  SizedBox(height: 15),
+                                  SizedBox(height: 15.r),
                                   Container(
                                     height: 60.h,
                                     width: MediaQuery.of(context).size.width,
@@ -380,7 +380,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                           );
                                         }),
                                   ),
-                                  SizedBox(height: 10),
+                                  SizedBox(height: 10.r),
                                 ],
                               ),
                             ),
@@ -582,11 +582,11 @@ class _MySkillsContainerState extends State<MySkillsContainer> {
           ),
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(left: 6, right: 6),
+              padding: EdgeInsets.only(left: 6, right: 6),
               child: Text(
                 widget.txt,
                 style: GoogleFonts.roboto(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: Color.fromARGB(255, 46, 46, 46),
                 ),

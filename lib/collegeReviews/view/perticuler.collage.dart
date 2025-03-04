@@ -93,7 +93,6 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
                       color: Colors.white,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -111,8 +110,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                 letterSpacing: -0.95),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsets.only(left: 100.w, right: 100.w),
+                            padding: EdgeInsets.only(left: 100.w, right: 100.w),
                             child: Text(
                               "${snap.data.collageDescription}",
                               textAlign: TextAlign.center,
@@ -134,16 +132,14 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                 height: 26,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFDEDDEC),
-                                    borderRadius:
-                                        BorderRadius.circular(40.r)),
+                                    borderRadius: BorderRadius.circular(40.r)),
                                 child: Center(
                                   child: Padding(
                                     padding:
                                         EdgeInsets.only(left: 15, right: 15),
                                     child: Text(
                                       snap.data.city,
-                                      style:
-                                          GoogleFonts.roboto(fontSize: 10.w),
+                                      style: GoogleFonts.roboto(fontSize: 10.w),
                                     ),
                                   ),
                                 ),
@@ -155,8 +151,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                 height: 26,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFDEDDEC),
-                                    borderRadius:
-                                        BorderRadius.circular(40.r)),
+                                    borderRadius: BorderRadius.circular(40.r)),
                                 child: Center(
                                   child: Padding(
                                     padding:
@@ -192,8 +187,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                 height: 26,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFDEDDEC),
-                                    borderRadius:
-                                        BorderRadius.circular(40.r)),
+                                    borderRadius: BorderRadius.circular(40.r)),
                                 child: Center(
                                   child: Padding(
                                     padding:
@@ -235,8 +229,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                 Text(
                                   "Branches",
                                   style: GoogleFonts.roboto(
-                                      color:
-                                          const Color.fromARGB(255, 0, 0, 0),
+                                      color: const Color.fromARGB(255, 0, 0, 0),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15.w),
                                 ),
@@ -296,8 +289,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                               children: [
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
                                       "Reviews & Testimonials",
@@ -341,8 +333,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                             width: 400,
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        20.r),
+                                                    BorderRadius.circular(20.r),
                                                 color: Color.fromARGB(
                                                     255, 241, 242, 246)),
                                             child: Padding(
@@ -356,8 +347,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+                                                        MainAxisAlignment.start,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .center,
@@ -402,10 +392,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                                                         .description,
                                                     style: GoogleFonts.roboto(
                                                         color: Color.fromARGB(
-                                                            255,
-                                                            102,
-                                                            102,
-                                                            102),
+                                                            255, 102, 102, 102),
                                                         fontSize: 13.w,
                                                         fontStyle:
                                                             FontStyle.italic),
@@ -446,7 +433,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                           ),
                         ],
                       ),
-                    ),
+                    )
                   ],
                 ),
                 Positioned(

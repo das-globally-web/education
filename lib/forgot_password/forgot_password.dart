@@ -121,14 +121,14 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
                   padding: EdgeInsets.only(top: 10.h, right: 28.w, left: 28.w),
                   child: InkWell(
                     onTap: () async {
-                      setState(() {
-                        sendotp = true;
-                      });
                       try {
                         if (emailControlelr.text.isEmpty) {
                           Fluttertoast.showToast(
                               msg: "Please enter valid email");
                         } else {
+                          setState(() {
+                            sendotp = true;
+                          });
                           final updateOtpData =
                               await ref.watch(otpUpdataProvider(
                             UpdataOtpBodyModel(email: emailControlelr.text),

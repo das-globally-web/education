@@ -1,10 +1,6 @@
 import 'dart:developer';
-
 import 'package:educationapp/home/views/home.page.dart';
-
 import 'package:educationapp/splash/views/splash.page.dart';
-import 'package:educationapp/yourMentor.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,11 +21,7 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-// Function to initialize Hive
 
-// HiveManager for centralized box management
-
-// Main App Widget
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -45,18 +37,13 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           home: token == null ? const SplashScreen() : const HomePage(),
-          // home: YourMentorPage(),
+          // home: ForgotPassword(),
         );
       },
     );
   }
 }
 
-class MyFormData {
-  static String userType = '';
-  static String serviceType = '';
-  static int skillId = 0;
-}
 
 
 class MyFormDataModel {
@@ -85,8 +72,6 @@ class MyFormDataModel {
 }
 
 
-
-// Define the StateNotifier for MyFormDataModel
 class FormDataNotifier extends StateNotifier<MyFormDataModel> {
   FormDataNotifier()
       : super(MyFormDataModel(userType: '', serviceType: '', skillId: ''));
@@ -107,6 +92,7 @@ class FormDataNotifier extends StateNotifier<MyFormDataModel> {
   }
 }
 
-final formDataProvider = StateNotifierProvider<FormDataNotifier, MyFormDataModel>((ref) {
+final formDataProvider =
+    StateNotifierProvider<FormDataNotifier, MyFormDataModel>((ref) {
   return FormDataNotifier();
 });

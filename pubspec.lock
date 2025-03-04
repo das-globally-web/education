@@ -669,6 +669,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  otpify:
+    dependency: "direct main"
+    description:
+      name: otpify
+      sha256: ea1b654cd4dd59fe9f3e2f9019c5bfb5417d75ff18b81839b782d9ac72c53a9d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.4"
   otpless_flutter:
     dependency: "direct main"
     description:

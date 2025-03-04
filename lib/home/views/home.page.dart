@@ -261,11 +261,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
                 onTap: () async {
                   log("hey");
-                  var box = Hive.box('userdata');
-                  await box.clear();
+                  
                   final container = ProviderContainer();
                   container.dispose();
-
+                  container.invalidate(skilssProvide);
+                  container.invalidate(walletProvider);
+                  container.invalidate(homeMentorsProvider);
+                  container.invalidate(callagesProviders);
+                  container.invalidate(companyReviewProvider);
+                  var box = Hive.box('userdata');
+                  await box.clear();
                   Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) => MyApp()),

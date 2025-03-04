@@ -227,11 +227,14 @@ class _MyContainerState extends State<MyContainer> {
           children: [
             Container(
               margin: EdgeInsets.only(left: 10),
-              child: Image.network(
-                widget.image,
-                width: 60.w,
-                height: 60.h,
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  widget.image,
+                  width: 60.w,
+                  height: 60.h,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Column(

@@ -178,7 +178,6 @@ class _CreatePinState extends ConsumerState<CreatePin> {
                         lodar = true;
                       });
 
-                      
                       if (widget.forgetType == "phone") {
                         final service = UpdateOtpService(await createDio());
                         try {

@@ -265,6 +265,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   await box.clear();
                   final container = ProviderContainer();
                   container.dispose();
+
                   Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) => MyApp()),

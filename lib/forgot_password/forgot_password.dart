@@ -93,7 +93,7 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
                   child: TextFormField(
                     controller: emailControlelr,
                     decoration: InputDecoration(
-                      hintText: "Enter Email",
+                      hintText: "Email",
                       hintStyle: TextStyle(
                         fontSize: 15.w,
                         fontWeight: FontWeight.w400,
@@ -120,23 +120,50 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
                 Padding(
                   padding: EdgeInsets.only(top: 10.h, right: 28.w, left: 28.w),
                   child: InkWell(
-                    onTap: () {
-                      // setState(() {
-                      //   sendotp = true;
-                      // });
-                      // final updateOtpData = ref.watch(otpUpdataProvider(
-                      //   UpdataOtpBodyModel(email: emailControlelr.text),
-                      // ));
-                      // if (updateOtpData != null) {
-                      //   Navigator.push(
-                      //       context,
-                      //       CupertinoPageRoute(
-                      //         builder: (context) => OtpScreen(),
-                      //       ));
-                      // } else {
-                      //   Fluttertoast.showToast(msg: "wrong");
-                      // }
-                      Fluttertoast.showToast(msg: "Comming Soon");
+                    onTap: () async {
+                      setState(() {
+                        sendotp = true;
+                      });
+                      try {
+                        if (emailControlelr.text.isEmpty) {
+                          Fluttertoast.showToast(
+                              msg: "Please enter valid email");
+                        } else {
+                          final updateOtpData =
+                              await ref.watch(otpUpdataProvider(
+                            UpdataOtpBodyModel(email: emailControlelr.text),
+                          ));
+                          ref
+                              .read(updatePasswordProvider.notifier)
+                              .updateEmail(emailControlelr.text);
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => OtpScreen(
+                                  forgetType: 'email',
+                                ),
+                              ));
+                        }
+                        // final updateOtpData = await ref.watch(otpUpdataProvider(
+                        //   UpdataOtpBodyModel(email: emailControlelr.text),
+                        // ));
+                        // ref
+                        //     .read(updatePasswordProvider.notifier)
+                        //     .updateEmail(emailControlelr.text);
+                        // Navigator.push(
+                        //     context,
+                        //     CupertinoPageRoute(
+                        //       builder: (context) => OtpScreen(
+                        //         forgetType: 'email',
+                        //       ),
+                        //     ));
+                      } catch (E) {
+                        //  Fluttertoast.showToast(msg: "Something went wrong");
+                        setState(() {
+                          sendotp = false;
+                        });
+                        Fluttertoast.showToast(msg: "Something went wrong");
+                      }
                     },
                     child: Container(
                       height: 52.h,
@@ -184,7 +211,9 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
                           Navigator.push(
                             context,
                             CupertinoPageRoute(
-                              builder: (context) => CreatePin(forgetType: "phone",),
+                              builder: (context) => CreatePin(
+                                forgetType: "phone",
+                              ),
                             ),
                           );
                         } else {

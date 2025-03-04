@@ -1,7 +1,10 @@
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateModel.dart';
 import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateModelphoneBody.dart';
+import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateResModel.dart';
+import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateService.dart';
 import 'package:educationapp/forgot_password/updataOtpModel/updateOtpService.dart';
+import 'package:educationapp/main.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:flutter/cupertino.dart';
@@ -198,6 +201,28 @@ class _CreatePinState extends ConsumerState<CreatePin> {
                           setState(() {
                             lodar = false;
                           });
+                        }
+                      } else {
+                        final service =
+                            PasswordUpdateService(await createDio());
+                        try {
+                          PasswordUpdateResModel response =
+                              await service.passwordUpdate(
+                            PasswordUpdateModelEmail(
+                                email: passwordModel.email,
+                                otp: passwordModel.otp,
+                                password: passwordControllet.text,
+                                passwordConfirmation:
+                                    confirmPasswordController.text),
+                          );
+                          Fluttertoast.showToast(
+                              msg: "Password updated succesfully");
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              CupertinoPageRoute(builder: (context) => MyApp()),
+                              (route) => false);
+                        } catch (E) {
+                          Fluttertoast.showToast(msg: "Invalid OTP");
                         }
                       }
                     },

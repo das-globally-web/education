@@ -4,9 +4,9 @@ import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/
 import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateService.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final passwordUpdateProvider =
-    FutureProvider.family<PasswordUpdateResModel, MyPasswordUpdateModel>(
-        (ref, body) async {
-  final passwordupdateservice = PasswordUpdateService(await createDio());
-  return passwordupdateservice.passwordUpdate(body);
-});
+// final passwordUpdateProvider =
+//     FutureProvider.family<PasswordUpdateResModel, MyPasswordUpdateModel>(
+//         (ref, body) async {
+//   final passwordupdateservice = PasswordUpdateService(await createDio());
+//   return passwordupdateservice.passwordUpdate(body);
+// });

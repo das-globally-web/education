@@ -344,11 +344,11 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                             height: 2,
                           ),
                           Container(
-                            height: 120.h,
+                            // height: 132.h,
                             width: MediaQuery.of(context).size.width,
                             child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 10),
+                              padding: EdgeInsets.only(
+                                  left: 10.w, right: 10.w, top: 10.h),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -362,7 +362,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                   ),
                                   SizedBox(height: 15),
                                   Container(
-                                    height: 55.h,
+                                    height: 60.h,
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         color: Colors.transparent),

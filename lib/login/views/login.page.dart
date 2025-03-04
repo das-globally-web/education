@@ -93,9 +93,9 @@ class RegisterForm extends ConsumerStatefulWidget {
 
 class _RegisterFormState extends ConsumerState<RegisterForm> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
   bool login = false;
+  bool secure = true;
   final _fromKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -161,9 +161,71 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             controller: emailController,
             lable: 'Email Address',
           ),
-          RegisterField(
-            controller: passwordController,
-            lable: 'Password',
+          // RegisterField(
+          //   controller: passwordController,
+          //   lable: 'Password',
+          // ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 28.w, left: 28.w),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Password",
+                      style: GoogleFonts.roboto(
+                        fontSize: 13.w,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF4D4D4D),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: secure == true ? secure : false,
+                  decoration: InputDecoration(
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            secure = !secure;
+                          });
+                        },
+                        child: secure == true
+                            ? Icon(Icons.visibility_off,
+                                color: Color(0xFF4D4D4D))
+                            : Icon(
+                                Icons.visibility,
+                                color: Color(0xFF4D4D4D),
+                              ),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(40.r),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(40.r),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(40.r),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           SizedBox(
             height: 6.h,

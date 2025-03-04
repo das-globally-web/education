@@ -132,7 +132,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                         CupertinoPageRoute(
                             builder: (context) => AddReviewPage(
                                   id: widget.id,
-                                  callBack: () {
+                                  callback: () {
                                     setState(() {
                                       ref.refresh(addreviewProvider(widget.id));
                                     });
@@ -299,7 +299,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                      data.data[index].description,
+                                      data.data[index].collageDescription,
                                       style: GoogleFonts.roboto(
                                           color: Color.fromARGB(
                                               255, 102, 102, 102),
@@ -310,7 +310,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                      "-${data.data[index].userName}",
+                                      "-${data.data[index].description}",
                                       style: GoogleFonts.roboto(
                                           color: Color.fromARGB(255, 0, 0, 0),
                                           fontSize: 13.w,

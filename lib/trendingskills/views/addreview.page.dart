@@ -12,8 +12,8 @@ import 'package:hive/hive.dart';
 
 class AddReviewPage extends ConsumerStatefulWidget {
   final String id;
-  final Function callBack;
-  const AddReviewPage({super.key, required this.id, required this.callBack});
+  final Function callback;
+  const AddReviewPage({super.key, required this.id, required this.callback});
 
   @override
   ConsumerState<AddReviewPage> createState() => _AddReviewPageState();
@@ -215,6 +215,7 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                           await Hive.openBox('userdata');
                         }
                         var box = Hive.box('userdata');
+                        widget.callback();
                         final addreviewpageData = ref.watch(
                           addreviewpageProvider(
                             AddReviewBodyModel(
@@ -228,7 +229,6 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                         );
                         if (addreviewpageData != null) {
                           Fluttertoast.showToast(msg: "Review add successful");
-                          widget.callBack();
                           Navigator.pop(context);
                         } else {
                           Fluttertoast.showToast(msg: "Review faliled");

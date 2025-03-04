@@ -222,28 +222,27 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                               InkWell(
                                 onTap: () async {
                                   var box = Hive.box('userdata');
-                                  // final storeMentordata = ref.watch(
-                                  //   storeMentorProvider(
-                                  //     StoreMentorBodyModel(
-                                  //         userId: int.parse(
-                                  //             box.get('id').toString()),
-                                  //         mentorIds: "${data.data.id}"),
-                                  //   ).future,
-                                  // );
-                                  // if (storeMentordata != null) {
-                                  //   Navigator.push(
-                                  //       context,
-                                  //       MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             YourMentorPage(),
-                                  //       ));
-                                  // } else {
-                                  //   ScaffoldMessenger.of(context)
-                                  //       .showSnackBar(SnackBar(
-                                  //     content:
-                                  //         Text("failed to store mentor data!"),
-                                  //   ));
-                                  // }
+                                  final storeMentordata = ref.watch(
+                                    storeMentorProvider(
+                                      StoreMentorBodyModel(
+                                          userId: data.data.id,
+                                          mentorIds: box.get('id').toString()),
+                                    ).future,
+                                  );
+                                  if (storeMentordata != null) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              YourMentorPage(),
+                                        ));
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content:
+                                          Text("failed to store mentor data!"),
+                                    ));
+                                  }
                                 },
                                 child: Container(
                                   width: 157,

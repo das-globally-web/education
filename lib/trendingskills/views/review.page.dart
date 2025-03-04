@@ -132,6 +132,11 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                         CupertinoPageRoute(
                             builder: (context) => AddReviewPage(
                                   id: widget.id,
+                                  callback: () {
+                                    setState(() {
+                                      ref.refresh(addreviewProvider(widget.id));
+                                    });
+                                  },
                                 )));
                   },
                   child: Container(

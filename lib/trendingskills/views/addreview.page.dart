@@ -12,7 +12,8 @@ import 'package:hive/hive.dart';
 
 class AddReviewPage extends ConsumerStatefulWidget {
   final String id;
-  const AddReviewPage({super.key, required this.id});
+  final Function callback;
+  const AddReviewPage({super.key, required this.id, required this.callback});
 
   @override
   ConsumerState<AddReviewPage> createState() => _AddReviewPageState();
@@ -214,6 +215,7 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                           await Hive.openBox('userdata');
                         }
                         var box = Hive.box('userdata');
+                        widget.callback();
                         final addreviewpageData = ref.watch(
                           addreviewpageProvider(
                             AddReviewBodyModel(

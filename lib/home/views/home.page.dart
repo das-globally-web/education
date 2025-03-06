@@ -12,6 +12,7 @@ import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
 import 'package:educationapp/wallet/walletController.dart';
 import 'package:educationapp/yourMentor.dart';
+import 'package:educationapp/yourMentorController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,13 +55,14 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('userdata');
     final skilsProvider = ref.watch(skilssProvide);
     final wallteserviceProvider = ref.watch(walletProvider);
     final homementrosprovider = ref.watch(homeMentorsProvider);
     final collages = ref.watch(callagesProviders);
     final companyreviewData = ref.watch(companyReviewProvider);
 
-    var box = Hive.box('userdata');
+    final yourmentorData = ref.watch(yourMentorProvider('46'));
 
     return Scaffold(
       key: _scaffoldKey,
@@ -512,27 +514,39 @@ class _HomePageState extends ConsumerState<HomePage> {
                             SizedBox(
                               width: 10.w,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Your Mentors",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 144, 136, 241),
-                                  ),
-                                ),
-                                Text(
-                                  "04",
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              ],
+                            yourmentorData.when(
+                              data: (data) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Your Mentors",
+                                      style: GoogleFonts.inter(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                            Color.fromARGB(255, 144, 136, 241),
+                                      ),
+                                    ),
+                                    Text(
+                                      // "04",
+                                      data.data.mentors.length.toString(),
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                              error: (error, stackTrace) => Center(
+                                child: Text(error.toString()),
+                              ),
+                              loading: () => Center(
+                                child: CircularProgressIndicator(),
+                              ),
                             ),
                           ],
                         ),

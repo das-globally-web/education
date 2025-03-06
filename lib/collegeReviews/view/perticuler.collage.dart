@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/trendingskills/views/controller.review/reviewController.dart';
 import 'package:educationapp/trendingskills/views/review.page.dart';

@@ -1,16 +1,10 @@
-import 'package:educationapp/config/preety.dio.dart';
-import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/homeController.dart';
-import 'package:educationapp/home/controller/service/home.service.dart';
 import 'package:educationapp/home/controller/service/searchMentorController.dart';
-import 'package:educationapp/home/model/mentors.model.dart';
-import 'package:educationapp/home/model/userprofile.model.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 
 class FindMentorPage extends ConsumerStatefulWidget {
   const FindMentorPage({super.key});

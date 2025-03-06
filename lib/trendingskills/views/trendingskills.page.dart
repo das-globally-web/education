@@ -1,7 +1,6 @@
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/trendingskills/controller/service/searchSkillController.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
-import 'package:educationapp/trendingskills/views/perticulertrending.page.dart';
 import 'package:educationapp/trendingskills/views/skills.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

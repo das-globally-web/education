@@ -1,4 +1,3 @@
-import 'package:educationapp/constant/constsize.dart';
 import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:flutter/cupertino.dart';

@@ -13,7 +13,6 @@ import 'package:educationapp/trendingskills/views/newskillListPage.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
 import 'package:educationapp/wallet/walletController.dart';
-import 'package:educationapp/yourMentor.dart';
 import 'package:educationapp/yourMentorController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +21,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});

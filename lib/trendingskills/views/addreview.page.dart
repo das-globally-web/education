@@ -1,7 +1,5 @@
-import 'dart:math';
 import 'package:educationapp/trendingskills/views/addreview.page/addreviewBodyModel.dart';
 import 'package:educationapp/trendingskills/views/addreview.page/addreviewpageController.dart';
-import 'package:educationapp/trendingskills/views/controller.review/reviewController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/forgot_password/forgot_password.dart';
 import 'package:educationapp/home/controller/homeController.dart';
@@ -7,8 +5,6 @@ import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
-import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
-import 'package:educationapp/wallet/walletController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

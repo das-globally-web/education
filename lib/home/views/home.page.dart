@@ -33,24 +33,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String? _username;
 
-  Future<void> clearAppData() async {
-    // Clear cache
-    final cacheDir = await getTemporaryDirectory();
-    if (cacheDir.existsSync()) {
-      cacheDir.deleteSync(recursive: true);
-    }
-
-    // Clear app storage
-    final appDir = await getApplicationSupportDirectory();
-    if (appDir.existsSync()) {
-      appDir.deleteSync(recursive: true);
-    }
-
-    // Clear shared preferences
-
-    log("App data cleared");
-  }
-
   @override
   Widget build(BuildContext context) {
     final skilsProvider = ref.watch(skilssProvide);
@@ -280,23 +262,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 onTap: () async {
-                  log("hey");
-                  await clearAppData();
-                  final container = ProviderContainer();
-                  container.dispose();
-                  container.invalidate(skilssProvide);
-                  container.invalidate(walletProvider);
-                  container.invalidate(homeMentorsProvider);
-                  container.invalidate(callagesProviders);
-                  container.invalidate(companyReviewProvider);
-                  var box = Hive.box('userdata');
-                  await box.clear();
+                  log("Clearing data ......");
+                  await StoreData.clearData();
                   Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) => MyApp()),
                       (route) => false);
                   Fluttertoast.showToast(msg: "Logout Succesfuliy");
-                },
+                },  
               ),
             ],
           ),

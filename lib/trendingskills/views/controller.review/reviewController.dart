@@ -12,7 +12,7 @@ final apiClientReviewProvider =
 });
 
 final addreviewProvider =
-    FutureProviderFamily<AddReviewModel, String>((ref, id) async {
+    FutureProvider.autoDispose.family<AddReviewModel, String>((ref, id) async {
   final client = await ref.watch(apiClientReviewProvider.future);
 
   return await compute(

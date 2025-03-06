@@ -21,7 +21,6 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -34,6 +33,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(440, 956), // Set your design dimensions
       minTextAdapt: true,
+      splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
           home: token == null ? const SplashScreen() : const HomePage(),
@@ -43,8 +43,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
 
 class MyFormDataModel {
   final String userType;
@@ -70,7 +68,6 @@ class MyFormDataModel {
     );
   }
 }
-
 
 class FormDataNotifier extends StateNotifier<MyFormDataModel> {
   FormDataNotifier()

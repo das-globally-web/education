@@ -5,7 +5,7 @@ import 'package:educationapp/wallet/views/walletUpdate/walletUpdateService.dart'
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final walletUpdateProvider =
-    FutureProvider.family<WalletUpdateResponseModel, WalletUpdateBodyModel>(
+    FutureProvider.autoDispose.family<WalletUpdateResponseModel, WalletUpdateBodyModel>(
         (ref, body) async {
   final walletupdateservice = WalletUpdateService(await createDio());
   return walletupdateservice.allWalletUpdate(body);

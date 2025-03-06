@@ -8,23 +8,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
-final apiClientProvider = FutureProvider<HomeService>((ref) async {
+final apiClientProvider = FutureProvider.autoDispose<HomeService>((ref) async {
   final dio = await ref.watch(dioProvider.future);
   return HomeService(dio);
 });
 
-final homeMentorsProvider = FutureProvider<AllMentorsModel>((ref) async {
+final homeMentorsProvider =
+    FutureProvider.autoDispose<AllMentorsModel>((ref) async {
   final client = await ref.watch(apiClientProvider.future);
   return await compute(ApiController.fetchMentors, client);
 });
 
-final companyReviewProvider = FutureProvider((ref) async {
+final companyReviewProvider = FutureProvider.autoDispose((ref) async {
   final companyreviewservice = HomeService(await createDio());
   return companyreviewservice.getAllcompanyReview();
 });
 
 final saveUserProfileDataToLocalProvider =
-    FutureProvider.family<bool, String>((ref, token) async {
+    FutureProvider.autoDispose.family<bool, String>((ref, token) async {
   return true;
 });
 

@@ -5,7 +5,7 @@ import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNe
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final storeMentorProvider =
-    FutureProvider.family<StoreMentorResModel, StoreMentorBodyModel>(
+    FutureProvider.autoDispose.family<StoreMentorResModel, StoreMentorBodyModel>(
         (ref, body) async {
   final storementorservice = StoreMentorService(await createDio());
   return storementorservice.getAllStoreMentor(body);

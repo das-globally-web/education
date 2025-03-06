@@ -254,7 +254,7 @@ class _AddReviewPageState extends ConsumerState<AddReviewPage> {
                     ),
                     SizedBox(
                       height: 10.h,
-                    )
+                    ),
                   ],
                 ),
               ),

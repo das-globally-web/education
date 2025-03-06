@@ -5,13 +5,14 @@ import 'package:educationapp/trendingskills/views/service.review/review.service.
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final apiClientReviewProvider = FutureProvider<AddreviewService>((ref) async {
+final apiClientReviewProvider =
+    FutureProvider.autoDispose<AddreviewService>((ref) async {
   final dio = await ref.watch(dioProvider.future);
   return AddreviewService(dio);
 });
 
 final addreviewProvider =
-    FutureProviderFamily<AddReviewModel, String>((ref, id) async {
+    FutureProvider.autoDispose.family<AddReviewModel, String>((ref, id) async {
   final client = await ref.watch(apiClientReviewProvider.future);
 
   return await compute(

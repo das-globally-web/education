@@ -5,7 +5,7 @@ import 'package:educationapp/forgot_password/updataOtpModel/updateOtpService.dar
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final otpUpdataProvider =
-    FutureProvider.family<UpdataOtpResModel, UpdataOtpBodyModel>(
+    FutureProvider.autoDispose.family<UpdataOtpResModel, UpdataOtpBodyModel>(
         (ref, body) async {
   final updateotpservice = UpdateOtpService(await createDio());
   return updateotpservice.sendotp(body);

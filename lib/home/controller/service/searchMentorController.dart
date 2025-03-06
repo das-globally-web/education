@@ -6,13 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final searchMentorsClientProvider =
-    FutureProvider<SearchMentorService>((ref) async {
+    FutureProvider.autoDispose<SearchMentorService>((ref) async {
   final dio = await ref.watch(dioProvider.future);
   return SearchMentorService(dio);
 });
 
-final searchMentorProvider =
-    FutureProvider.family<SearchMentorModel, String>((ref, query) async {
+final searchMentorProvider = FutureProvider.autoDispose
+    .family<SearchMentorModel, String>((ref, query) async {
   final clinet = await ref.watch(searchMentorsClientProvider.future);
   return await compute(
       ApiController.searchMentors, {"service": clinet, "query": query});

@@ -19,6 +19,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -30,6 +32,24 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String? _username;
+
+  Future<void> clearAppData() async {
+    // Clear cache
+    final cacheDir = await getTemporaryDirectory();
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
+    }
+
+    // Clear app storage
+    final appDir = await getApplicationSupportDirectory();
+    if (appDir.existsSync()) {
+      appDir.deleteSync(recursive: true);
+    }
+
+    // Clear shared preferences
+
+    print("App data cleared");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +281,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
                 onTap: () async {
                   log("hey");
-                  
+                  await clearAppData();
                   final container = ProviderContainer();
                   container.dispose();
                   container.invalidate(skilssProvide);
@@ -456,7 +476,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                   )
                 ],
               ),
-
               SizedBox(
                 height: 30.h,
               ),
@@ -1039,188 +1058,188 @@ class _HomePageState extends ConsumerState<HomePage> {
               SizedBox(
                 height: 30.h,
               ),
-              // Container(
-              //   width: MediaQuery.of(context).size.width,
-              //   decoration: BoxDecoration(
-              //     color: Color.fromARGB(25, 0, 0, 0),
-              //     borderRadius: BorderRadius.circular(30.r),
-              //   ),
-              //   child: Padding(
-              //     padding: EdgeInsets.only(bottom: 8.h),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       children: [
-              //         SizedBox(height: 20.h),
-              //         Container(
-              //           margin: EdgeInsets.only(left: 20.h),
-              //           child: Text(
-              //             "Company Reviews",
-              //             style: GoogleFonts.roboto(
-              //                 fontWeight: FontWeight.w500,
-              //                 fontSize: 20,
-              //                 color: Colors.white),
-              //           ),
-              //         ),
-              //         SizedBox(height: 16.h),
-              //         SizedBox(
-              //           height: 280.h,
-              //           width: MediaQuery.of(context).size.width,
-              //           child: companyreviewData.when(
-              //             data: (companydata) {
-              //               return ListView.builder(
-              //                 itemCount: companydata.data.length,
-              //                 scrollDirection: Axis.horizontal,
-              //                 itemBuilder: (context, index) {
-              //                   return Container(
-              //                     margin:
-              //                         EdgeInsets.only(bottom: 20, left: 20.w),
-              //                     width: 192.w,
-              //                     height: 215.h,
-              //                     decoration: BoxDecoration(
-              //                       border: Border.all(
-              //                         width: 1,
-              //                         color: Colors.white10,
-              //                       ),
-              //                       borderRadius: BorderRadius.circular(20),
-              //                     ),
-              //                     child: Column(
-              //                       mainAxisAlignment: MainAxisAlignment.start,
-              //                       children: [
-              //                         SizedBox(
-              //                           height: 8.h,
-              //                         ),
-              //                         Container(
-              //                           width: 174.w,
-              //                           height: 112.h,
-              //                           child: ClipRRect(
-              //                             borderRadius:
-              //                                 BorderRadius.circular(12),
-              //                             child: Image.network(
-              //                               companydata.data[index].image ??
-              //                                   "https://placehold.co/600x400/png",
-              //                               width: 176.w,
-              //                               height: 111.h,
-              //                               fit: BoxFit.cover,
-              //                             ),
-              //                           ),
-              //                         ),
-              //                         SizedBox(
-              //                           height: 16.h,
-              //                         ),
-              //                         Padding(
-              //                           padding: EdgeInsets.only(left: 10.w),
-              //                           child: Row(
-              //                             children: [
-              //                               Container(
-              //                                 height: 26.h,
-              //                                 decoration: BoxDecoration(
-              //                                   borderRadius:
-              //                                       BorderRadius.circular(40),
-              //                                   color: Color.fromARGB(
-              //                                       255, 38, 38, 38),
-              //                                 ),
-              //                                 child: Padding(
-              //                                   padding: EdgeInsets.symmetric(
-              //                                       horizontal: 10.w),
-              //                                   child: Center(
-              //                                     child: Text(
-              //                                       // "Jaipur",
-              //                                       companydata
-              //                                           .data[index].city,
-              //                                       style: GoogleFonts.roboto(
-              //                                         fontSize: 10,
-              //                                         fontWeight:
-              //                                             FontWeight.w400,
-              //                                         color: Colors.white,
-              //                                       ),
-              //                                     ),
-              //                                   ),
-              //                                 ),
-              //                               ),
-              //                               SizedBox(
-              //                                 width: 7.w,
-              //                               ),
-              //                               Container(
-              //                                 height: 26.h,
-              //                                 decoration: BoxDecoration(
-              //                                   borderRadius:
-              //                                       BorderRadius.circular(40),
-              //                                   color: Color.fromARGB(
-              //                                       255, 38, 38, 38),
-              //                                 ),
-              //                                 child: Padding(
-              //                                   padding: EdgeInsets.symmetric(
-              //                                       horizontal: 10.w),
-              //                                   child: Row(
-              //                                     mainAxisAlignment:
-              //                                         MainAxisAlignment.center,
-              //                                     children: [
-              //                                       Icon(
-              //                                         Icons.star,
-              //                                         size: 12,
-              //                                         color: Color.fromARGB(
-              //                                             255, 144, 136, 241),
-              //                                       ),
-              //                                       Text(
-              //                                         "4.5 Review",
-              //                                         style: GoogleFonts.roboto(
-              //                                           fontSize: 10,
-              //                                           fontWeight:
-              //                                               FontWeight.w400,
-              //                                           color: Colors.white,
-              //                                         ),
-              //                                       )
-              //                                     ],
-              //                                   ),
-              //                                 ),
-              //                               ),
-              //                             ],
-              //                           ),
-              //                         ),
-              //                         SizedBox(
-              //                           height: 10.h,
-              //                         ),
-              //                         Container(
-              //                           width: 176,
-              //                           height: 1,
-              //                           decoration: BoxDecoration(
-              //                             color: Colors.white10,
-              //                           ),
-              //                         ),
-              //                         SizedBox(
-              //                           height: 10.h,
-              //                         ),
-              //                         Padding(
-              //                           padding: EdgeInsets.only(left: 10.w),
-              //                           child: Text(
-              //                             // "James Parlour Collage ",
-              //                             companydata.data[index].collageName,
-              //                             style: GoogleFonts.roboto(
-              //                               fontSize: 15,
-              //                               fontWeight: FontWeight.w500,
-              //                               color: Colors.white,
-              //                             ),
-              //                           ),
-              //                         )
-              //                       ],
-              //                     ),
-              //                   );
-              //                 },
-              //               );
-              //             },
-              //             error: (error, stackTrace) => Center(
-              //               child: Text(error.toString()),
-              //             ),
-              //             loading: () => Center(
-              //               child: CircularProgressIndicator(),
-              //             ),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // )
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(25, 0, 0, 0),
+                  borderRadius: BorderRadius.circular(30.r),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 8.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20.h),
+                      Container(
+                        margin: EdgeInsets.only(left: 20.h),
+                        child: Text(
+                          "Company Reviews",
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(height: 16.h),
+                      SizedBox(
+                        height: 280.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: companyreviewData.when(
+                          data: (companydata) {
+                            return ListView.builder(
+                              itemCount: companydata.data.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin:
+                                      EdgeInsets.only(bottom: 20, left: 20.w),
+                                  width: 192.w,
+                                  height: 215.h,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.white10,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      Container(
+                                        width: 174.w,
+                                        height: 112.h,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.network(
+                                            companydata.data[index].image ??
+                                                "https://placehold.co/600x400/png",
+                                            width: 176.w,
+                                            height: 111.h,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10.w),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 26.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                                color: Color.fromARGB(
+                                                    255, 38, 38, 38),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10.w),
+                                                child: Center(
+                                                  child: Text(
+                                                    // "Jaipur",
+                                                    companydata
+                                                        .data[index].city,
+                                                    style: GoogleFonts.roboto(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 7.w,
+                                            ),
+                                            Container(
+                                              height: 26.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                                color: Color.fromARGB(
+                                                    255, 38, 38, 38),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10.w),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.star,
+                                                      size: 12,
+                                                      color: Color.fromARGB(
+                                                          255, 144, 136, 241),
+                                                    ),
+                                                    Text(
+                                                      "4.5 Review",
+                                                      style: GoogleFonts.roboto(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Container(
+                                        width: 176,
+                                        height: 1,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white10,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10.w),
+                                        child: Text(
+                                          // "James Parlour Collage ",
+                                          companydata.data[index].collageName,
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          error: (error, stackTrace) => Center(
+                            child: Text(error.toString()),
+                          ),
+                          loading: () => Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -1261,6 +1280,38 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
                   color: Colors.black,
                   fontSize: 20.w,
                   fontWeight: FontWeight.w600),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 10.w),
+              child: Container(
+                width: 250.w,
+                height: 50.h,
+                child: TextField(
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    suffixIcon: Icon(Icons.search),
+                    filled: true,
+                    fillColor: Colors.transparent,
+                    hintText: "Search",
+                    hintStyle: TextStyle(
+                      color: Colors.black,
+                      height: 2.3.h,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

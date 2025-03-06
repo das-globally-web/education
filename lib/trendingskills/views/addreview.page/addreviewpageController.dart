@@ -5,7 +5,7 @@ import 'package:educationapp/trendingskills/views/addreview.page/addreviewRespon
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final addreviewpageProvider =
-    FutureProvider.family<AddReviewResponseModel, AddReviewBodyModel>(
+    FutureProvider.autoDispose.family<AddReviewResponseModel, AddReviewBodyModel>(
         (ref, body) async {
   final addreviewservice = AddreviewService(await createDio());
   return addreviewservice.getAllReview(body);

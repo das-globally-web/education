@@ -9,23 +9,23 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 
-final walletClientProvider = FutureProvider<WalletService>((ref) async {
+final walletClientProvider = FutureProvider.autoDispose<WalletService>((ref) async {
   final dio = await ref.watch(dioProvider.future);
   return WalletService(dio);
 });
 
-final walletProvider = FutureProvider<WalletModel>((ref) async {
+final walletProvider = FutureProvider.autoDispose<WalletModel>((ref) async {
   final client = await ref.watch(walletClientProvider.future);
   return await compute(ApiController.getAllWallet, client);
 });
 
-final userTrxProvider = FutureProvider<UserTranctionModel>((ref) async {
+final userTrxProvider = FutureProvider.autoDispose<UserTranctionModel>((ref) async {
   final clinet = await ref.watch(walletClientProvider.future);
   return await compute(ApiController.getUserTrx, clinet);
 });
 
 final storeuserTrxProvider =
-    FutureProvider.family<UserTranctionResModel, UserTranctionBodyModel>(
+    FutureProvider.autoDispose.family<UserTranctionResModel, UserTranctionBodyModel>(
         (ref, body) async {
   final client = await ref.watch(walletClientProvider.future);
   return await compute(

@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:developer';
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
@@ -6,6 +7,7 @@ import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/main.dart';
+import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
@@ -272,7 +274,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       CupertinoPageRoute(builder: (context) => MyApp()),
                       (route) => false);
                   Fluttertoast.showToast(msg: "Logout Succesfuliy");
-                },  
+                },
               ),
             ],
           ),
@@ -515,10 +517,31 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 );
                               },
                               error: (error, stackTrace) => Center(
-                                child: Text(error.toString()),
-                              ),
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Your Mentors",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color.fromARGB(255, 144, 136, 241),
+                                    ),
+                                  ),
+                                  Text(
+                                    "0",
+                                    // data.data.mentors.length.toString(),,
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              )),
                               loading: () => Center(
-                                child: CircularProgressIndicator(),
+                                child: SizedBox(),
                               ),
                             ),
                           ],
@@ -738,9 +761,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ),
                           );
                         },
-                        error: (error, stackTrace) => Center(
-                          child: Text(error.toString()),
-                        ),
+                        error: (error, stackTrace) {
+                          Fluttertoast.showToast(
+                              msg: "Your session was expired");
+                          StoreData.clearData();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => SplashScreen()),
+                              (route) => false);
+                        },
                         loading: () => Center(
                           child: CircularProgressIndicator(),
                         ),
@@ -1048,9 +1078,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                               },
                             );
                           },
-                          error: (error, stackTrace) => Center(
-                            child: Text(error.toString()),
-                          ),
+                          error: (error, stackTrace) {
+                            Fluttertoast.showToast(
+                                msg: "Your session was expired");
+                            StoreData.clearData();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => SplashScreen()),
+                                (route) => false);
+                          },
                           loading: () => Center(
                             child: CircularProgressIndicator(),
                           ),
@@ -1251,9 +1288,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                               },
                             );
                           },
-                          error: (error, stackTrace) => Center(
-                            child: Text(error.toString()),
-                          ),
+                          error: (error, stackTrace) {
+                            Fluttertoast.showToast(
+                                msg: "Your session was expired");
+                            StoreData.clearData();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => SplashScreen()),
+                                (route) => false);
+                          },
                           loading: () => Center(
                             child: CircularProgressIndicator(),
                           ),

@@ -48,7 +48,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     // Clear shared preferences
 
-    print("App data cleared");
+    log("App data cleared");
   }
 
   @override

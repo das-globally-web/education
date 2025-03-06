@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/collegeReviews/controller/service/searchCollageController.dart';
+import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/collegeReviews/view/perticuler.collage.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:flutter/cupertino.dart';
@@ -375,7 +376,7 @@ class _UniversityTabState extends State<UniversityTab> {
               height: 111.h,
               width: 112.w,
               decoration: BoxDecoration(
-                color: Colors.grey,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12.r),
                 image: DecorationImage(
                     image: NetworkImage("${widget.image}"), fit: BoxFit.fill),

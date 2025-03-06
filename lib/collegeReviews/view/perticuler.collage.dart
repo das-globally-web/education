@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PerticulerCollagePage extends ConsumerStatefulWidget {
   final String id;
-  const PerticulerCollagePage(this.id, {super.key});
+  const PerticulerCollagePage(this.id,  { super.key});
 
   @override
   ConsumerState<PerticulerCollagePage> createState() =>

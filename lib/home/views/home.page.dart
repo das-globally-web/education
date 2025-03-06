@@ -22,7 +22,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 
-
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -39,7 +38,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     var box = Hive.box('userdata');
     final skilsProvider = ref.watch(skilssProvide);
     final wallteserviceProvider = ref.watch(walletProvider);
-    final homementrosprovider = ref.watch(homeMentorsProvider);
+    final homementrosprovider = ref.watch(homeMentorsProvider(""));
     final collages = ref.watch(callagesProviders);
     final companyreviewData = ref.watch(companyReviewProvider);
 
@@ -615,7 +614,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    HomePageBody(),
+                    HomePageBody(
+                      callBack: (value) async {
+                        log(value);
+                        setState(() async {
+                          await ref.refresh(homeMentorsProvider(value));
+                        });
+                      },
+                    ),
                     SizedBox(
                       height: 15.h,
                     ),
@@ -759,14 +765,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                           );
                         },
                         error: (error, stackTrace) {
-                          Fluttertoast.showToast(
-                              msg: "Your session was expired");
-                          StoreData.clearData();
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => SplashScreen()),
-                              (route) => false);
+                          // Fluttertoast.showToast(
+                          //     msg: "Your session was expired");
+                          // StoreData.clearData();
+                          // Navigator.pushAndRemoveUntil(
+                          //     context,
+                          //     CupertinoPageRoute(
+                          //         builder: (context) => SplashScreen()),
+                          //     (route) => false);
+                          return SizedBox(
+                            child: Center(
+                              child: Text(error.toString()),
+                            ),
+                          );
                         },
                         loading: () => Center(
                           child: CircularProgressIndicator(),
@@ -1076,14 +1087,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                             );
                           },
                           error: (error, stackTrace) {
-                            Fluttertoast.showToast(
-                                msg: "Your session was expired");
-                            StoreData.clearData();
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => SplashScreen()),
-                                (route) => false);
+                            // Fluttertoast.showToast(
+                            //     msg: "Your session was expired");
+                            // StoreData.clearData();
+                            // Navigator.pushAndRemoveUntil(
+                            //     context,
+                            //     CupertinoPageRoute(
+                            //         builder: (context) => SplashScreen()),
+                            //     (route) => false);
+                            return SizedBox();
                           },
                           loading: () => Center(
                             child: CircularProgressIndicator(),
@@ -1313,7 +1325,8 @@ class _HomePageState extends ConsumerState<HomePage> {
 }
 
 class HomePageBody extends ConsumerStatefulWidget {
-  const HomePageBody({super.key});
+  final Function callBack;
+  const HomePageBody({super.key, required this.callBack});
 
   @override
   _HomePageBodyState createState() => _HomePageBodyState();
@@ -1323,7 +1336,6 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
   int curenttabindex = 0;
   @override
   Widget build(BuildContext context) {
-    final mentorsProvider = ref.watch(homeMentorsProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -1370,6 +1382,7 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
                       setState(() {
                         curenttabindex = 0;
                       });
+                      widget.callBack("Placements");
                     },
                     currentIndex: curenttabindex,
                     index: 0,
@@ -1380,6 +1393,7 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
                       setState(() {
                         curenttabindex = 1;
                       });
+                      widget.callBack("Carer");
                     },
                     currentIndex: curenttabindex,
                     index: 1,
@@ -1390,6 +1404,7 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
                       setState(() {
                         curenttabindex = 2;
                       });
+                      widget.callBack("Opportunities");
                     },
                     currentIndex: curenttabindex,
                     index: 2,
@@ -1400,6 +1415,7 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
                       setState(() {
                         curenttabindex = 3;
                       });
+                      widget.callBack("Development");
                     },
                     currentIndex: curenttabindex,
                     index: 3,
@@ -1410,6 +1426,7 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
                       setState(() {
                         curenttabindex = 4;
                       });
+                      widget.callBack("Growth");
                     },
                     currentIndex: curenttabindex,
                     index: 4,

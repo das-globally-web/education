@@ -35,8 +35,12 @@ class ApiController {
     return await service.getAllService();
   }
 
-  static Future<AllMentorsModel> fetchMentors(HomeService service) async {
-    return await service.allMentors(MentorsModelBody(userType: 'mentor'));
+  static Future<AllMentorsModel> fetchMentors(
+      Map<String, dynamic> params) async {
+    HomeService service = params['service'];
+    String query = params['query'];
+    return await service.allMentors(
+        query, MentorsModelBody(userType: 'mentor'));
   }
 
   static Future<SkillsModel> getAllSkilss(SkillService service) async {

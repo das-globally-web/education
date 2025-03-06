@@ -1,4 +1,3 @@
-
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/model/companyReviewModel.dart';
 import 'package:educationapp/home/model/mentors.model.dart';
@@ -12,8 +11,9 @@ part 'home.service.g.dart';
 abstract class HomeService {
   factory HomeService(Dio dio, {String baseUrl}) = _HomeService;
 
-  @POST('/api/user')
-  Future<AllMentorsModel> allMentors(@Body() MentorsModelBody body);
+  @POST('/api/user{query}')
+  Future<AllMentorsModel> allMentors(
+      @Path('query') String query, @Body() MentorsModelBody body);
   @GET('/api/profile')
   Future<USerProfieModel> userProfileGet();
   @GET('/api/collage/company')

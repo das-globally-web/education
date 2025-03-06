@@ -17,10 +17,11 @@ final apiClientProvider = FutureProvider.autoDispose<HomeService>((ref) async {
   return HomeService(dio);
 });
 
-final homeMentorsProvider =
-    FutureProvider.autoDispose<AllMentorsModel>((ref) async {
+final homeMentorsProvider = FutureProvider.autoDispose
+    .family<AllMentorsModel, String>((ref, body) async {
   final client = await ref.watch(apiClientProvider.future);
-  return await compute(ApiController.fetchMentors, client);
+  return await compute(
+      ApiController.fetchMentors, {"service": client, "query": body});
 });
 
 final companyReviewProvider = FutureProvider.autoDispose((ref) async {

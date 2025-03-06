@@ -1261,38 +1261,6 @@ class _HomePageBodyState extends ConsumerState<HomePageBody> {
                   fontSize: 20.w,
                   fontWeight: FontWeight.w600),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 10.w),
-              child: Container(
-                width: 250.w,
-                height: 50.h,
-                child: TextField(
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    hintText: "Search",
-                    hintStyle: TextStyle(
-                      color: Colors.black,
-                      height: 2.3.h,
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
         SizedBox(

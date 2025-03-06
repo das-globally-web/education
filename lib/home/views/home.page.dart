@@ -619,9 +619,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                         log(value);
                         // ref.invalidate(homeMentorsProvider);
 
+                        // setState(() {
+                        //   ref
+                        //       .read(
+                        //           homeMentorsProviderState("/$value").notifier)
+                        //       .refresh("/$value");
+                        // });
+                        ref.invalidate(homeMentorsProviderState);
                         ref
-                            .read(homeMentorsProviderState("/$value").notifier)
-                            .refresh();
+                            .read(
+                                homeMentorsProviderState("/$value").notifier)
+                            .refresh("/$value");
                       },
                     ),
                     SizedBox(

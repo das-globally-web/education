@@ -31,30 +31,39 @@ final companyReviewProvider = FutureProvider.autoDispose((ref) async {
 
 class HomeMentorsNotifier extends StateNotifier<AsyncValue<AllMentorsModel>> {
   final Ref ref;
-  final String body;
+  String body;
 
   HomeMentorsNotifier(this.ref, this.body) : super(const AsyncValue.loading()) {
-    fetchMentors();
+    fetchMentors(this.body);
   }
 
-  Future<void> fetchMentors() async {
+  Future<void> fetchMentors(String bodyValue) async {
     try {
+      log("API CALL WITH QUERY => $bodyValue");
       final client = await ref.read(apiClientProvider.future);
-      final result = await compute(ApiController.fetchMentors, {"service": client, "query": body});
+      final result = await compute(
+          ApiController.fetchMentors, {"service": client, "query": bodyValue});
       state = AsyncValue.data(result);
+      log("Data Fetched ✅");
     } catch (e, st) {
+      log("ERROR: $e");
       state = AsyncValue.error(e, st);
     }
   }
 
-  void refresh() {
+  void refresh(String newBody) {
+    body = newBody; // Update body value
     state = const AsyncValue.loading(); // Set loading state
-    fetchMentors(); // Fetch fresh data
+    fetchMentors(body);
   }
 }
-final homeMentorsProviderState = StateNotifierProvider.family<HomeMentorsNotifier, AsyncValue<AllMentorsModel>, String>(
+
+
+final homeMentorsProviderState = StateNotifierProvider.family<
+    HomeMentorsNotifier, AsyncValue<AllMentorsModel>, String>(
   (ref, body) => HomeMentorsNotifier(ref, body),
 );
+
 
 // final saveUserProfileDataToLocalProvider =
 //     FutureProvider.autoDispose.family<bool, String>((ref, token) async {

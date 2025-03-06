@@ -11,7 +11,7 @@ part 'home.service.g.dart';
 abstract class HomeService {
   factory HomeService(Dio dio, {String baseUrl}) = _HomeService;
 
-  @POST('/api/user{query}')
+  @POST('/api/user/{query}')
   Future<AllMentorsModel> allMentors(
       @Path('query') String query, @Body() MentorsModelBody body);
   @GET('/api/profile')

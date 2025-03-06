@@ -40,7 +40,7 @@ class _HomeService implements HomeService {
     )
         .compose(
           _dio.options,
-          '/api/user/${query}',
+          '/api/user${query}',
           queryParameters: queryParameters,
           data: _data,
         )

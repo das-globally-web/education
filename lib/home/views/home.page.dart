@@ -618,7 +618,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       callBack: (value) async {
                         log(value);
                         setState(() async {
-                          await ref.refresh(homeMentorsProvider(value));
+                          ref.refresh(homeMentorsProvider("/${value}"));
                         });
                       },
                     ),

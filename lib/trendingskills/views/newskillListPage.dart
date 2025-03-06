@@ -1,4 +1,3 @@
-import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/service.newskillListPage/controller.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorBodyModel.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorController.dart';

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:educationapp/main.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:educationapp/splash/controller/serviceController.dart';

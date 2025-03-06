@@ -1,10 +1,8 @@
 import 'dart:developer';
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:educationapp/collegeReviews/controller/service/collage.service.dart';
 import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/collegeReviews/model/perticuler.collage.model.dart';
-import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/findmentor/model/allmentors.model.dart';
 import 'package:educationapp/home/controller/service/home.service.dart';
 import 'package:educationapp/home/controller/service/searchMentorService.dart';
@@ -14,7 +12,6 @@ import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/registerpage/model.register/registerResponseModel.dart';
 import 'package:educationapp/splash/models/service.model.dart';
 import 'package:educationapp/splash/service/getstart.service.dart';
-import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/controller/service/searchSkillService.dart';
 import 'package:educationapp/trendingskills/controller/service/skills.service.dart';
 import 'package:educationapp/trendingskills/model/new.skills.model.dart';

@@ -1,8 +1,5 @@
-import 'package:educationapp/home/controller/homeController.dart';
-import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage.dart';
-import 'package:educationapp/trendingskills/views/perticulertrending.page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateModel.dart';
 import 'package:educationapp/forgot_password/updataOtpModel/passwordUpdateModel/passwordUpdateResModel.dart';
 import 'package:retrofit/retrofit.dart';
 import 'dart:convert';

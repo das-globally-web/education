@@ -1,8 +1,6 @@
 import 'dart:developer';
-
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/collegeReviews/controller/service/searchCollageController.dart';
-import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/collegeReviews/view/perticuler.collage.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:developer';
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
@@ -6,12 +7,12 @@ import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/main.dart';
+import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage.dart';
 import 'package:educationapp/trendingskills/views/trendingskills.page.dart';
 import 'package:educationapp/wallet/views/wallet.page.dart';
 import 'package:educationapp/wallet/walletController.dart';
-import 'package:educationapp/yourMentor.dart';
 import 'package:educationapp/yourMentorController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -34,24 +33,6 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String? _username;
-
-  Future<void> clearAppData() async {
-    // Clear cache
-    final cacheDir = await getTemporaryDirectory();
-    if (cacheDir.existsSync()) {
-      cacheDir.deleteSync(recursive: true);
-    }
-
-    // Clear app storage
-    final appDir = await getApplicationSupportDirectory();
-    if (appDir.existsSync()) {
-      appDir.deleteSync(recursive: true);
-    }
-
-    // Clear shared preferences
-
-    log("App data cleared");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -283,17 +264,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 onTap: () async {
-                  log("hey");
-                  await clearAppData();
-                  final container = ProviderContainer();
-                  container.dispose();
-                  container.invalidate(skilssProvide);
-                  container.invalidate(walletProvider);
-                  container.invalidate(homeMentorsProvider);
-                  container.invalidate(callagesProviders);
-                  container.invalidate(companyReviewProvider);
-                  var box = Hive.box('userdata');
-                  await box.clear();
+                  log("Clearing data ......");
+                  await StoreData.clearData();
                   Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) => MyApp()),
@@ -542,10 +514,31 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 );
                               },
                               error: (error, stackTrace) => Center(
-                                child: Text(error.toString()),
-                              ),
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Your Mentors",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color.fromARGB(255, 144, 136, 241),
+                                    ),
+                                  ),
+                                  Text(
+                                    "0",
+                                    // data.data.mentors.length.toString(),,
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              )),
                               loading: () => Center(
-                                child: CircularProgressIndicator(),
+                                child: SizedBox(),
                               ),
                             ),
                           ],
@@ -765,9 +758,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ),
                           );
                         },
-                        error: (error, stackTrace) => Center(
-                          child: Text(error.toString()),
-                        ),
+                        error: (error, stackTrace) {
+                          Fluttertoast.showToast(
+                              msg: "Your session was expired");
+                          StoreData.clearData();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => SplashScreen()),
+                              (route) => false);
+                        },
                         loading: () => Center(
                           child: CircularProgressIndicator(),
                         ),
@@ -1075,9 +1075,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                               },
                             );
                           },
-                          error: (error, stackTrace) => Center(
-                            child: Text(error.toString()),
-                          ),
+                          error: (error, stackTrace) {
+                            Fluttertoast.showToast(
+                                msg: "Your session was expired");
+                            StoreData.clearData();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => SplashScreen()),
+                                (route) => false);
+                          },
                           loading: () => Center(
                             child: CircularProgressIndicator(),
                           ),
@@ -1278,9 +1285,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                               },
                             );
                           },
-                          error: (error, stackTrace) => Center(
-                            child: Text(error.toString()),
-                          ),
+                          error: (error, stackTrace) {
+                            Fluttertoast.showToast(
+                                msg: "Your session was expired");
+                            StoreData.clearData();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => SplashScreen()),
+                                (route) => false);
+                          },
                           loading: () => Center(
                             child: CircularProgressIndicator(),
                           ),

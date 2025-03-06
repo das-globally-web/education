@@ -1,6 +1,5 @@
 import 'package:educationapp/CORE/api_controller.dart';
 import 'package:educationapp/config/preety.dio.dart';
-import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/trendingskills/controller/service/skills.service.dart';
 import 'package:educationapp/trendingskills/model/new.skills.model.dart';
 import 'package:educationapp/trendingskills/model/skills.model.dart';

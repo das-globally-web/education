@@ -3,7 +3,7 @@ import 'package:educationapp/trendingskills/views/newskillListPage/model.newskil
 import 'package:educationapp/trendingskills/views/newskillListPage/service.newskillListPage/service.newskillListPage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final newskillListPageProvider = FutureProvider.family<NewskillListPageModel, String>((ref , id) async {
+final newskillListPageProvider = FutureProvider.autoDispose.family<NewskillListPageModel, String>((ref , id) async {
   final newskillListPage = Servicenewskilllistpage(await createDio());
   return newskillListPage.getAllNewSkillListPage(id);
 });

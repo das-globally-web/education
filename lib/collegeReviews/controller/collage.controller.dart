@@ -6,18 +6,19 @@ import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final apiCollageClientProvider = FutureProvider<CollageService>((ref) async {
+final apiCollageClientProvider =
+    FutureProvider.autoDispose<CollageService>((ref) async {
   final dio = await ref.watch(dioProvider.future);
   return CollageService(dio);
 });
 
-final callagesProviders = FutureProvider<AllUniModel>((ref) async {
+final callagesProviders = FutureProvider.autoDispose<AllUniModel>((ref) async {
   final client = await ref.watch(apiCollageClientProvider.future);
   return await compute(ApiController.getallCollage, client);
 });
 
-final perticulerCollageProvider =
-    FutureProvider.family<PerticulerCollageModel, String>((ref, id) async {
+final perticulerCollageProvider = FutureProvider.autoDispose
+    .family<PerticulerCollageModel, String>((ref, id) async {
   final client = await ref.watch(apiCollageClientProvider.future);
   return await compute(
       ApiController.getPerticulerCollage, {'service': client, 'id': id});

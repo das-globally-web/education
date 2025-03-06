@@ -24,7 +24,10 @@ class _HomeService implements HomeService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AllMentorsModel> allMentors(MentorsModelBody body) async {
+  Future<AllMentorsModel> allMentors(
+    String query,
+    MentorsModelBody body,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -37,7 +40,7 @@ class _HomeService implements HomeService {
     )
         .compose(
           _dio.options,
-          '/api/user',
+          '/api/user/${query}',
           queryParameters: queryParameters,
           data: _data,
         )

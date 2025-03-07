@@ -172,7 +172,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                         callBack: () {
                           setState(() {
                             tabindex = 1;
-                            query = "Placements";
+                            query = "/Placements";
                           });
                         },
                         currentIndex: Icons.arrow_drop_down_outlined,
@@ -184,7 +184,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                         callBack: () {
                           setState(() {
                             tabindex = 2;
-                            query = "Carer";
+                            query = "/Carer";
                           });
                         },
                         currentIndex: Icons.arrow_drop_down_outlined,
@@ -192,7 +192,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                       ),
                       MyOption(
                         nowIndex: tabindex,
-                        title: "Development",
+                        title: "/Development",
                         callBack: () {
                           setState(() {
                             tabindex = 3;
@@ -208,7 +208,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                         callBack: () {
                           setState(() {
                             tabindex = 4;
-                            query = "Growth";
+                            query = "/Growth";
                           });
                         },
                         currentIndex: Icons.arrow_drop_down_outlined,
@@ -220,7 +220,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                         callBack: () {
                           setState(() {
                             tabindex = 5;
-                            query = "Opportunities";
+                            query = "/Opportunities";
                           });
                         },
                         currentIndex: Icons.arrow_drop_down_outlined,
@@ -330,8 +330,12 @@ class _FindMEntorBoduyState extends ConsumerState<FindMEntorBoduy> {
       error: (err, stack) => Center(
         child: Text(err.toString()),
       ),
-      loading: () => Center(
-        child: CircularProgressIndicator(),
+      loading: () => SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }
@@ -367,7 +371,7 @@ class _MyOptionState extends State<MyOption> {
         child: Container(
           height: 30.h,
           decoration: BoxDecoration(
-              color: widget.index != widget.nowIndex
+              color: widget.index == widget.nowIndex
                   ? Colors.white
                   : Colors.transparent,
               border: Border.all(color: Colors.white),
@@ -385,7 +389,7 @@ class _MyOptionState extends State<MyOption> {
                         fontSize: 12.w,
                         fontWeight: FontWeight.w400,
                         letterSpacing: -0.30,
-                        color: widget.index != widget.nowIndex
+                        color: widget.index == widget.nowIndex
                             ? Colors.black
                             : Colors.white),
                   ),

@@ -20,6 +20,7 @@ class _AllCollageState extends ConsumerState<AllCollage> {
   final searchCollageController = TextEditingController();
   String searchCollage = "";
   bool isSearching = false;
+  String? selectedValue; // Store selected value
   @override
   Widget build(BuildContext context) {
     final searchcollageprovider =
@@ -79,7 +80,7 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                         ],
                       )
                     : Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        padding: EdgeInsets.only(left: 10, right: 10),
                         child: Container(
                           width: 250.w,
                           height: 50.h,
@@ -156,48 +157,158 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                 SizedBox(
                   width: 10.w,
                 ),
-                SizedBox(
-                  height: 30.h,
-                  width: 440.w - 11.h,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    children: [
-                      // MyOption(
-                      //   title: "Placements",
-                      //   callBack: () {
-                      //     setState(() {});
-                      //   },
-                      //   currentIndex: Icons.arrow_drop_down_outlined,
-                      //   index: 0,
-                      // ),
-                      // MyOption(
-                      //   title: "Carer",
-                      //   callBack: () {
-                      //     setState(() {});
-                      //   },
-                      //   currentIndex: Icons.arrow_drop_down_outlined,
-                      //   index: 1,
-                      // ),
-                      // MyOption(
-                      //   title: "Opportunities",
-                      //   callBack: () {
-                      //     setState(() {});
-                      //   },
-                      //   currentIndex: Icons.arrow_drop_down_outlined,
-                      //   index: 2,
-                      // ),
-                      // MyOption(
-                      //   title: "Development",
-                      //   callBack: () {
-                      //     setState(() {});
-                      //   },
-                      //   currentIndex: Icons.arrow_drop_down_outlined,
-                      //   index: 3,
-                      // ),
-                    ],
-                  ),
-                )
+
+                // SizedBox(
+                //   height: 30.h,
+                //   width: 440.w - 11.h,
+                //   child: ListView(
+                //     scrollDirection: Axis.horizontal,
+                //     shrinkWrap: true,
+                //     children: [
+                //       MyOption(
+                //         nowIndex: tabindex,
+                //         title: "Filters",
+                //         callBack: () {
+                //           setState(() {
+                //             tabindex = 0;
+                //             query = 'Filters';
+                //           });
+                //         },
+                //         currentIndex: Icons.arrow_drop_down_outlined,
+                //         index: 0,
+                //       ),
+                //       MyOption(
+                //         nowIndex: tabindex,
+                //         title: "Skills",
+                //         callBack: () {
+                //           setState(() {
+                //             tabindex = 1;
+                //             query = 'Skills';
+                //           });
+                //         },
+                //         currentIndex: Icons.arrow_drop_down_outlined,
+                //         index: 1,
+                //       ),
+                //       MyOption(
+                //         nowIndex: tabindex,
+                //         title: "Rating",
+                //         callBack: () {
+                //           setState(() {
+                //             tabindex = 2;
+                //             query = 'Rating';
+                //           });
+                //         },
+                //         currentIndex: Icons.arrow_drop_down_outlined,
+                //         index: 2,
+                //       ),
+                //       MyOption(
+                //         nowIndex: tabindex,
+                //         title: "Location",
+                //         callBack: () {
+                //           setState(() {
+                //             tabindex = 3;
+                //             query = 'Location';
+                //           });
+                //         },
+                //         currentIndex: Icons.arrow_drop_down_outlined,
+                //         index: 3,
+                //       ),
+                //     ],
+                //   ),
+                // )
+                // DropdownButton<String>(
+                //   value: selectedValue,
+                //   items: [
+                //     DropdownMenuItem(
+                //       child: Text("Flutter Developer"),
+                //     ),
+                //     DropdownMenuItem(
+                //       child: Text("Laravel Developer"),
+                //     ),
+                //     DropdownMenuItem(
+                //       child: Text("Web Designer"),
+                //     ),
+                //   ],
+
+                FiltterDropdown(
+                  title: 'Skills',
+                  callback: () {
+                    DropdownButton<String>(
+                      value: selectedValue,
+                      hint: Text("Select an option"),
+                      icon: Icon(Icons.keyboard_arrow_down_rounded,
+                          color: Colors.white),
+                      dropdownColor:
+                          Colors.grey[800], // Change dropdown background color
+                      items: [
+                        DropdownMenuItem(
+                            value: "Setting", child: Text("Setting")),
+                        DropdownMenuItem(value: "Home", child: Text("Home")),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                        print("Selected: $value");
+                      },
+                    );
+                    // final selectedValue = showMenu(
+                    //   context: context,
+                    //   position: RelativeRect.fromLTRB(
+                    //       100, 100, 0, 0), // Adjust position
+                    //   items: [
+                    //     PopupMenuItem(
+                    //       value: "Setting",
+                    //       child: Text("Setting"),
+                    //     ),
+                    //     PopupMenuItem(
+                    //       value: "Home",
+                    //       child: Text("Home"),
+                    //     ),
+                    //   ],
+                    // );
+
+                    // if (selectedValue != null) {
+                    //   print("Selected: $selectedValue");
+                    // }
+                  },
+                ),
+                FiltterDropdown(
+                  title: 'Rating',
+                  callback: () {},
+                ),
+                FiltterDropdown(
+                  title: 'Location',
+                  callback: () {},
+                ),
+                // GestureDetector(
+                //   onTap: () async {
+                //     final selectedValue = await showMenu(
+                //       context: context,
+                //       position: RelativeRect.fromLTRB(
+                //           100, 100, 0, 0), // Adjust position
+                //       items: [
+                //         PopupMenuItem(
+                //           value: "Setting",
+                //           child: Text("Setting"),
+                //         ),
+                //         PopupMenuItem(
+                //           value: "Home",
+                //           child: Text("Home"),
+                //         ),
+                //       ],
+                //     );
+
+                //     if (selectedValue != null) {
+                //       print("Selected: $selectedValue");
+                //     }
+                //   },
+                //   child: Icon(
+                //     Icons.keyboard_arrow_down_rounded,
+                //     color: Colors.white,
+                //     size: 30,
+                //   ),
+                // ),
               ],
             ),
             SizedBox(
@@ -223,28 +334,29 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            CupertinoPageRoute(
-                                                builder: (context) =>
-                                                    PerticulerCollagePage(
-                                                        collage.data[index].id
-                                                            .toString())));
-                                      },
-                                      child: UniversityTab(
-                                        name: collage.data[index].collageName
-                                            .toString(),
-                                        city:
-                                            collage.data[index].city.toString(),
-                                        description: collage
-                                            .data[index].collageDescription
-                                            .toString(),
-                                        rating:
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                          builder: (context) =>
+                                              PerticulerCollagePage(
                                             collage.data[index].id.toString(),
-                                        image: collage.data[index].image
-                                            .toString(),
-                                      )),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: UniversityTab(
+                                      name: collage.data[index].collageName
+                                          .toString(),
+                                      city: collage.data[index].city.toString(),
+                                      description: collage
+                                          .data[index].collageDescription
+                                          .toString(),
+                                      rating: collage.data[index].id.toString(),
+                                      image:
+                                          collage.data[index].image.toString(),
+                                    ),
+                                  ),
                                 );
                               },
                             )
@@ -277,6 +389,68 @@ class _AllCollageState extends ConsumerState<AllCollage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class FiltterDropdown extends StatefulWidget {
+  final String title;
+  final Function callback;
+  const FiltterDropdown(
+      {super.key, required this.title, required this.callback});
+
+  @override
+  State<FiltterDropdown> createState() => _FiltterDropdownState();
+}
+
+class _FiltterDropdownState extends State<FiltterDropdown> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 4.w, right: 8.w),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          height: 30.h,
+          decoration: BoxDecoration(
+              color:
+                  // ? Colors.white
+                  Colors.transparent,
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(50.r)),
+          child: Padding(
+            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.title,
+                    style: GoogleFonts.roboto(
+                        fontSize: 12.w,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: -0.30,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      widget.callback();
+                    },
+                    child: Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

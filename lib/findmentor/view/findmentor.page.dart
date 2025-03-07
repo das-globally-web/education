@@ -192,7 +192,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                       ),
                       MyOption(
                         nowIndex: tabindex,
-                        title: "/Development",
+                        title: "Development",
                         callBack: () {
                           setState(() {
                             tabindex = 3;

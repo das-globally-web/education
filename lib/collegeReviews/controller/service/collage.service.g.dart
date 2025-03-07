@@ -36,7 +36,7 @@ class _CollageService implements CollageService {
     )
         .compose(
           _dio.options,
-          '/api/collages',
+          '/api/collages?city=',
           queryParameters: queryParameters,
           data: _data,
         )

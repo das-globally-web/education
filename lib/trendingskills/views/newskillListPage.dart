@@ -1,7 +1,9 @@
+import 'package:educationapp/onlinePage.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/service.newskillListPage/controller.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorBodyModel.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorController.dart';
 import 'package:educationapp/yourMentor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -221,27 +223,35 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                               InkWell(
                                 onTap: () async {
                                   var box = Hive.box('userdata');
-                                  final storeMentordata = ref.watch(
-                                    storeMentorProvider(
-                                      StoreMentorBodyModel(
-                                          userId: data.data.id,
-                                          mentorIds: box.get('id').toString()),
-                                    ).future,
-                                  );
-                                  if (storeMentordata != null) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              YourMentorPage(),
-                                        ));
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content:
-                                          Text("failed to store mentor data!"),
-                                    ));
-                                  }
+                                  // final storeMentordata = ref.watch(
+                                  //   storeMentorProvider(
+                                  //     StoreMentorBodyModel(
+                                  //         userId: data.data.id,
+                                  //         mentorIds: box.get('id').toString()),
+                                  //   ).future,
+                                  // );
+                                  // if (storeMentordata != null) {
+                                  //   Navigator.push(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             YourMentorPage(),
+                                  //       ));
+                                  // } else {
+                                  //   ScaffoldMessenger.of(context)
+                                  //       .showSnackBar(SnackBar(
+                                  //     content:
+                                  //         Text("failed to store mentor data!"),
+                                  //   ));
+                                  // }
+
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => OnlinePage(
+                                                id: data.data.id.toString(),
+                                                name: data.data.fullName,
+                                              )));
                                 },
                                 child: Container(
                                   width: 157,

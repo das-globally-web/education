@@ -1,10 +1,17 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class OnlinePage extends StatefulWidget {
-  const OnlinePage({super.key});
+  final String name;
+  final String id;
+  const OnlinePage({super.key, required this.id, required this.name});
 
   @override
   State<OnlinePage> createState() => _OnlinePageState();
@@ -12,35 +19,42 @@ class OnlinePage extends StatefulWidget {
 
 class _OnlinePageState extends State<OnlinePage> {
   final _controller = TextEditingController();
-  List<Map<String, dynamic>> messages = [
-    {"text": "And the HR round?", "isMe": true, "time": "06:30 PM"},
-    {
-      "text":
-          "Be honest and confident. Practice answers for common questions like strengths, weaknesses, and career goals.",
-      "isMe": false,
-      "time": "06:00 PM"
-    },
-    {"text": "Any tips to stay calm?", "isMe": true, "time": "06:30 PM"},
-    {
-      "text":
-          "Stick to a schedule, practice mock interviews, and take breaks. Rejections happen—learn and move forward.",
-      "isMe": false,
-      "time": "06:00 PM"
-    },
-    {"text": "Thanks! This really helps.", "isMe": true, "time": "06:30 PM"},
-    {
-      "text": "Hi, how’s your placement prep going?",
-      "isMe": false,
-      "time": "10 min ago"
-    },
-    {
-      "text": "I’m nervous and not sure if I’m fully prepared.",
-      "isMe": true,
-      "time": "10 min ago"
-    },
-  ];
+  late WebSocketChannel channel;
+  List<Map<String, dynamic>> messages = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var box = Hive.box('userdata');
+    String serverUrl =
+        "wss://seahorse-app-bl4sq.ondigitalocean.app/ws/chat/${box.get('id')}";
+    channel = WebSocketChannel.connect(Uri.parse(serverUrl));
+    channel.stream.listen((value) {
+      log("Received: ${value.toString()}");
+
+      Map<String, dynamic> data = jsonDecode(value.toString());
+      log(data["type"]);
+
+      setState(() {
+        if (data["type"] == "message") {
+          messages.add({
+            'text': data["data"]["message"],
+            'time': TimeOfDay.now().format(context),
+            'isMe': false,
+          });
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    channel.sink.close();
+    super.dispose();
+  }
+
   void sendMessage() {
-    if (_controller.text.trim().isNotEmpty) {
+    if (_controller.text.isNotEmpty) {
       setState(() {
         messages.add({
           'text': _controller.text.trim(),
@@ -48,6 +62,12 @@ class _OnlinePageState extends State<OnlinePage> {
           'isMe': true,
         });
       });
+      Map<String, dynamic> data = {
+        "recipient": "${widget.id}",
+        "message": _controller.text
+      };
+      channel.sink.add(jsonEncode(data));
+
       _controller.clear();
     }
   }
@@ -112,7 +132,7 @@ class _OnlinePageState extends State<OnlinePage> {
                 Column(
                   children: [
                     Text(
-                      "Mike Pena ",
+                      "${widget.name}",
                       style: GoogleFonts.roboto(
                         fontSize: 24.w,
                         fontWeight: FontWeight.w600,
@@ -196,7 +216,9 @@ class _OnlinePageState extends State<OnlinePage> {
       bottomSheet: Container(
         height: 80.h,
         child: MessageInput(
-          onSend: sendMessage,
+          onSend: () {
+            sendMessage();
+          },
           controller: _controller,
         ),
       ),

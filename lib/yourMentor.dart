@@ -110,11 +110,11 @@ class _YourMentorPageState extends ConsumerState<YourMentorPage> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => OnlinePage(),
-                                  ));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) => OnlinePage(),
+                              //     ));
                             },
                             child: MyContainer(
                               image: mentor.data.mentors[index].profilePic,

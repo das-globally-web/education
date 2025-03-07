@@ -328,8 +328,12 @@ class _FindMEntorBoduyState extends ConsumerState<FindMEntorBoduy> {
         );
       },
       error: (err, stack) => Center(
-        child: Text(err.toString()),
-      ),
+          child: Center(
+        child: Text(
+          "Mentors not found",
+          style: GoogleFonts.montserrat(color: Colors.black),
+        ),
+      )),
       loading: () => SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

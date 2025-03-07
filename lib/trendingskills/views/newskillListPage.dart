@@ -423,6 +423,8 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                           fontWeight: FontWeight.w600,
                                           fontSize: 15.w),
                                     ),
+
+                                    
                                     Spacer(),
                                     GestureDetector(
                                       onTap: () {

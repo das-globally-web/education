@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:educationapp/config/preety.dio.dart';
+import 'package:educationapp/service/chatresmodel.dart';
+import 'package:educationapp/service/chatservice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,11 +24,13 @@ class _OnlinePageState extends State<OnlinePage> {
   final _controller = TextEditingController();
   late WebSocketChannel channel;
   List<Map<String, dynamic>> messages = [];
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     var box = Hive.box('userdata');
+    setData();
     String serverUrl =
         "wss://seahorse-app-bl4sq.ondigitalocean.app/ws/chat/${box.get('id')}";
     channel = WebSocketChannel.connect(Uri.parse(serverUrl));
@@ -45,6 +50,40 @@ class _OnlinePageState extends State<OnlinePage> {
         }
       });
     });
+  }
+
+  void setData() async {
+    final service = Chatservice(await createDio());
+    var box = Hive.box('userdata');
+    ChatResponseModel response =
+        await service.chatHestory(box.get('id').toString(), widget.id);
+    for (int i = 0; i < response.data.length; i++) {
+      if (response.data[i].sender == box.get('id').toString()) {
+        setState(() {
+          messages.add({
+            'text': response.data[i].message,
+            'time': TimeOfDay.now().format(context),
+            'isMe': true,
+          });
+        });
+      } else {
+        setState(() {
+          messages.add({
+            'text': response.data[i].message,
+            'time': TimeOfDay.now().format(context),
+            'isMe': false,
+          });
+        });
+      }
+    }
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(
+      0.0,
+      duration: Duration(milliseconds: 500), // Smooth animation
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -69,6 +108,7 @@ class _OnlinePageState extends State<OnlinePage> {
       channel.sink.add(jsonEncode(data));
 
       _controller.clear();
+      _scrollToTop();
     }
   }
 
@@ -97,6 +137,7 @@ class _OnlinePageState extends State<OnlinePage> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 27, 27, 27),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             SizedBox(
@@ -179,7 +220,6 @@ class _OnlinePageState extends State<OnlinePage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -190,6 +230,11 @@ class _OnlinePageState extends State<OnlinePage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    if (messages.length < 10) ...[
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 2,
+                      ),
+                    ],
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,

@@ -159,28 +159,40 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                     shrinkWrap: true,
                     children: [
                       // MyOption(
+                       
                       //   title: "Filter",
                       //   callBack: () {
-                      //     setState(() {});
+                      //     setState(() {
+                            
+                      //     });
                       //   },
                       //   currentIndex: Icons.arrow_drop_down_outlined,
                       //   index: 0,
+                      //    nowIndex: ,
                       // ),
                       // MyOption(
+                       
                       //   title: "Study Level",
                       //   callBack: () {
-                      //     setState(() {});
+                      //     setState(() {
+                           
+                      //     });
                       //   },
                       //   currentIndex: Icons.arrow_drop_down_outlined,
                       //   index: 1,
+                      //    nowIndex: ,
                       // ),
                       // MyOption(
+                      
                       //   title: "Type",
                       //   callBack: () {
-                      //     setState(() {});
+                      //     setState(() {
+                           
+                      //     });
                       //   },
                       //   currentIndex: Icons.arrow_drop_down_outlined,
                       //   index: 2,
+                      //     nowIndex: ,
                       // ),
                     ],
                   ),

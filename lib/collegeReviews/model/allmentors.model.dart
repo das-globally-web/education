@@ -36,7 +36,7 @@ class Datum {
     String branch;
     String seatIntake;
     String image;
-    String avgRating;
+    String? avgRating;
     int reviewCount;
     List<Review> reviews;
 
@@ -80,6 +80,8 @@ class Datum {
     };
 }
 
+
+
 class Review {
     int id;
     int count;
@@ -99,3 +101,4 @@ class Review {
         "count": count,
     };
 }
+

@@ -158,30 +158,30 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     children: [
-                      MyOption(
-                        title: "Filter",
-                        callBack: () {
-                          setState(() {});
-                        },
-                        currentIndex: Icons.arrow_drop_down_outlined,
-                        index: 0,
-                      ),
-                      MyOption(
-                        title: "Study Level",
-                        callBack: () {
-                          setState(() {});
-                        },
-                        currentIndex: Icons.arrow_drop_down_outlined,
-                        index: 1,
-                      ),
-                      MyOption(
-                        title: "Type",
-                        callBack: () {
-                          setState(() {});
-                        },
-                        currentIndex: Icons.arrow_drop_down_outlined,
-                        index: 2,
-                      ),
+                      // MyOption(
+                      //   title: "Filter",
+                      //   callBack: () {
+                      //     setState(() {});
+                      //   },
+                      //   currentIndex: Icons.arrow_drop_down_outlined,
+                      //   index: 0,
+                      // ),
+                      // MyOption(
+                      //   title: "Study Level",
+                      //   callBack: () {
+                      //     setState(() {});
+                      //   },
+                      //   currentIndex: Icons.arrow_drop_down_outlined,
+                      //   index: 1,
+                      // ),
+                      // MyOption(
+                      //   title: "Type",
+                      //   callBack: () {
+                      //     setState(() {});
+                      //   },
+                      //   currentIndex: Icons.arrow_drop_down_outlined,
+                      //   index: 2,
+                      // ),
                     ],
                   ),
                 )

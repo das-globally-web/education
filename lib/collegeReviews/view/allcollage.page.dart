@@ -163,38 +163,38 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     children: [
-                      MyOption(
-                        title: "Placements",
-                        callBack: () {
-                          setState(() {});
-                        },
-                        currentIndex: Icons.arrow_drop_down_outlined,
-                        index: 0,
-                      ),
-                      MyOption(
-                        title: "Carer",
-                        callBack: () {
-                          setState(() {});
-                        },
-                        currentIndex: Icons.arrow_drop_down_outlined,
-                        index: 1,
-                      ),
-                      MyOption(
-                        title: "Opportunities",
-                        callBack: () {
-                          setState(() {});
-                        },
-                        currentIndex: Icons.arrow_drop_down_outlined,
-                        index: 2,
-                      ),
-                      MyOption(
-                        title: "Development",
-                        callBack: () {
-                          setState(() {});
-                        },
-                        currentIndex: Icons.arrow_drop_down_outlined,
-                        index: 3,
-                      ),
+                      // MyOption(
+                      //   title: "Placements",
+                      //   callBack: () {
+                      //     setState(() {});
+                      //   },
+                      //   currentIndex: Icons.arrow_drop_down_outlined,
+                      //   index: 0,
+                      // ),
+                      // MyOption(
+                      //   title: "Carer",
+                      //   callBack: () {
+                      //     setState(() {});
+                      //   },
+                      //   currentIndex: Icons.arrow_drop_down_outlined,
+                      //   index: 1,
+                      // ),
+                      // MyOption(
+                      //   title: "Opportunities",
+                      //   callBack: () {
+                      //     setState(() {});
+                      //   },
+                      //   currentIndex: Icons.arrow_drop_down_outlined,
+                      //   index: 2,
+                      // ),
+                      // MyOption(
+                      //   title: "Development",
+                      //   callBack: () {
+                      //     setState(() {});
+                      //   },
+                      //   currentIndex: Icons.arrow_drop_down_outlined,
+                      //   index: 3,
+                      // ),
                     ],
                   ),
                 )

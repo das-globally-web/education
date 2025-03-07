@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:educationapp/collegeReviews/controller/service/collage.service.dart';
 import 'package:educationapp/collegeReviews/model/allmentors.model.dart';
 import 'package:educationapp/collegeReviews/model/perticuler.collage.model.dart';
@@ -39,8 +40,26 @@ class ApiController {
       Map<String, dynamic> params) async {
     HomeService service = params['service'];
     String query = params['query'];
-    return await service.allMentors(
-        query, MentorsModelBody(userType: 'mentor'));
+
+    try {
+      return await service.allMentors(
+          query, MentorsModelBody(userType: 'mentor'));
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500) {
+        // // Call refresh token API
+        // bool isTokenRefreshed = await _refreshToken();
+        bool isTokenRefreshed = true;
+        if (isTokenRefreshed) {
+          // Retry the fetchMentors API after refreshing token
+          return await service.allMentors(
+              query, MentorsModelBody(userType: 'mentor'));
+        } else {
+          throw Exception('Token refresh failed');
+        }
+      } else {
+        throw Exception('Failed to fetch mentors: ${e.message}');
+      }
+    }
   }
 
   static Future<SkillsModel> getAllSkilss(SkillService service) async {

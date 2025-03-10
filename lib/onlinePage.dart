@@ -32,7 +32,7 @@ class _OnlinePageState extends State<OnlinePage> {
     var box = Hive.box('userdata');
     setData();
     String serverUrl =
-        "wss://jellyfish-app-nz6gk.ondigitalocean.app/ws/chat/${box.get('id')}";
+        "ws://jellyfish-app-nz6gk.ondigitalocean.app/ws/chat/${box.get('id')}";
     channel = WebSocketChannel.connect(Uri.parse(serverUrl));
     channel.stream.listen((value) {
       log("Received: ${value.toString()}");
@@ -102,7 +102,9 @@ class _OnlinePageState extends State<OnlinePage> {
           'isMe': true,
         });
       });
+      var box = Hive.box('userdata');
       Map<String, dynamic> data = {
+        "sender": "${box.get("id")}",
         "recipient": "${widget.id}",
         "message": _controller.text
       };

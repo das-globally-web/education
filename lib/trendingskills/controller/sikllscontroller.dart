@@ -6,7 +6,8 @@ import 'package:educationapp/trendingskills/model/skills.model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final apiSkillClientProvider = FutureProvider.autoDispose<SkillService>((ref) async {
+final apiSkillClientProvider =
+    FutureProvider.autoDispose<SkillService>((ref) async {
   final dio = await ref.watch(dioProvider.future);
   return SkillService(dio);
 });

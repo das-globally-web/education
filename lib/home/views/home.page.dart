@@ -39,12 +39,12 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     // Read the providers once when the page loads
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(skilssProvide);
-      ref.read(walletProvider);
-      ref.read(homeMentorsProvider(filterQuery));
-      ref.read(callagesProviders);
-      ref.read(companyReviewProvider);
-      ref.read(yourMentorProvider('46'));
+      ref.invalidate(skilssProvide);
+      ref.invalidate(walletProvider);
+      ref.invalidate(homeMentorsProvider(filterQuery));
+      ref.invalidate(callagesProviders);
+      ref.invalidate(companyReviewProvider);
+      ref.invalidate(yourMentorProvider('46'));
     });
   }
 

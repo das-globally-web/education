@@ -72,6 +72,11 @@ class StoreData {
     log("App data cleared");
     final container = ProviderContainer();
     container.dispose();
+    ref.invalidate(skilssProvide);
+    ref.invalidate(walletProvider);
+    ref.invalidate(homeMentorsProvider);
+    ref.invalidate(callagesProviders);
+    ref.invalidate(companyReviewProvider);
     var box = Hive.box('userdata');
     await box.clear();
   }

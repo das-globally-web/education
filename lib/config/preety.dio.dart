@@ -20,12 +20,12 @@ Future<Dio> createDio() async {
     await Hive.openBox('userdata');
   }
 
-  dio.interceptors.add(PrettyDioLogger(
-    requestHeader: true,
-    requestBody: true,
-    responseBody: false,
-    responseHeader: true,
-  ));
+  // dio.interceptors.add(PrettyDioLogger(
+  //   requestHeader: true,
+  //   requestBody: true,
+  //   responseBody: false,
+  //   responseHeader: true,
+  // ));
 
   var box = Hive.box('userdata');
   var token = box.get('token');

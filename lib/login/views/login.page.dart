@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/forgot_password/forgot_password.dart';
@@ -99,6 +101,16 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   bool login = false;
   bool secure = true;
   final _fromKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await StoreData.clearData(ref);
+      log("Data has been cleard");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -276,9 +288,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 final dataLoder =
                     await StoreData.logic(response.data.token.toString());
                 if (dataLoder == true) {
-                  
-                  Navigator.pushReplacement(context,
-                      CupertinoPageRoute(builder: (context) => HomePage()));
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(builder: (context) => HomePage()),
+                      (route) => false);
                 } else {
                   Fluttertoast.showToast(msg: "Some thing went wrong");
                 }

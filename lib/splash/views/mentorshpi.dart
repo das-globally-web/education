@@ -56,7 +56,7 @@ class _MentorshipBodyState extends ConsumerState<MentorshipBody> {
         context, CupertinoPageRoute(builder: (context) => RegisterPage()));
   }
 
-  Set<Datum> selectedOptions = {};
+    Set<Datum> selectedOptions = {};
   List<String> options = [
     "Career guidance",
     "Placement assistance",

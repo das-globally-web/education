@@ -80,7 +80,8 @@ class _OnlinePageState extends State<OnlinePage> {
 
   void _scrollToTop() {
     _scrollController.animateTo(
-      0.0,
+      _scrollController.position.maxScrollExtent,
+
       duration: Duration(milliseconds: 500), // Smooth animation
       curve: Curves.easeInOut,
     );
@@ -249,7 +250,7 @@ class _OnlinePageState extends State<OnlinePage> {
                       },
                     ),
                     SizedBox(
-                      height: 100.h,
+                      height: 300.h,
                     ),
                   ],
                 ),

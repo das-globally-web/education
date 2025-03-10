@@ -8,7 +8,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart' hide Headers;
 part 'chatservice.g.dart';
 
-@RestApi(baseUrl: 'https://seahorse-app-bl4sq.ondigitalocean.app')
+@RestApi(baseUrl: 'https://jellyfish-app-nz6gk.ondigitalocean.app/')
 abstract class Chatservice {
   factory Chatservice(Dio dio, {String baseUrl}) = _Chatservice;
   @GET('/messages/{userid}/{rescUserid}?limit=1000')

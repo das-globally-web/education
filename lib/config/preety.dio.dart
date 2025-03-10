@@ -42,27 +42,27 @@ Future<Dio> createDio() async {
         handler.next(response);
       },
       onError: (DioException e, handler) async {
-        if (e.response?.statusCode == 401) {
-          // Token expired, refresh it
-          log("Token expired, refreshing...");
+        // if (e.response?.statusCode == 500) {
+        //   // Token expired, refresh it
+        //   log("Token expired, refreshing...");
 
-          try {
-            await refreshToken(); // Refresh token
-            token = box.get('token'); // Get new token
+        //   try {
+        //     await refreshToken(); // Refresh token
+        //     token = box.get('token'); // Get new token
 
-            // Retry the failed request with new token
-            final newRequest = e.requestOptions;
-            newRequest.headers['Authorization'] = 'Bearer $token';
+        //     // Retry the failed request with new token
+        //     final newRequest = e.requestOptions;
+        //     newRequest.headers['Authorization'] = 'Bearer $token';
 
-            final response = await dio.fetch(newRequest);
-            handler.resolve(response); // Return new response
-          } catch (refreshError) {
-            log("Token refresh failed: $refreshError");
-            handler.next(e); // Forward original error
-          }
-        } else {
-          handler.next(e);
-        }
+        //     final response = await dio.fetch(newRequest);
+        //     handler.resolve(response); // Return new response
+        //   } catch (refreshError) {
+        //     log("Token refresh failed: $refreshError");
+        //     handler.next(e); // Forward original error
+        //   }
+        // } else {
+        //   handler.next(e);
+        // }
       },
     ),
   );
@@ -71,6 +71,7 @@ Future<Dio> createDio() async {
 }
 
 Future<void> refreshToken() async {
+  log("=========================================== this is code ================");
   var box = Hive.box('userdata');
   final service = LognService(await createDio());
   RefreshTokenResMoedl response =

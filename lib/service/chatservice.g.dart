@@ -14,7 +14,7 @@ class _Chatservice implements Chatservice {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'https://seahorse-app-bl4sq.ondigitalocean.app';
+    baseUrl ??= 'https://jellyfish-app-nz6gk.ondigitalocean.app/';
   }
 
   final Dio _dio;

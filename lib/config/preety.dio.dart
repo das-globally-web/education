@@ -1,7 +1,12 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/login/controller/service/login.service.dart';
+import 'package:educationapp/main.dart';
+import 'package:educationapp/splash/views/splash.page.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -34,7 +39,7 @@ Future<Dio> createDio() async {
         // Retrieve token before sending request
         options.headers.addAll({
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
+         'Authorization': 'Bearer $token'
         });
         handler.next(options); // Continue with the request
       },
@@ -42,27 +47,18 @@ Future<Dio> createDio() async {
         handler.next(response);
       },
       onError: (DioException e, handler) async {
-        // if (e.response?.statusCode == 500) {
-        //   // Token expired, refresh it
-        //   log("Token expired, refreshing...");
+        if (e.response?.statusCode == 500) {
+          // Token expired, refresh it
+          log("Token expired, refreshing...");
 
-        //   try {
-        //     await refreshToken(); // Refresh token
-        //     token = box.get('token'); // Get new token
-
-        //     // Retry the failed request with new token
-        //     final newRequest = e.requestOptions;
-        //     newRequest.headers['Authorization'] = 'Bearer $token';
-
-        //     final response = await dio.fetch(newRequest);
-        //     handler.resolve(response); // Return new response
-        //   } catch (refreshError) {
-        //     log("Token refresh failed: $refreshError");
-        //     handler.next(e); // Forward original error
-        //   }
-        // } else {
-        //   handler.next(e);
-        // }
+          Fluttertoast.showToast(msg: "Session expired, try login");
+          navigatorKey.currentState?.pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => SplashScreen()),
+            (route) => false, // Remove all routes
+          );
+        } else {
+          handler.next(e);
+        }
       },
     ),
   );

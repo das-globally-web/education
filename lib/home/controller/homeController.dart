@@ -57,7 +57,7 @@ class StoreData {
     await box.put("id", profiledata.data.id);
   }
 
-  static Future<void> clearData() async {
+  static Future<void> clearData(WidgetRef ref) async {
     final cacheDir = await getTemporaryDirectory();
     if (cacheDir.existsSync()) {
       cacheDir.deleteSync(recursive: true);
@@ -72,11 +72,6 @@ class StoreData {
     log("App data cleared");
     final container = ProviderContainer();
     container.dispose();
-    container.invalidate(skilssProvide);
-    container.invalidate(walletProvider);
-    container.invalidate(homeMentorsProvider);
-    container.invalidate(callagesProviders);
-    container.invalidate(companyReviewProvider);
     var box = Hive.box('userdata');
     await box.clear();
   }

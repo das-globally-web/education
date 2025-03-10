@@ -1,20 +1,27 @@
+import 'package:educationapp/collegeReviews/controller/collage.controller.dart';
+import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/login/views/login.page.dart';
 import 'package:educationapp/splash/views/getstart.page.dart';
+import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
+import 'package:educationapp/wallet/walletController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+  
+    
     return Scaffold(
       backgroundColor: Color(0xFF1B1B1B),
       body: Column(

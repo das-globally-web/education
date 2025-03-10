@@ -34,6 +34,21 @@ class _HomePageState extends ConsumerState<HomePage> {
   String? _username;
   String filterQuery = "";
   @override
+  void initState() {
+    super.initState();
+
+    // Read the providers once when the page loads
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(skilssProvide);
+      ref.read(walletProvider);
+      ref.read(homeMentorsProvider(filterQuery));
+      ref.read(callagesProviders);
+      ref.read(companyReviewProvider);
+      ref.read(yourMentorProvider('46'));
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     var box = Hive.box('userdata');
     final skilsProvider = ref.watch(skilssProvide);
@@ -43,6 +58,11 @@ class _HomePageState extends ConsumerState<HomePage> {
     final companyreviewData = ref.watch(companyReviewProvider);
 
     final yourmentorData = ref.watch(yourMentorProvider('46'));
+    // ref.invalidate(skilssProvide);
+    // ref.invalidate(walletProvider);
+    // ref.invalidate(homeMentorsProvider);
+    // ref.invalidate(callagesProviders);
+    // ref.invalidate(companyReviewProvider);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xFF1B1B1B),
@@ -263,10 +283,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
                 onTap: () async {
                   log("Clearing data ......");
-                  await StoreData.clearData();
+                  await StoreData.clearData(ref);
                   Navigator.pushAndRemoveUntil(
                       context,
-                      CupertinoPageRoute(builder: (context) => MyApp()),
+                      CupertinoPageRoute(builder: (context) => SplashScreen()),
                       (route) => false);
                   Fluttertoast.showToast(msg: "Logout Succesfuliy");
                 },
@@ -1305,7 +1325,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           error: (error, stackTrace) {
                             Fluttertoast.showToast(
                                 msg: "Your session was expired");
-                            StoreData.clearData();
+                            StoreData.clearData(ref);
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 CupertinoPageRoute(

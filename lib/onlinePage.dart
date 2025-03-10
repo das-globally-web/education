@@ -76,6 +76,7 @@ class _OnlinePageState extends State<OnlinePage> {
         });
       }
     }
+    _scrollToTop();
   }
 
   void _scrollToTop() {

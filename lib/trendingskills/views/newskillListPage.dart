@@ -1,8 +1,5 @@
 import 'package:educationapp/onlinePage.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage/service.newskillListPage/controller.dart';
-import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorBodyModel.dart';
-import 'package:educationapp/trendingskills/views/newskillListPage/storeMentorNewSkillListPage/storeMentorController.dart';
-import 'package:educationapp/yourMentor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

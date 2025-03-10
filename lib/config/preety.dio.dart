@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/main.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
@@ -24,7 +23,7 @@ Future<Dio> createDio() async {
   dio.interceptors.add(PrettyDioLogger(
     requestHeader: true,
     requestBody: true,
-    responseBody: true,
+    responseBody: false,
     responseHeader: true,
   ));
 
@@ -39,7 +38,7 @@ Future<Dio> createDio() async {
         // Retrieve token before sending request
         options.headers.addAll({
           'Content-Type': 'application/json',
-         'Authorization': 'Bearer $token'
+          'Authorization': 'Bearer $token'
         });
         handler.next(options); // Continue with the request
       },
@@ -56,6 +55,7 @@ Future<Dio> createDio() async {
             MaterialPageRoute(builder: (context) => SplashScreen()),
             (route) => false, // Remove all routes
           );
+          return;
         } else {
           handler.next(e);
         }

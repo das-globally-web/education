@@ -65,7 +65,7 @@ class StoreData {
 
     // Clear app storage
     final appDir = await getApplicationSupportDirectory();
-    if (appDir.existsSync()) {
+    if (appDir.existsSync()) {  
       appDir.deleteSync(recursive: true);
     }
 

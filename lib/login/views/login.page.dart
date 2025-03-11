@@ -292,6 +292,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                       context,
                       CupertinoPageRoute(builder: (context) => HomePage()),
                       (route) => false);
+                        
                 } else {
                   Fluttertoast.showToast(msg: "Some thing went wrong");
                 }

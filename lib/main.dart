@@ -1,12 +1,34 @@
 import 'dart:developer';
+import 'package:educationapp/firebase_options.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  log("Handling background message: ${message.messageId}");
+}
+
+void requestPermission() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    print('User granted permission');
+  } else {
+    print('User declined or has not accepted permission');
+  }
+}
 
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -16,6 +38,19 @@ void main() async {
 
   // Initialize Hive with a custom directory
   // await initializeHive();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+
+  );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  print("Message received: ${message.notification?.title}");
+});
+FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  print("User tapped on notification: ${message.data}");
+});
+
+
   await Hive.initFlutter();
   if (!Hive.isBoxOpen('userdata')) {
     await Hive.openBox('userdata');

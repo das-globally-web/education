@@ -58,6 +58,7 @@ class StoreData {
   }
 
   static Future<void> clearData(WidgetRef ref) async {
+    log("Clearing app data");
     final cacheDir = await getTemporaryDirectory();
     if (cacheDir.existsSync()) {
       cacheDir.deleteSync(recursive: true);

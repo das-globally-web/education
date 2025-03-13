@@ -10,6 +10,7 @@ import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/wallet/walletController.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -277,12 +278,13 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 final container = ProviderContainer();
                 container.dispose();
               });
-
+              String? token = await FirebaseMessaging.instance.getToken();
+              log("Device Token: $token");
               try {
                 final body = LoginBodyModel(
-                  email: emailController.text,
-                  password: passwordController.text,
-                );
+                    email: emailController.text,
+                    password: passwordController.text,
+                    deviceToken: token!);
                 final loginService = LognService(await createDio());
                 final response = await compute(loginService.login, body);
                 final dataLoder =
@@ -292,7 +294,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                       context,
                       CupertinoPageRoute(builder: (context) => HomePage()),
                       (route) => false);
-                        
                 } else {
                   Fluttertoast.showToast(msg: "Some thing went wrong");
                 }

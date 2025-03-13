@@ -55,7 +55,7 @@ class StoreData {
     await box.put("email", profiledata.data.email);
     await box.put("pic", profiledata.data.profilePic);
     await box.put("id", profiledata.data.id);
-  }
+  } 
 
   static Future<void> clearData(WidgetRef ref) async {
     log("Clearing app data");

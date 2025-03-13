@@ -5,14 +5,37 @@ import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
   log("Handling background message: ${message.messageId}");
+}
+
+// 🔹 Firebase Notification ko Local Notification me Convert Karne Wala Function
+void showNotification(RemoteNotification notification) async {
+  var androidDetails = const AndroidNotificationDetails(
+    "high_importance_channel",
+    "High Importance Notifications",
+    importance: Importance.max,
+    priority: Priority.high,
+  );
+
+  var notificationDetails = NotificationDetails(android: androidDetails);
+
+  await flutterLocalNotificationsPlugin.show(
+    0,
+    notification.title,
+    notification.body,
+    notificationDetails,
+  );
 }
 
 void requestPermission() async {
@@ -30,26 +53,32 @@ void requestPermission() async {
   }
 }
 
-
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Initialize Hive with a custom directory
-  // await initializeHive();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-
-  );
+  // 🔹 Firebase Background Handler Set Karo
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  print("Message received: ${message.notification?.title}");
-});
-FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  print("User tapped on notification: ${message.data}");
-});
 
+  // 🔹 Local Notification Initialize Karo
+  var androidInitialize = const AndroidInitializationSettings('@mipmap/ic_launcher');
+  var initializationSettings = InitializationSettings(android: androidInitialize);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  // 🔹 Firebase Messaging Listeners
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    log("Message received: ${message.notification?.title}");
+    log(message.notification.toString());
+    showNotification(message.notification!);
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print("User tapped on notification: ${message.data}");
+  });
+
+  
 
   await Hive.initFlutter();
   if (!Hive.isBoxOpen('userdata')) {
@@ -60,9 +89,20 @@ FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    requestPermission();
+  }
   @override
   Widget build(BuildContext context) {
     var box = Hive.box('userdata');
@@ -77,7 +117,6 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           navigatorKey: navigatorKey,
           home: token == null ? const SplashScreen() : const HomePage(),
-          // home: ForgotPassword(),
         );
       },
     );
@@ -95,7 +134,6 @@ class MyFormDataModel {
     required this.skillId,
   });
 
-  // Optionally, add a method to copy the object if you need to update one field
   MyFormDataModel copyWith({
     String? userType,
     String? serviceType,
@@ -113,17 +151,14 @@ class FormDataNotifier extends StateNotifier<MyFormDataModel> {
   FormDataNotifier()
       : super(MyFormDataModel(userType: '', serviceType: '', skillId: ''));
 
-  // Method to update the userType
   void updateUserType(String userType) {
     state = state.copyWith(userType: userType);
   }
 
-  // Method to update the serviceType
   void updateServiceType(String serviceType) {
     state = state.copyWith(serviceType: serviceType);
   }
 
-  // Method to update the skillId
   void updateSkillId(String skillId) {
     state = state.copyWith(skillId: skillId);
   }

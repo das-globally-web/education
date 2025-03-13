@@ -14,7 +14,7 @@ abstract class HomeService {
   @POST('/api/user{query}')
   Future<AllMentorsModel> allMentors(
       @Path('query') String query, @Body() MentorsModelBody body);
-  @GET('/api/profile')
+  @GET('/api/profiles')
   Future<USerProfieModel> userProfileGet();
   @GET('/api/collage/company')
   Future<CompanyReviewModel> getAllcompanyReview();

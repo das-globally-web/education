@@ -10,7 +10,7 @@ class MainActivity : FlutterActivity() {
         if (plugin is OtplessFlutterPlugin) {
             if (plugin.onBackPressed()) return
         }
-        // handle other cases
+        // Handle other cases
         super.onBackPressed()
     }
 }

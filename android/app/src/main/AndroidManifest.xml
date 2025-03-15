@@ -8,14 +8,13 @@
 
     <application
         android:label="educationapp"
-        android:name=".MyApplication"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
@@ -25,9 +24,10 @@
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme"/>
                 
-            <meta-data
+            <!-- Firebase Notification Channel (Uncomment if using Firebase) -->
+            <!-- <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
-                android:value="high_importance_channel"/>
+                android:value="high_importance_channel"/> -->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -50,14 +50,14 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!-- Firebase Messaging Service -->
-        <service
+        <!-- Firebase Messaging Service (Uncomment if using Firebase) -->
+        <!-- <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
-        </service>
+        </service> -->
 
     </application>
 

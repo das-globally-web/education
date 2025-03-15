@@ -52,7 +52,7 @@ void requestPermission() async {
     print('User declined or has not accepted permission');
   }
 }
-
+  
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {

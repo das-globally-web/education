@@ -130,24 +130,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     fit: BoxFit.cover,
                                     image: NetworkImage("${box.get('pic')}"))),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 25),
-                            height: 38,
-                            decoration: BoxDecoration(
-                                color: Color(0xFFDCF881),
-                                borderRadius: BorderRadius.circular(40.r)),
-                            child: Center(
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.only(left: 12.w, right: 12.w),
-                                child: Text(
-                                  "Edit Profile",
-                                  style: GoogleFonts.roboto(
-                                      color: Color(0xFF1B1B1B), fontSize: 12.w),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.only(top: 25),
+                          //   height: 38,
+                          //   decoration: BoxDecoration(
+                          //       color: Color(0xFFDCF881),
+                          //       borderRadius: BorderRadius.circular(40.r)),
+                          //   child: Center(
+                          //     child: Padding(
+                          //       padding:
+                          //           EdgeInsets.only(left: 12.w, right: 12.w),
+                          //       child: Text(
+                          //         "Edit Profile",
+                          //         style: GoogleFonts.roboto(
+                          //             color: Color(0xFF1B1B1B), fontSize: 12.w),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

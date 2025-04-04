@@ -180,11 +180,11 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                       ),
                       MyOption(
                         nowIndex: tabindex,
-                        title: "Carer",
+                        title: "Career",
                         callBack: () {
                           setState(() {
                             tabindex = 2;
-                            query = "/Carer";
+                            query = "/Career";
                           });
                         },
                         currentIndex: Icons.arrow_drop_down_outlined,
@@ -196,7 +196,7 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                         callBack: () {
                           setState(() {
                             tabindex = 3;
-                            query = "Development";
+                            query = "/Development";
                           });
                         },
                         currentIndex: Icons.arrow_drop_down_outlined,

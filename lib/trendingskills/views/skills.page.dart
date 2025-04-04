@@ -206,7 +206,7 @@ class _SkillListPageState extends ConsumerState<SkillListPage> {
                           width: 12.w,
                         ),
                         Text(
-                          "Expert in UX/UI",
+                          "Expert in ${widget.name}",
                           style: GoogleFonts.roboto(
                               fontSize: 20.w, fontWeight: FontWeight.w500),
                         )

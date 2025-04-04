@@ -230,57 +230,57 @@ class _AllCollageState extends ConsumerState<AllCollage> {
                 //     ),
                 //   ],
 
-                FiltterDropdown(
-                  title: 'Skills',
-                  callback: () {
-                    DropdownButton<String>(
-                      value: selectedValue,
-                      hint: Text("Select an option"),
-                      icon: Icon(Icons.keyboard_arrow_down_rounded,
-                          color: Colors.white),
-                      dropdownColor:
-                          Colors.grey[800], // Change dropdown background color
-                      items: [
-                        DropdownMenuItem(
-                            value: "Setting", child: Text("Setting")),
-                        DropdownMenuItem(value: "Home", child: Text("Home")),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          selectedValue = value;
-                        });
-                        print("Selected: $value");
-                      },
-                    );
-                    // final selectedValue = showMenu(
-                    //   context: context,
-                    //   position: RelativeRect.fromLTRB(
-                    //       100, 100, 0, 0), // Adjust position
-                    //   items: [
-                    //     PopupMenuItem(
-                    //       value: "Setting",
-                    //       child: Text("Setting"),
-                    //     ),
-                    //     PopupMenuItem(
-                    //       value: "Home",
-                    //       child: Text("Home"),
-                    //     ),
-                    //   ],
-                    // );
+                // FiltterDropdown(
+                //   title: 'Skills',
+                //   callback: () {
+                //     DropdownButton<String>(
+                //       value: selectedValue,
+                //       hint: Text("Select an option"),
+                //       icon: Icon(Icons.keyboard_arrow_down_rounded,
+                //           color: Colors.white),
+                //       dropdownColor:
+                //           Colors.grey[800], // Change dropdown background color
+                //       items: [
+                //         DropdownMenuItem(
+                //             value: "Setting", child: Text("Setting")),
+                //         DropdownMenuItem(value: "Home", child: Text("Home")),
+                //       ],
+                //       onChanged: (value) {
+                //         setState(() {
+                //           selectedValue = value;
+                //         });
+                //         print("Selected: $value");
+                //       },
+                //     );
+                //     // final selectedValue = showMenu(
+                //     //   context: context,
+                //     //   position: RelativeRect.fromLTRB(
+                //     //       100, 100, 0, 0), // Adjust position
+                //     //   items: [
+                //     //     PopupMenuItem(
+                //     //       value: "Setting",
+                //     //       child: Text("Setting"),
+                //     //     ),
+                //     //     PopupMenuItem(
+                //     //       value: "Home",
+                //     //       child: Text("Home"),
+                //     //     ),
+                //     //   ],
+                //     // );
 
-                    // if (selectedValue != null) {
-                    //   print("Selected: $selectedValue");
-                    // }
-                  },
-                ),
-                FiltterDropdown(
-                  title: 'Rating',
-                  callback: () {},
-                ),
-                FiltterDropdown(
-                  title: 'Location',
-                  callback: () {},
-                ),
+                //     // if (selectedValue != null) {
+                //     //   print("Selected: $selectedValue");
+                //     // }
+                //   },
+                // ),
+                // FiltterDropdown(
+                //   title: 'Rating',
+                //   callback: () {},
+                // ),
+                // FiltterDropdown(
+                //   title: 'Location',
+                //   callback: () {},
+                //),
                 // GestureDetector(
                 //   onTap: () async {
                 //     final selectedValue = await showMenu(
@@ -312,7 +312,7 @@ class _AllCollageState extends ConsumerState<AllCollage> {
               ],
             ),
             SizedBox(
-              height: 20.h,
+              height: 0.h,
             ),
             Container(
               width: MediaQuery.of(context).size.width,

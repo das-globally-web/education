@@ -21,10 +21,10 @@ Future<Dio> createDio() async {
   }
 
   dio.interceptors.add(PrettyDioLogger(
-    requestHeader: false,
-    requestBody: false,
-    responseBody: false,
-    responseHeader: false,
+    requestHeader: true,
+    requestBody: true,
+    responseBody: true,
+    responseHeader: true,
   ));
 
   var box = Hive.box('userdata');

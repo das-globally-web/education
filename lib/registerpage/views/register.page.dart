@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -817,8 +818,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 GestureDetector(
                   onTap: () async {
                     // Check if any field is empty
+                    log("testinmg");
                     if (_fromKey.currentState!.validate()) {
                       // Check if password and confirm password match
+                      log("hii");
                       if (passwordController.text !=
                           confirmpasswordController.text) {
                         Fluttertoast.showToast(
@@ -843,8 +846,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                           userType: formData.userType,
                           description: descriptionController.text,
                           location: locationController.text,
-                          password: selectedGender!,
-                          gender: genderController.text,
+                          password: passwordController.text,
+                          gender: selectedGender!,
                           dob:
                               "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
                           samester: _selectedItem,

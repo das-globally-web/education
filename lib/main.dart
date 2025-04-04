@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:educationapp/CORE/notification_controller.dart';
 import 'package:educationapp/firebase_options.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
@@ -11,48 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  log("Handling background message: ${message.messageId}");
-}
-
 // 🔹 Firebase Notification ko Local Notification me Convert Karne Wala Function
-void showNotification(RemoteNotification notification) async {
-  var androidDetails = const AndroidNotificationDetails(
-    "high_importance_channel",
-    "High Importance Notifications",
-    importance: Importance.max,
-    priority: Priority.high,
-  );
 
-  var notificationDetails = NotificationDetails(android: androidDetails);
-
-  await flutterLocalNotificationsPlugin.show(
-    0,
-    notification.title,
-    notification.body,
-    notificationDetails,
-  );
-}
-
-void requestPermission() async {
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  NotificationSettings settings = await messaging.requestPermission(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-    print('User granted permission');
-  } else {
-    print('User declined or has not accepted permission');
-  }
-}
-  
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
@@ -60,11 +21,13 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // 🔹 Firebase Background Handler Set Karo
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   // 🔹 Local Notification Initialize Karo
-  var androidInitialize = const AndroidInitializationSettings('@mipmap/ic_launcher');
-  var initializationSettings = InitializationSettings(android: androidInitialize);
+  var androidInitialize =
+      const AndroidInitializationSettings('@mipmap/ic_launcher');
+  var initializationSettings =
+      InitializationSettings(android: androidInitialize);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
   // 🔹 Firebase Messaging Listeners
@@ -77,8 +40,6 @@ void main() async {
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     print("User tapped on notification: ${message.data}");
   });
-
-  
 
   await Hive.initFlutter();
   if (!Hive.isBoxOpen('userdata')) {
@@ -103,6 +64,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     requestPermission();
   }
+
   @override
   Widget build(BuildContext context) {
     var box = Hive.box('userdata');

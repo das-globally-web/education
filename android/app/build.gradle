@@ -10,7 +10,8 @@ plugins {
 
 android {
     namespace = "com.example.educationapp"
-    compileSdk = 34 // ✅ Hardcoded instead of flutter.compileSdkVersion
+    compileSdk = 35
+ // ✅ Hardcoded instead of flutter.compileSdkVersion
 
     compileOptions {
         coreLibraryDesugaringEnabled true

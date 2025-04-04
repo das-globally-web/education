@@ -7,6 +7,7 @@ import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/login/controller/service/login.service.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
+import 'package:educationapp/login/model/login.rsponse.model.dart';
 import 'package:educationapp/registerpage/views/register.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/wallet/walletController.dart';
@@ -280,29 +281,31 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               });
               String? token = await FirebaseMessaging.instance.getToken();
               log("Device Token: $token");
+
+              late LoginResponseModel response;
+              final body = LoginBodyModel(
+                  email: emailController.text,
+                  password: passwordController.text,
+                  deviceToken: token!);
+              final loginService = LognService(await createDio());
               try {
-                final body = LoginBodyModel(
-                    email: emailController.text,
-                    password: passwordController.text,
-                    deviceToken: token!);
-                final loginService = LognService(await createDio());
-                final response = await compute(loginService.login, body);
-                final dataLoder =
-                    await StoreData.logic(response.data.token.toString());
-                if (dataLoder == true) {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      CupertinoPageRoute(builder: (context) => HomePage()),
-                      (route) => false);
-                } else {
-                  Fluttertoast.showToast(msg: "Some thing went wrong");
-                }
+                response = await compute(loginService.login, body);
               } catch (_) {
                 setState(() {
                   login = false;
                   Fluttertoast.showToast(
                       msg: "Login email & password is invalid");
                 });
+              }
+              final dataLoder =
+                  await StoreData.logic(response.data.token.toString());
+              if (dataLoder == true) {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    CupertinoPageRoute(builder: (context) => HomePage()),
+                    (route) => false);
+              } else {
+                Fluttertoast.showToast(msg: "Some thing went wrong");
               }
             },
             child: Container(

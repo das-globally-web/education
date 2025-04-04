@@ -149,7 +149,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                     padding: EdgeInsets.only(left: 8, right: 8),
                                     child: Text(
                                       data.data.serviceType.first,
-                                      style: GoogleFonts.roboto(fontSize: 10.w),
+                                      style: GoogleFonts.roboto(fontSize: 8.sp),
                                     ),
                                   ),
                                 ),
@@ -169,7 +169,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                     child: Text(
                                       data.data.serviceType.last,
                                       style: GoogleFonts.roboto(
-                                        fontSize: 10.w,
+                                        fontSize: 8.sp,
                                       ),
                                     ),
                                   ),
@@ -201,7 +201,7 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                         Text(
                                           "4.5 Review",
                                           style: GoogleFonts.roboto(
-                                              fontSize: 10.w),
+                                              fontSize: 8.sp),
                                         ),
                                       ],
                                     ),
@@ -420,8 +420,6 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                           fontWeight: FontWeight.w600,
                                           fontSize: 15.w),
                                     ),
-
-                                    
                                     Spacer(),
                                     GestureDetector(
                                       onTap: () {

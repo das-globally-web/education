@@ -1,6 +1,7 @@
 import 'package:educationapp/home/controller/homeController.dart';
 import 'package:educationapp/home/controller/service/searchMentorController.dart';
 import 'package:educationapp/home/views/home.page.dart';
+import 'package:educationapp/trendingskills/views/newskillListPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -255,14 +256,27 @@ class _FindMentorPageState extends ConsumerState<FindMentorPage> {
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: UserTabs(
-                                      image: mentors.data[index].profilePic,
-                                      id: mentors.data[index].id,
-                                      fullname: mentors.data[index].fullName,
-                                      dec: mentors.data[index].description,
-                                      servicetype: mentors
-                                          .data[index].serviceType
-                                          .split(', '),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Newskilllistpage(
+                                                id: mentors.data[index].id
+                                                    .toString(),
+                                              ),
+                                            ));
+                                      },
+                                      child: UserTabs(
+                                        image: mentors.data[index].profilePic,
+                                        id: mentors.data[index].id,
+                                        fullname: mentors.data[index].fullName,
+                                        dec: mentors.data[index].description,
+                                        servicetype: mentors
+                                            .data[index].serviceType
+                                            .split(', '),
+                                      ),
                                     ),
                                   );
                                 },
@@ -315,13 +329,23 @@ class _FindMEntorBoduyState extends ConsumerState<FindMEntorBoduy> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                 
-                child: UserTabs(
-                  image: snapshot.data[index].profilePic!,
-                  id: snapshot.data[index].id,
-                  fullname: snapshot.data[index].fullName.toString(),
-                  dec: snapshot.data[index].description.toString(),
-                  servicetype: snapshot.data[index].serviceType,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Newskilllistpage(
+                            id: snapshot.data[index].id.toString(),
+                          ),
+                        ));
+                  },
+                  child: UserTabs(
+                    image: snapshot.data[index].profilePic!,
+                    id: snapshot.data[index].id,
+                    fullname: snapshot.data[index].fullName.toString(),
+                    dec: snapshot.data[index].description.toString(),
+                    servicetype: snapshot.data[index].serviceType,
+                  ),
                 ),
               );
             },

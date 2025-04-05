@@ -5,9 +5,7 @@ import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
 import 'package:educationapp/collegeReviews/view/perticuler.collage.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
-import 'package:educationapp/home/views/notification.page.dart';
-import 'package:educationapp/login/views/login.page.dart';
-import 'package:educationapp/main.dart';
+import 'package:educationapp/home/views/chatInbox.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage.dart';
@@ -347,7 +345,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                              builder: (context) => NotificationPage(),
+                              builder: (context) => Chatinbox(),
                             ));
                       },
                       icon: Icon(

@@ -47,6 +47,11 @@ class _HomePageState extends ConsumerState<HomePage> {
     });
   }
 
+  String limitString(String text, int limit) {
+    if (text.length <= limit) return text;
+    return '${text.substring(0, limit)}..';
+  }
+
   @override
   Widget build(BuildContext context) {
     var box = Hive.box('userdata');
@@ -734,8 +739,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 children: [
                                                   Text(
                                                     // "Jennifer Johns",
-                                                    snaphot!
-                                                        .data[index].fullName,
+                                                    limitString(
+                                                        snaphot!.data[index]
+                                                            .fullName,
+                                                        15),
                                                     style: GoogleFonts.roboto(
                                                       fontWeight:
                                                           FontWeight.w600,

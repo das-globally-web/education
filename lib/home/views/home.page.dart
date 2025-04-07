@@ -756,7 +756,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                   ),
                                                   Text(
                                                     // "Helping students land their dre...",
-                                                    snaphot!
+                                                    snaphot
                                                         .data[index].description
                                                         .toString(),
                                                     overflow:

@@ -241,7 +241,6 @@ class _NewskilllistpageState extends ConsumerState<Newskilllistpage> {
                                   //         Text("failed to store mentor data!"),
                                   //   ));
                                   // }
-
                                   Navigator.push(
                                       context,
                                       CupertinoPageRoute(

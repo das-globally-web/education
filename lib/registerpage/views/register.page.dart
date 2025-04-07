@@ -136,6 +136,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
     "9 Semester",
   ];
   String _selectSemseter = "Select Semester";
+
   XFile? imageFile;
 
   getImageFromGallery() async {
@@ -819,73 +820,78 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   onTap: () async {
                     // Check if any field is empty
                     log("testinmg");
-                    if (_fromKey.currentState!.validate()) {
-                      // Check if password and confirm password match
-                      log("hii");
-                      if (passwordController.text !=
-                          confirmpasswordController.text) {
-                        Fluttertoast.showToast(
-                          msg: "password not match ",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                        );
-                        return;
-                      }
-                      setState(() {
-                        buttonLoder = true;
-                      });
-                      if (UserRegisterDataHold.usertype == "Student") {
-                        RegisterResponseModel res =
-                            await ApiController.register(
-                          context: context,
-                          imageFile: imageFile!,
-                          fullName: fullNameController.text,
-                          email: emailController.text,
-                          phoneNumber: phoneController.text,
-                          serviceType: formData.serviceType,
-                          userType: formData.userType,
-                          description: descriptionController.text,
-                          location: locationController.text,
-                          password: passwordController.text,
-                          gender: selectedGender!,
-                          dob:
-                              "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
-                          samester: _selectedItem,
-                          ifError: () {
-                            setState(() {
-                              buttonLoder = false;
-                            });
-                          },
-                        );
-                      } else {
-                        RegisterResponseModel res =
-                            await ApiController.registerUser(
-                                context: context,
-                                imageFile: imageFile!,
-                                fullName: fullNameController.text,
-                                email: emailController.text,
-                                phoneNumber: phoneController.text,
-                                serviceType: formData.serviceType,
-                                userType: formData.userType,
-                                description: descriptionController.text,
-                                location: locationController.text,
-                                useridcard: 'useridcard',
-                                password: passwordController.text,
-                                skillsId: _selectedSkill!.id,
-                                linkdin_url: linkedinController.text,
-                                gender: selectedGender!,
-                                dob:
-                                    "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
-                                totlaExperinece: totalExperienceController.text,
-                                resumeFile: imageFile!,
-                                userfield: _selectedItem,
-                                language_known: languageKnownController.text,
-                                ifError: () {
-                                  setState(() {
-                                    buttonLoder = false;
+                    if (imageFile != null) {
+                      if (_fromKey.currentState!.validate()) {
+                        // Check if password and confirm password match
+                        log("hii");
+                        if (passwordController.text !=
+                            confirmpasswordController.text) {
+                          Fluttertoast.showToast(
+                            msg: "password not match ",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                          );
+                          return;
+                        }
+                        setState(() {
+                          buttonLoder = true;
+                        });
+                        if (UserRegisterDataHold.usertype == "Student") {
+                          RegisterResponseModel res =
+                              await ApiController.register(
+                            context: context,
+                            imageFile: imageFile!,
+                            fullName: fullNameController.text,
+                            email: emailController.text,
+                            phoneNumber: phoneController.text,
+                            serviceType: formData.serviceType,
+                            userType: formData.userType,
+                            description: descriptionController.text,
+                            location: locationController.text,
+                            password: passwordController.text,
+                            gender: selectedGender!,
+                            dob:
+                                "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+                            samester: _selectedItem,
+                            ifError: () {
+                              setState(() {
+                                buttonLoder = false;
+                              });
+                            },
+                          );
+                        } else {
+                          RegisterResponseModel res =
+                              await ApiController.registerUser(
+                                  context: context,
+                                  imageFile: imageFile!,
+                                  fullName: fullNameController.text,
+                                  email: emailController.text,
+                                  phoneNumber: phoneController.text,
+                                  serviceType: formData.serviceType,
+                                  userType: formData.userType,
+                                  description: descriptionController.text,
+                                  location: locationController.text,
+                                  useridcard: 'useridcard',
+                                  password: passwordController.text,
+                                  skillsId: _selectedSkill!.id,
+                                  linkdin_url: linkedinController.text,
+                                  gender: selectedGender!,
+                                  dob:
+                                      "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+                                  totlaExperinece:
+                                      totalExperienceController.text,
+                                  resumeFile: imageFile!,
+                                  userfield: _selectedItem,
+                                  language_known: languageKnownController.text,
+                                  ifError: () {
+                                    setState(() {
+                                      buttonLoder = false;
+                                    });
                                   });
-                                });
+                        }
                       }
+                    } else {
+                      Fluttertoast.showToast(msg: "Please select profile pic");
                     }
                   },
                   child: Container(

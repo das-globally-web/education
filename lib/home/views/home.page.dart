@@ -5,8 +5,7 @@ import 'package:educationapp/collegeReviews/view/allcollage.page.dart';
 import 'package:educationapp/collegeReviews/view/perticuler.collage.dart';
 import 'package:educationapp/findmentor/view/findmentor.page.dart';
 import 'package:educationapp/home/controller/homeController.dart';
-import 'package:educationapp/login/views/login.page.dart';
-import 'package:educationapp/main.dart';
+import 'package:educationapp/home/views/chatInbox.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/views/newskillListPage.dart';
@@ -46,6 +45,11 @@ class _HomePageState extends ConsumerState<HomePage> {
       ref.invalidate(companyReviewProvider);
       ref.invalidate(yourMentorProvider('46'));
     });
+  }
+
+  String limitString(String text, int limit) {
+    if (text.length <= limit) return text;
+    return '${text.substring(0, limit)}..';
   }
 
   @override
@@ -342,7 +346,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   Spacer(),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => Chatinbox(),
+                            ));
+                      },
                       icon: Icon(
                         Icons.notifications_active_outlined,
                         color: Colors.white,
@@ -729,8 +739,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 children: [
                                                   Text(
                                                     // "Jennifer Johns",
-                                                    snaphot!
-                                                        .data[index].fullName,
+                                                    limitString(
+                                                        snaphot!.data[index]
+                                                            .fullName,
+                                                        15),
                                                     style: GoogleFonts.roboto(
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -744,7 +756,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                   ),
                                                   Text(
                                                     // "Helping students land their dre...",
-                                                    snaphot!
+                                                    snaphot
                                                         .data[index].description
                                                         .toString(),
                                                     overflow:

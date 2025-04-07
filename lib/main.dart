@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:educationapp/CORE/notification_controller.dart';
 import 'package:educationapp/firebase_options.dart';
+import 'package:educationapp/home/views/chatInbox.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:firebase_core/firebase_core.dart';

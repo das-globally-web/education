@@ -142,7 +142,7 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
               ],
             ),
             SizedBox(
-              height: 30.h,
+              height: 20.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -157,50 +157,10 @@ class _TrendingSkilsPageState extends ConsumerState<TrendingSkilsPage> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    children: [
-                      // MyOption(
-                       
-                      //   title: "Filter",
-                      //   callBack: () {
-                      //     setState(() {
-                            
-                      //     });
-                      //   },
-                      //   currentIndex: Icons.arrow_drop_down_outlined,
-                      //   index: 0,
-                      //    nowIndex: ,
-                      // ),
-                      // MyOption(
-                       
-                      //   title: "Study Level",
-                      //   callBack: () {
-                      //     setState(() {
-                           
-                      //     });
-                      //   },
-                      //   currentIndex: Icons.arrow_drop_down_outlined,
-                      //   index: 1,
-                      //    nowIndex: ,
-                      // ),
-                      // MyOption(
-                      
-                      //   title: "Type",
-                      //   callBack: () {
-                      //     setState(() {
-                           
-                      //     });
-                      //   },
-                      //   currentIndex: Icons.arrow_drop_down_outlined,
-                      //   index: 2,
-                      //     nowIndex: ,
-                      // ),
-                    ],
+                    children: [],
                   ),
                 )
               ],
-            ),
-            SizedBox(
-              height: 20.h,
             ),
             Container(
               height: MediaQuery.of(context).size.height,

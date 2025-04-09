@@ -1,7 +1,5 @@
 import 'dart:developer';
-import 'package:educationapp/CORE/notification_controller.dart';
 import 'package:educationapp/firebase_options.dart';
-import 'package:educationapp/home/views/chatInbox.dart';
 import 'package:educationapp/home/views/home.page.dart';
 import 'package:educationapp/splash/views/splash.page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,42 +11,59 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-// 🔹 Firebase Notification ko Local Notification me Convert Karne Wala Function
-
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // 🔹 Firebase Background Handler Set Karo
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  // 🔹 Local Notification Initialize Karo
   var androidInitialize =
       const AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettings =
       InitializationSettings(android: androidInitialize);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-  // 🔹 Firebase Messaging Listeners
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     log("Message received: ${message.notification?.title}");
-    log(message.notification.toString());
-    showNotification(message.notification!);
+    if (message.notification != null) {
+      showNotification(message.notification!);
+    }
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print("User tapped on notification: ${message.data}");
+    log("User tapped on notification: ${message.data}");
   });
 
-  await Hive.initFlutter();
-  if (!Hive.isBoxOpen('userdata')) {
-    await Hive.openBox('userdata');
+  try {
+    await Hive.initFlutter();
+    if (!Hive.isBoxOpen('userdata')) {
+      await Hive.openBox('userdata');
+    }
+  } catch (e) {
+    log("Hive initialization failed: $e");
   }
-  var box = Hive.box('userdata');
 
   runApp(const ProviderScope(child: MyApp()));
+}
+
+Future<void> showNotification(RemoteNotification notification) async {
+  var androidDetails = AndroidNotificationDetails(
+    'channelId',
+    'channelName',
+    importance: Importance.high,
+    priority: Priority.high,
+  );
+  var notificationDetails = NotificationDetails(android: androidDetails);
+  await flutterLocalNotificationsPlugin.show(
+    0,
+    notification.title,
+    notification.body,
+    notificationDetails,
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -61,19 +76,34 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     requestPermission();
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      log('User granted permission');
+    } else if (settings.authorizationStatus == AuthorizationStatus.denied) {
+      log('User denied permission');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     var box = Hive.box('userdata');
     var token = box.get('token');
-    log("/////////////////////////////////////////////");
-    log(token.toString());
+    if (kDebugMode) {
+      log("Token: $token");
+    }
     return ScreenUtilInit(
-      designSize: const Size(440, 956), // Set your design dimensions
+      designSize: const Size(440, 956),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {

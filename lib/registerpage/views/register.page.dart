@@ -261,8 +261,9 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
         );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Registration failed:")),
+          SnackBar(content: Text("Registration failed: $e")),
         );
+        log(e.toString());
       } finally {
         setState(() {
           buttonLoder = false;
@@ -484,7 +485,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                             ],
                           ),
                         ),
-                      ), 
+                      ),
                     ],
                   ),
                 ),

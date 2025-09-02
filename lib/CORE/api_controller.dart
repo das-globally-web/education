@@ -418,7 +418,7 @@ class ApiController {
             "Failed to register: ${dataMap["message"] ?? response.reasonPhrase}");
       }
     } catch (e) {
-      throw Exception("Something went wrong: \$e");
+      throw Exception("Something went wrong: $e");
     }
   }
 }

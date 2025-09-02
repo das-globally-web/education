@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:educationapp/login/model/login.body.model.dart';
 import 'package:educationapp/login/model/login.rsponse.model.dart';

@@ -43,19 +43,7 @@ class _PerticulerCollagePageState extends ConsumerState<PerticulerCollagePage> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 70.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 30.w,
-                        ),
-                        GestureDetector(
-                          onTap: () {
+                  children: [                SizedBox(                  height: 70.h,               onTap: () {
                             Navigator.pop(context);
                           },
                           child: Container(

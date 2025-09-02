@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:isolate';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:educationapp/CORE/api_controller.dart';
@@ -10,6 +11,7 @@ import 'package:educationapp/splash/views/getstart.page.dart';
 import 'package:educationapp/trendingskills/controller/sikllscontroller.dart';
 import 'package:educationapp/trendingskills/model/skills.model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -215,6 +217,99 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   Widget build(BuildContext context) {
     final skilsProvider = ref.watch(skilssProvide);
     final formData = ref.watch(formDataProvider);
+    void submitRegistration() async {
+      setState(() {
+        buttonLoder = true;
+      });
+
+      try {
+        final registerData = RegisterDataMentor(
+          imagePath: imageFile!.path,
+          resumePath: imageFile!.path,
+          fullName: fullNameController.text,
+          email: emailController.text,
+          phoneNumber: phoneController.text,
+          serviceType: formData.serviceType,
+          userType: formData.userType,
+          description: descriptionController.text,
+          location: locationController.text,
+          useridcard: "some_id_card", // or whatever you use
+          password: passwordController.text,
+          skillsId: _selectedSkill!.id,
+          totalExperience: totalExperienceController.text,
+          linkedinUrl: linkedinController.text,
+          dob:
+              "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+          gender: selectedGender!,
+          userfield: _selectedItem,
+          languageKnown: languageKnownController.text,
+        );
+
+        final result =
+            await compute(ApiController.registerUserFromIsolate, registerData);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text("${registerData.fullName} your account was created")),
+        );
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => LoginPage()),
+          (route) => false,
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Registration failed:")),
+        );
+      } finally {
+        setState(() {
+          buttonLoder = false;
+        });
+      }
+    }
+
+    void handleRegister() async {
+      setState(() => buttonLoder = true);
+
+      final data = RegisterData(
+        imagePath: imageFile!.path,
+        fullName: fullNameController.text,
+        email: emailController.text,
+        phoneNumber: phoneController.text,
+        serviceType: formData.serviceType,
+        userType: formData.userType,
+        description: descriptionController.text,
+        location: locationController.text,
+        password: passwordController.text,
+        gender: selectedGender!,
+        dob:
+            "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+        samester: _selectedItem,
+      );
+      final result = await compute(ApiController.registerFromIsolate, data);
+      if (result['statusCode'] == 200 || result['statusCode'] == 201) {
+        final RegisterResponseModel model =
+            RegisterResponseModel.fromJson(result['data']);
+        // setState(() => buttonLoder = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("${data.fullName}, registration successful")),
+        );
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => LoginPage()));
+        // Proceed with the model
+      } else {
+        // Handle error with result['data']['message']
+        setState(() => buttonLoder = false);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("${result["data"]["message"]}")),
+        );
+      }
+    }
+
     return skilsProvider.when(
         data: (snapshot) {
           return Form(
@@ -389,7 +484,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                             ],
                           ),
                         ),
-                      ),
+                      ), 
                     ],
                   ),
                 ),
@@ -837,57 +932,9 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                           buttonLoder = true;
                         });
                         if (UserRegisterDataHold.usertype == "Student") {
-                          RegisterResponseModel res =
-                              await ApiController.register(
-                            context: context,
-                            imageFile: imageFile!,
-                            fullName: fullNameController.text,
-                            email: emailController.text,
-                            phoneNumber: phoneController.text,
-                            serviceType: formData.serviceType,
-                            userType: formData.userType,
-                            description: descriptionController.text,
-                            location: locationController.text,
-                            password: passwordController.text,
-                            gender: selectedGender!,
-                            dob:
-                                "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
-                            samester: _selectedItem,
-                            ifError: () {
-                              setState(() {
-                                buttonLoder = false;
-                              });
-                            },
-                          );
+                          handleRegister();
                         } else {
-                          RegisterResponseModel res =
-                              await ApiController.registerUser(
-                                  context: context,
-                                  imageFile: imageFile!,
-                                  fullName: fullNameController.text,
-                                  email: emailController.text,
-                                  phoneNumber: phoneController.text,
-                                  serviceType: formData.serviceType,
-                                  userType: formData.userType,
-                                  description: descriptionController.text,
-                                  location: locationController.text,
-                                  useridcard: 'useridcard',
-                                  password: passwordController.text,
-                                  skillsId: _selectedSkill!.id,
-                                  linkdin_url: linkedinController.text,
-                                  gender: selectedGender!,
-                                  dob:
-                                      "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
-                                  totlaExperinece:
-                                      totalExperienceController.text,
-                                  resumeFile: imageFile!,
-                                  userfield: _selectedItem,
-                                  language_known: languageKnownController.text,
-                                  ifError: () {
-                                    setState(() {
-                                      buttonLoder = false;
-                                    });
-                                  });
+                          submitRegistration();
                         }
                       }
                     } else {

@@ -210,77 +210,77 @@ class ApiController {
     }
   }
 
-  static Future<RegisterResponseModel> register({
-    required XFile imageFile,
-    required String fullName,
-    required String email,
-    required String phoneNumber,
-    required String serviceType,
-    required String userType,
-    required String description,
-    required String location,
-    required String password,
-    required String dob,
-    required String gender,
-    required dynamic context,
-    required Function ifError,
-    required String samester,
-  }) async {
-    final Uri url =
-        Uri.parse("http://education.globallywebsolutions.com/api/register");
+  // static Future<RegisterResponseModel> register({
+  //   required XFile imageFile,
+  //   required String fullName,
+  //   required String email,
+  //   required String phoneNumber,
+  //   required String serviceType,
+  //   required String userType,
+  //   required String description,
+  //   required String location,
+  //   required String password,
+  //   required String dob,
+  //   required String gender,
+  //   required dynamic context,
+  //   required Function ifError,
+  //   required String samester,
+  // }) async {
+  //   final Uri url =
+  //       Uri.parse("http://education.globallywebsolutions.com/api/register");
 
-    var request = http.MultipartRequest("POST", url);
-    request.headers.addAll({
-      // Example Authorization header
-      "Content-Type": "application/json",
-      "Accept": "application/json", // Ensure content type is correct
-      // You can add other custom headers here
-    });
-    // Attach files
-    request.files
-        .add(await http.MultipartFile.fromPath('profile_pic', imageFile.path));
+  //   var request = http.MultipartRequest("POST", url);
+  //   request.headers.addAll({
+  //     // Example Authorization header
+  //     "Content-Type": "application/json",
+  //     "Accept": "application/json", // Ensure content type is correct
+  //     // You can add other custom headers here
+  //   });
+  //   // Attach files
+  //   request.files
+  //       .add(await http.MultipartFile.fromPath('profile_pic', imageFile.path));
 
-    // Add form fields
-    request.fields.addAll({
-      "user_id": "1",
-      "full_name": fullName,
-      "email": email,
-      "phone_number": phoneNumber,
-      "password": password,
-      "service_type": serviceType,
-      "user_type": userType,
-      "description": description,
-      "location": location,
-      "dob": dob,
-      "gender": gender,
-      "samester": samester,
-    });
+  //   // Add form fields
+  //   request.fields.addAll({
+  //     "user_id": "1",
+  //     "full_name": fullName,
+  //     "email": email,
+  //     "phone_number": phoneNumber,
+  //     "password": password,
+  //     "service_type": serviceType,
+  //     "user_type": userType,
+  //     "description": description,
+  //     "location": location,
+  //     "dob": dob,
+  //     "gender": gender,
+  //     "samester": samester,
+  //   });
 
-    try {
-      final http.StreamedResponse response = await request.send();
+  //   try {
+  //     final http.StreamedResponse response = await request.send();
 
-      final responseBody = await response.stream.bytesToString();
-      log(responseBody); // Log response for debugging
-      Map<String, dynamic> data = jsonDecode(responseBody);
-      if (response.statusCode == 201) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("$fullName your account was created ")));
-        Navigator.pushAndRemoveUntil(
-            context,
-            CupertinoDialogRoute(
-                builder: (context) => LoginPage(), context: context),
-            (route) => false);
-        return RegisterResponseModel.fromJson(jsonDecode(responseBody));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("${data["message"].toString()}")));
-        ifError();
-        throw Exception("Failed to register: ${response.reasonPhrase}");
-      }
-    } catch (e) {
-      throw Exception("Something went wrong: $e");
-    }
-  }
+  //     final responseBody = await response.stream.bytesToString();
+  //     log(responseBody); // Log response for debugging
+  //     Map<String, dynamic> data = jsonDecode(responseBody);
+  //     if (response.statusCode == 201) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(content: Text("$fullName your account was created ")));
+  //       Navigator.pushAndRemoveUntil(
+  //           context,
+  //           CupertinoDialogRoute(
+  //               builder: (context) => LoginPage(), context: context),
+  //           (route) => false);
+  //       return RegisterResponseModel.fromJson(jsonDecode(responseBody));
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(content: Text("${data["message"].toString()}")));
+  //       ifError();
+  //       throw Exception("Failed to register: ${response.reasonPhrase}");
+  //     }
+  //   } catch (e) {
+  //     throw Exception("Something went wrong: $e");
+  //   }
+  // }
 
   static Future<Map> uploadDocuments(
       {required String userid,
@@ -320,4 +320,177 @@ class ApiController {
       throw Exception();
     }
   }
+
+  static Future<Map<String, dynamic>> registerFromIsolate(
+      RegisterData data) async {
+    final Uri url =
+        Uri.parse("http://education.globallywebsolutions.com/api/register");
+
+    var request = http.MultipartRequest("POST", url);
+    request.headers.addAll({
+      "Accept": "application/json",
+    });
+
+    request.files
+        .add(await http.MultipartFile.fromPath('profile_pic', data.imagePath));
+
+    request.fields.addAll({
+      "user_id": "1",
+      "full_name": data.fullName,
+      "email": data.email,
+      "phone_number": data.phoneNumber,
+      "password": data.password,
+      "service_type": data.serviceType,
+      "user_type": data.userType,
+      "description": data.description,
+      "location": data.location,
+      "dob": data.dob,
+      "gender": data.gender,
+      "samester": data.samester,
+    });
+    try {
+      final http.StreamedResponse response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+      final Map<String, dynamic> dataMap = jsonDecode(responseBody);
+      log(dataMap.toString());
+      return {
+        "statusCode": 200,
+        "data": dataMap,
+      };
+    } catch (e) {
+      return {
+        "statusCode": 500,
+        "data": {
+          "message": "Something went wrong: \$e",
+        }
+      };
+
+      // try {} catch (e) {
+      //   log(e.toString());
+      //   throw Exception("Registration error: $e");
+      // }
+    }
+  }
+
+  static Future<RegisterResponseModel> registerUserFromIsolate(
+      RegisterDataMentor data) async {
+    final Uri url =
+        Uri.parse("http://education.globallywebsolutions.com/api/register");
+
+    var request = http.MultipartRequest("POST", url);
+    request.headers.addAll({
+      "Accept": "application/json",
+    });
+
+    request.files
+        .add(await http.MultipartFile.fromPath('profile_pic', data.imagePath));
+    request.files.add(
+        await http.MultipartFile.fromPath('resume_upload', data.resumePath));
+
+    request.fields.addAll({
+      "user_id": "1",
+      "full_name": data.fullName,
+      "email": data.email,
+      "phone_number": data.phoneNumber,
+      "password": data.password,
+      "service_type": data.serviceType,
+      "user_type": data.userType,
+      "description": data.description,
+      "location": data.location,
+      "skills_id": data.skillsId.toString(),
+      "users_field": data.userfield,
+      "total_experience": data.totalExperience,
+      "language_known": data.languageKnown,
+      "linkedin_user": data.linkedinUrl,
+      "dob": data.dob,
+      "gender": data.gender,
+    });
+
+    try {
+      final http.StreamedResponse response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+      final Map<String, dynamic> dataMap = jsonDecode(responseBody);
+
+      if (response.statusCode == 201) {
+        return RegisterResponseModel.fromJson(dataMap);
+      } else {
+        throw Exception(
+            "Failed to register: ${dataMap["message"] ?? response.reasonPhrase}");
+      }
+    } catch (e) {
+      throw Exception("Something went wrong: \$e");
+    }
+  }
+}
+
+class RegisterData {
+  final String imagePath;
+  final String fullName;
+  final String email;
+  final String phoneNumber;
+  final String serviceType;
+  final String userType;
+  final String description;
+  final String location;
+  final String password;
+  final String dob;
+  final String gender;
+  final String samester;
+
+  RegisterData({
+    required this.imagePath,
+    required this.fullName,
+    required this.email,
+    required this.phoneNumber,
+    required this.serviceType,
+    required this.userType,
+    required this.description,
+    required this.location,
+    required this.password,
+    required this.dob,
+    required this.gender,
+    required this.samester,
+  });
+}
+
+class RegisterDataMentor {
+  final String imagePath;
+  final String resumePath;
+  final String fullName;
+  final String email;
+  final String phoneNumber;
+  final String serviceType;
+  final String userType;
+  final String description;
+  final String location;
+  final String useridcard;
+  final String password;
+  final int skillsId;
+  final String totalExperience;
+  final String linkedinUrl;
+  final String dob;
+  final String gender;
+  final String userfield;
+  final String languageKnown;
+
+  RegisterDataMentor({
+    required this.imagePath,
+    required this.resumePath,
+    required this.fullName,
+    required this.email,
+    required this.phoneNumber,
+    required this.serviceType,
+    required this.userType,
+    required this.description,
+    required this.location,
+    required this.useridcard,
+    required this.password,
+    required this.skillsId,
+    required this.totalExperience,
+    required this.linkedinUrl,
+    required this.dob,
+    required this.gender,
+    required this.userfield,
+    required this.languageKnown,
+  });
 }

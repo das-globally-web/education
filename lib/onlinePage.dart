@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:educationapp/config/preety.dio.dart';
 import 'package:educationapp/service/chatresmodel.dart';
 import 'package:educationapp/service/chatservice.dart';
